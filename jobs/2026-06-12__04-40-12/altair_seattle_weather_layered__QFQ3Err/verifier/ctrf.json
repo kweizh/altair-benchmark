@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T05:00:49.592867+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 5,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781240173613,
+            "stop": 1781240449592
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781240173657,
+                "stop": 1781240173658,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_layered_with_at_least_five_layers",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 27,
+                "start": 1781240173658,
+                "stop": 1781240173685,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...}}, 'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv'}, 'height': 400, ...}\n\n    def test_spec_is_layered_with_at_least_five_layers(vega_spec):\n        layers = vega_spec.get(\"layer\")\n        assert isinstance(layers, list), (\n            \"Top-level Vega-Lite spec must contain a `layer` array (this is a layered chart).\"\n        )\n>       assert len(layers) >= 5, (\n            f\"Expected at least 5 layers in the layered chart, found {len(layers)}.\"\n        )\nE       AssertionError: Expected at least 5 layers in the layered chart, found 2.\nE       assert 2 >= 5\nE        +  where 2 = len([{'encoding': {'x': {'field': 'date', 'type': 'temporal'}, 'y': {'field': 'precipitation', 'title': 'Precipitation (mm... \"datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation\"}]}]}])\n\ntests/test_final_state.py:95: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_required_mark_types_present",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781240173685,
+                "stop": 1781240173694,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...}}, 'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv'}, 'height': 400, ...}\n\n    def test_required_mark_types_present(vega_spec):\n        layers = vega_spec.get(\"layer\", []) or []\n        mark_types = {_iter_marks(layer) for layer in layers if isinstance(layer, dict)}\n        for required in (\"area\", \"line\", \"bar\", \"rule\", \"text\"):\n>           assert required in mark_types, (\n                f\"Expected a layer with mark type `{required}`. \"\n                f\"Found mark types: {sorted(mark_types)}.\"\n            )\nE           AssertionError: Expected a layer with mark type `area`. Found mark types: ['', 'bar'].\nE           assert 'area' in {'', 'bar'}\n\ntests/test_final_state.py:104: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_area_layer_has_y_and_y2",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1781240173694,
+                "stop": 1781240173701,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...}}, 'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv'}, 'height': 400, ...}\n\n    def test_area_layer_has_y_and_y2(vega_spec):\n        found = False\n        for layer in vega_spec.get(\"layer\", []) or []:\n            if not isinstance(layer, dict):\n                continue\n            if _iter_marks(layer) != \"area\":\n                continue\n            encoding = layer.get(\"encoding\") or {}\n            if \"y\" in encoding and \"y2\" in encoding:\n                found = True\n                break\n>       assert found, (\n            \"Expected at least one `area` layer that encodes both `y` and `y2` \"\n            \"to draw the daily temp_min->temp_max range.\"\n        )\nE       AssertionError: Expected at least one `area` layer that encodes both `y` and `y2` to draw the daily temp_min->temp_max range.\nE       assert False\n\ntests/test_final_state.py:121: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_zero_degree_rule_annotation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 7,
+                "start": 1781240173702,
+                "stop": 1781240173709,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...}}, 'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv'}, 'height': 400, ...}\n\n    def test_zero_degree_rule_annotation(vega_spec):\n        found = False\n        for layer in vega_spec.get(\"layer\", []) or []:\n            if not isinstance(layer, dict):\n                continue\n            if _iter_marks(layer) != \"rule\":\n                continue\n            encoding = layer.get(\"encoding\") or {}\n            y = encoding.get(\"y\")\n            if isinstance(y, dict) and y.get(\"datum\") == 0:\n                found = True\n                break\n>       assert found, (\n            \"Expected a `rule` layer encoded at the data value y=0 \"\n            \"(the dashed 0-degree annotation).\"\n        )\nE       AssertionError: Expected a `rule` layer encoded at the data value y=0 (the dashed 0-degree annotation).\nE       assert False\n\ntests/test_final_state.py:139: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_transform_calculate_for_mean_temperature",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781240173710,
+                "stop": 1781240173711,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_resolve_scale_y_independent",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781240173711,
+                "stop": 1781240173712,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_nearest_x_hover_selection_param",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1781240173712,
+                "stop": 1781240173720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...}}, 'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv'}, 'height': 400, ...}\n\n    def test_nearest_x_hover_selection_param(vega_spec):\n        params = vega_spec.get(\"params\") or []\n        assert isinstance(params, list) and len(params) >= 1, (\n            \"Expected the spec to declare at least one selection parameter.\"\n        )\n        point_params = []\n        for p in params:\n            if not isinstance(p, dict):\n                continue\n            sel = p.get(\"select\")\n            if isinstance(sel, dict) and sel.get(\"type\") == \"point\":\n                point_params.append(sel)\n        assert len(point_params) == 1, (\n            f\"Expected exactly one point selection parameter, found {len(point_params)}.\"\n        )\n        sel = point_params[0]\n        assert sel.get(\"nearest\") is True, (\n            \"Expected the point selection to set `nearest: true`.\"\n        )\n        encodings = sel.get(\"encodings\") or []\n        assert \"x\" in encodings, (\n            f\"Expected the point selection's `encodings` to include `x`, got {encodings}.\"\n        )\n>       assert sel.get(\"empty\") is False, (\n            \"Expected the point selection to set `empty: false`.\"\n        )\nE       AssertionError: Expected the point selection to set `empty: false`.\nE       assert None is False\nE        +  where None = <built-in method get of dict object at 0x7f39727fc380>('empty')\nE        +    where <built-in method get of dict object at 0x7f39727fc380> = {'encodings': ['x'], 'nearest': True, 'on': 'pointerover', 'type': 'point'}.get\n\ntests/test_final_state.py:195: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_all_layers",
+                "status": "passed",
+                "duration": 274431,
+                "start": 1781240173721,
+                "stop": 1781240448152,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1440,
+                "start": 1781240448152,
+                "stop": 1781240449592,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,116 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:57:12.999342+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 7,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781239684009,
+            "stop": 1781240232999
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1229,
+                "start": 1781239684050,
+                "stop": 1781239685279,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_projection_is_albers_usa",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781239685279,
+                "stop": 1781239685281,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_geoshape_layer_uses_states_topojson",
+                "status": "passed",
+                "duration": 691,
+                "start": 1781239685282,
+                "stop": 1781239685973,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_circle_layer_from_airports_with_lat_long",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239685973,
+                "stop": 1781239685974,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_has_four_geo_encodings",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239685974,
+                "stop": 1781239685975,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_has_two_lookups_origin_and_destination",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239685975,
+                "stop": 1781239685976,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_click_selection_on_origin_field",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1781239685976,
+                "stop": 1781239686001,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v5.20.1.json', 'config': {'view': {'continuousHeight': 300, 'cont...ominal'}]}, 'mark': {'color': 'steelblue', 'opacity': 0.8, 'size': 50, 'type': 'circle'}, 'name': 'view_1', ...}], ...}\n\n    def test_click_selection_on_origin_field(spec: dict):\n        params = _collect_params(spec)\n        selections = []\n        for p in params:\n            sel = p.get(\"select\")\n            if isinstance(sel, dict) and sel.get(\"type\") == \"point\":\n                selections.append((p, sel))\n            elif sel == \"point\":\n                selections.append((p, {\"type\": \"point\"}))\n        assert selections, \"No point selection parameter declared in the spec.\"\n        matching = []\n        for param, sel in selections:\n            fields = sel.get(\"fields\")\n            on = sel.get(\"on\")\n            empty = sel.get(\"empty\")\n            if (\n                fields == [\"origin\"]\n                and isinstance(on, str)\n                and \"click\" in on\n                and empty is False\n            ):\n                matching.append(param)\n>       assert matching, (\n            \"No point selection with fields=['origin'], on containing 'click', and empty=False. \"\n            f\"Found selections: {selections}\"\n        )\nE       AssertionError: No point selection with fields=['origin'], on containing 'click', and empty=False. Found selections: [({'name': 'param_1', 'select': {'type': 'point', 'fields': ['origin'], 'on': 'click'}, 'views': ['view_1']}, {'type': 'point', 'fields': ['origin'], 'on': 'click'})]\nE       assert []\n\ntests/test_final_state.py:321: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_route_layer_is_gated_by_selection",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239686001,
+                "stop": 1781239686002,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_render_contains_geo_and_marks",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 546995,
+                "start": 1781239686003,
+                "stop": 1781240232998,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_browser_render_contains_geo_and_marks():\n        \"\"\"Browser verification via pochi-verifier (geo paths + circles + click-driven rules).\"\"\"\n        try:\n            from pochi_verifier import PochiVerifier\n        except Exception:\n            pytest.skip(\"pochi_verifier not available in this environment.\")\n    \n        verifier = PochiVerifier()\n        reason = (\n            \"The generated chart.html must render an interactive US airports connections map \"\n            \"built with Vega-Altair. The page must show a US states geographic background, \"\n            \"circle marks for airports across the country, and route lines that only appear \"\n            \"after clicking an airport circle.\"\n        )\n        truth = (\n            \"Open file:///home/user/myproject/chart.html in the browser. Wait for the chart \"\n            \"to render. Verify that: \"\n            \"(1) the chart container shows a US map (multiple SVG path elements forming state \"\n            \"shapes); \"\n            \"(2) many small circle marks are visible on top of the map representing airports; \"\n            \"(3) before any interaction, no flight route lines (rule marks) are visible; \"\n            \"(4) clicking a single airport circle causes one or more straight route lines \"\n            \"to appear, connecting that airport to other airports on the map; \"\n            \"(5) clicking on empty map background hides the route lines again.\"\n        )\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_render_contains_geo_and_marks\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed at step (1). Although the chart correctly renders a US map and implements the required interactive behavior (airport selection and route line visibility), it uses the HTML5 Canvas renderer by default. As a result, the chart container does not contain the 'multiple SVG path elements forming state shapes' specifically required by the verification instructions. While the visual representation and interactive logic are correct, the technical requirement for SVG path elements in the DOM is not met.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:412: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

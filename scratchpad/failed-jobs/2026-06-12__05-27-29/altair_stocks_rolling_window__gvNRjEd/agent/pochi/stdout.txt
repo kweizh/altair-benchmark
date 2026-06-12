@@ -1,0 +1,47 @@
+- Initializing MCP connections...
+You
+# Multi-Company Stock Chart with Rolling Window, Per-Symbol Reference Lines, and Dropdown Filter ## Background You are building an interactive multi-company stock visualization with Vega-Altair. The chart will combine raw price lines, smoothed rolling-mean lines, per-symbol all-time-mean reference rules, a dropdown widget that filters down to a single symbol, and pan/zoom interactivity on the x-axis. The data source is the well-known `data.stocks.url` URL dataset (long-form columns `date`, `symbol`, `price`). Use the URL directly (do not pre-aggregate in pandas) so that all reshaping happens inside the Vega-Lite spec. ## Requirements * Build a single Altair script that produces a layered chart and saves it to disk as an HTML file. * The chart must be composed of the following layers, all sharing the same x-axis (`date:T`): 1. A thin raw price line per symbol (low opacity), with `price:Q` on y and color by `symbol:N`. 2. A bold rolling-mean line per symbol, where the rolling mean is computed inside the spec with a window transform that averages `price` over a 30-trading-day centered window (15 days before and 15 days after each point), grouped by symbol. 3. A horizontal dashed reference rule per symbol at the symbol's all-time mean price. The all-time mean must be computed inside the spec with a join-aggregate transform grouped by symbol. * Add a dropdown widget bound to a parameter that filters the chart to a single symbol. The dropdown options must be exactly the five tickers in the stocks dataset: `MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`. * Enable pan/zoom on the x-axis (the standard Altair shortcut for this also adds an interval-bound-to-scales selection to the chart). * Save the final chart to `/home/user/myproject/chart.html`. ## Implementation Hints * Use `data.stocks.url` from `vega_datasets` (or the equivalent string URL) as the chart source so the transforms run in the Vega-Lite engine. * Look at the `transform_window` documentation for the `frame`, `groupby`, and aggregate-function arguments needed to compute a centered rolling mean. * Look at the `transform_joinaggregate` documentation for the pattern that attaches a per-group aggregate back onto every row. * Bind a parameter to a select widget and reference that parameter inside a `transform_filter` predicate. * Use the shortcut method on the layered chart that adds pan/zoom on scales. * Save the chart using Altair's built-in HTML export. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/build_chart.py` * Running the command must (re)generate `/home/user/myproject/chart.html` without errors. * The exported HTML file must contain an embedded Vega-Lite specification (the standard Altair HTML export embeds the spec as a JSON literal) that, when parsed, satisfies: * It is a layered chart (top-level `layer` array) with at least three layers. * One layer uses a `transform` containing a `window` operation that computes `mean` of `price`, grouped by `symbol`, with a frame whose absolute extents are 15 (i.e. window size 30). * One layer uses a `transform` containing a `joinaggregate` that computes `mean` of `price`, grouped by `symbol`, and the resulting field is referenced by a rule mark whose stroke is dashed. * The spec contains a `params` entry whose `bind` is a `select` input with options `['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']`. * The spec contains a `transform` with a `filter` that references that parameter (so the dropdown filters which symbol is displayed). * The spec contains an interval selection bound to `scales` (the artifact produced by enabling pan/zoom on the chart). * The rendered HTML, when opened in a browser, must show at least two SVG/Canvas line marks, at least one dashed rule mark, and a `<select>` element for the dropdown.   
+
+Pochi
+💭 Thinking for 502 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 51 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💫 Executing pip3 list 2>/dev/null | grep -iE "altair|vega" ✔ 
+💭 Thinking for 43886 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+💭 Thinking for 74 characters   
+✏️  Writing /home/user/myproject/build_chart.py ✔ 
+💭 Thinking for 48 characters   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 build_chart.py ✔ 
+💭 Thinking for 148 characters   
+💫 Executing ls -la /home/user/myproject/chart.html ✔ 
+💭 Thinking for 128 characters   
+📖 Reading /home/user/myproject/chart.html ✔ 
+💭 Thinking for 2230 characters   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The chart has been built and saved successfully. Here's a summary of the implementation:
+
+**Script**: `/home/user/myproject/build_chart.py`  
+**Output**: `/home/user/myproject/chart.html`
+
+The Altair script creates a layered chart with three layers sharing the same x-axis (`date:T`):
+
+1. **Raw price line** — thin (`strokeWidth=1`), low opacity (`0.3`) line per symbol
+2. **Rolling mean line** — bold (`strokeWidth=3`) line computed via a `transform_window` with `mean(price)`, `frame=[-15, 15]`, and `groupby=['symbol']` (30-trading-day centered window)
+3. **Reference rule** — dashed (`strokeDash=[5,5]`) horizontal rule per symbol at the all-time mean price, computed via `transform_joinaggregate` with `mean(price)` grouped by `symbol`
+
+Interactivity:
+- **Dropdown filter** — a `selection_point` parameter bound to a `<select>` widget with the five tickers (`MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`), applied via `transform_filter` on each layer
+- **Pan/zoom** — a `selection_interval` bound to `scales` for x-axis pan/zoom
+
+All acceptance criteria are verified in the generated Vega-Lite spec embedded in the HTML:
+- Top-level `layer` array with 3 layers ✅
+- Window transform with `mean` of `price`, `groupby=['symbol']`, `frame=[-15,15]` ✅
+- Joinaggregate transform with `mean` of `price`, `groupby=['symbol']`, referenced by a dashed rule mark ✅
+- `params` entry with `bind` as a `select` input with the 5 ticker options ✅
+- `transform` with `filter` referencing the dropdown parameter ✅
+- Interval selection bound to `scales` ✅   
+  

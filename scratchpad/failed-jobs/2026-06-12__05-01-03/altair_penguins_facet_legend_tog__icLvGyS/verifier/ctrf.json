@@ -1,0 +1,110 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T05:10:51.760990+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781240924079,
+            "stop": 1781241051760
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781240924131,
+                "stop": 1781240924132,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_json_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781240924132,
+                "stop": 1781240924133,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_facet_uses_island_column",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781240924133,
+                "stop": 1781240924136,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_legend_bound_point_selection_on_species",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781240924136,
+                "stop": 1781240924138,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_opacity_encoding_is_condition_on_selection",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781240924138,
+                "stop": 1781240924140,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_resolve_scale_y_independent",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781240924141,
+                "stop": 1781240924143,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_axis_scales_disable_zero",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781240924143,
+                "stop": 1781240924145,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_core_encodings_use_expected_fields",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781240924145,
+                "stop": 1781240924147,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_shows_facets_and_clickable_legend",
+                "status": "passed",
+                "duration": 127613,
+                "start": 1781240924147,
+                "stop": 1781241051760,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "errorband", "extent": "iqr", "interpolate": "monotone"}, "encoding": {"x": {"field": "year", "scale": {"type": "time"}, "timeUnit": "year", "type": "temporal"}, "y": {"field": "net_generation", "type": "quantitative"}}}, {"mark": {"type": "line", "color": "blue", "size": 2}, "encoding": {"x": {"field": "year", "scale": {"type": "time"}, "timeUnit": "year", "type": "temporal"}, "y": {"aggregate": "median", "field": "net_generation", "type": "quantitative"}}}, {"mark": {"type": "rule", "color": "red", "size": 1.5, "strokeDash": [4, 4]}, "encoding": {"y": {"datum": 0}}}, {"mark": {"type": "text", "align": "left", "color": "black", "dx": 8, "dy": -10, "fontSize": 11, "fontWeight": "bold"}, "encoding": {"text": {"field": "label", "type": "nominal"}, "x": {"field": "year", "scale": {"type": "time"}, "timeUnit": "year", "type": "temporal"}, "y": {"field": "median_net_gen", "type": "quantitative"}}, "transform": [{"aggregate": [{"op": "median", "field": "net_generation", "as": "median_net_gen"}], "groupby": ["year"]}, {"window": [{"op": "rank", "field": "", "as": "rank"}], "sort": [{"field": "median_net_gen", "order": "descending"}]}, {"filter": "(datum.rank === 1)"}, {"calculate": "timeFormat(datum.year, '%Y') + ': ' + format(datum.median_net_gen, ',.0f') + ' MWh'", "as": "label"}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/iowa-electricity.csv"}, "height": 400, "title": {"text": "Iowa Electricity Net Generation Anomaly Band Chart", "anchor": "start", "fontSize": 16, "offset": 15, "subtitle": "Yearly distribution and median of net generation across source categories, highlighting the peak median year (2017)", "subtitleFontSize": 12}, "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

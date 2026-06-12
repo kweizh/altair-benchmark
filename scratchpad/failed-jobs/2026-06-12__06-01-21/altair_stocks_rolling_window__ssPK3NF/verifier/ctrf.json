@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:09:28.249767+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781244456988,
+            "stop": 1781244568249
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_created",
+                "status": "passed",
+                "duration": 709,
+                "start": 1781244457027,
+                "stop": 1781244457736,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layered_with_at_least_three_layers",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781244457736,
+                "stop": 1781244457738,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rolling_window_layer",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244457738,
+                "stop": 1781244457739,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_joinaggregate_reference_rule_layer",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244457739,
+                "stop": 1781244457740,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dropdown_param_with_five_symbols",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244457740,
+                "stop": 1781244457741,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_references_dropdown_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244457741,
+                "stop": 1781244457742,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_interactive_scales_selection",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781244457743,
+                "stop": 1781244457743,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_lines_dashed_rule_and_dropdown",
+                "status": "passed",
+                "duration": 110504,
+                "start": 1781244457744,
+                "stop": 1781244568248,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

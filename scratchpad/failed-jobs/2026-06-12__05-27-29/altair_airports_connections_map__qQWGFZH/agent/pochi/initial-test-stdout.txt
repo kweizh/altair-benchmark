@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /bootstrap
+plugins: json-ctrf-0.5.2
+collected 6 items
+
+bootstrap/test_initial_state.py::test_python3_available PASSED
+bootstrap/test_initial_state.py::test_altair_importable PASSED
+bootstrap/test_initial_state.py::test_vega_datasets_importable PASSED
+bootstrap/test_initial_state.py::test_project_dir_exists PASSED
+bootstrap/test_initial_state.py::test_chart_stub_exists PASSED
+bootstrap/test_initial_state.py::test_chart_html_not_yet_generated PASSED
+
+============================== 6 passed in 3.66s ===============================

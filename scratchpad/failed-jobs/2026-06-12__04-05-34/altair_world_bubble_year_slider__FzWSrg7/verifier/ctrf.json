@@ -1,0 +1,92 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:30:25.631421+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781238517067,
+            "stop": 1781238625631
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_layered_chart_has_geoshape_and_circle",
+                "status": "passed",
+                "duration": 1628,
+                "start": 1781238517112,
+                "stop": 1781238518740,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_projection_is_natural_earth_1",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781238518741,
+                "stop": 1781238518742,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_year_slider_param_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781238518742,
+                "stop": 1781238518743,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_filter_references_year_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781238518744,
+                "stop": 1781238518745,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_size_encoding_has_explicit_scale_domain",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781238518745,
+                "stop": 1781238518747,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_html_contains_range_input",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781238518747,
+                "stop": 1781238518749,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_map_and_slider",
+                "status": "passed",
+                "duration": 106880,
+                "start": 1781238518750,
+                "stop": 1781238625630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

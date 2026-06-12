@@ -1,0 +1,16 @@
+[37m2026-06-12 04:24:04.020[39m[0m[0m	[33m[1mWARN[22m[39m[0m[0m	[37m$bunfs/root/pochi:508374[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Failed to generate title
+
+[97m[101m[1m SyntaxError [22m[49m[39m[0m[0m Failed to parse JSON, 447643, 35, 447643, 35, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:447643[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:432438[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:430590[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m

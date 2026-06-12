@@ -1,0 +1,116 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:19:07.624469+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 7,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781244851472,
+            "stop": 1781245147624
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1296,
+                "start": 1781244851518,
+                "stop": 1781244852814,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_projection_is_albers_usa",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781244852814,
+                "stop": 1781244852816,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_geoshape_layer_uses_states_topojson",
+                "status": "passed",
+                "duration": 721,
+                "start": 1781244852816,
+                "stop": 1781244853537,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_circle_layer_from_airports_with_lat_long",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244853537,
+                "stop": 1781244853538,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_has_four_geo_encodings",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781244853539,
+                "stop": 1781244853539,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_has_two_lookups_origin_and_destination",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781244853540,
+                "stop": 1781244853540,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_click_selection_on_origin_field",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1781244853541,
+                "stop": 1781244853566,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v5.20.1.json', 'config': {'view': {'continuousHeight': 300, 'cont...': ['dest_lat', 'dest_lon'], 'from': {'data': {...}, 'fields': [...], 'key': 'iata'}, 'lookup': 'destination'}]}], ...}\n\n    def test_click_selection_on_origin_field(spec: dict):\n        params = _collect_params(spec)\n        selections = []\n        for p in params:\n            sel = p.get(\"select\")\n            if isinstance(sel, dict) and sel.get(\"type\") == \"point\":\n                selections.append((p, sel))\n            elif sel == \"point\":\n                selections.append((p, {\"type\": \"point\"}))\n        assert selections, \"No point selection parameter declared in the spec.\"\n        matching = []\n        for param, sel in selections:\n            fields = sel.get(\"fields\")\n            on = sel.get(\"on\")\n            empty = sel.get(\"empty\")\n            if (\n                fields == [\"origin\"]\n                and isinstance(on, str)\n                and \"click\" in on\n                and empty is False\n            ):\n                matching.append(param)\n>       assert matching, (\n            \"No point selection with fields=['origin'], on containing 'click', and empty=False. \"\n            f\"Found selections: {selections}\"\n        )\nE       AssertionError: No point selection with fields=['origin'], on containing 'click', and empty=False. Found selections: [({'name': 'param_1', 'select': {'type': 'point', 'fields': ['origin'], 'on': 'click'}, 'views': ['view_1']}, {'type': 'point', 'fields': ['origin'], 'on': 'click'})]\nE       assert []\n\ntests/test_final_state.py:321: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_route_layer_is_gated_by_selection",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244853567,
+                "stop": 1781244853568,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_render_contains_geo_and_marks",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 294055,
+                "start": 1781244853568,
+                "stop": 1781245147623,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_browser_render_contains_geo_and_marks():\n        \"\"\"Browser verification via pochi-verifier (geo paths + circles + click-driven rules).\"\"\"\n        try:\n            from pochi_verifier import PochiVerifier\n        except Exception:\n            pytest.skip(\"pochi_verifier not available in this environment.\")\n    \n        verifier = PochiVerifier()\n        reason = (\n            \"The generated chart.html must render an interactive US airports connections map \"\n            \"built with Vega-Altair. The page must show a US states geographic background, \"\n            \"circle marks for airports across the country, and route lines that only appear \"\n            \"after clicking an airport circle.\"\n        )\n        truth = (\n            \"Open file:///home/user/myproject/chart.html in the browser. Wait for the chart \"\n            \"to render. Verify that: \"\n            \"(1) the chart container shows a US map (multiple SVG path elements forming state \"\n            \"shapes); \"\n            \"(2) many small circle marks are visible on top of the map representing airports; \"\n            \"(3) before any interaction, no flight route lines (rule marks) are visible; \"\n            \"(4) clicking a single airport circle causes one or more straight route lines \"\n            \"to appear, connecting that airport to other airports on the map; \"\n            \"(5) clicking on empty map background hides the route lines again.\"\n        )\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_render_contains_geo_and_marks\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test case failed because the interactive functionality and specific rendering requirements were not met. \nE         \nE         1. **Rendering Requirement**: The test expected multiple SVG path elements for state shapes, but the chart rendered either on Canvas or as a single path element.\nE         2. **Interactive Functionality**: Clicking an airport circle did not display route lines. Investigation by the agent revealed a field mismatch in the Vega-Lite specification: it looked for an 'origin' field while the dataset used 'iata', preventing the selection from triggering the display of routes.\nE         3. **Reset Functionality**: Since route lines never appeared, the step to hide them by clicking the background also failed.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:412: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

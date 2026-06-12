@@ -1,0 +1,117 @@
+{
+    "id": "756768fc-2052-4147-9e1b-8ddaf760930f",
+    "task_name": "altair_barley_grouped_sort",
+    "trial_name": "altair_barley_grouped_sort__2LDRUys",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__06-01-21/altair_barley_grouped_sort__2LDRUys",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_barley_grouped_sort"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "1b9a88201c17a7711230e4ba0181f1eac8e151bc417caa551a03183a7b8f19a4",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_barley_grouped_sort",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_barley_grouped_sort__2LDRUys",
+        "trials_dir": "jobs/2026-06-12__06-01-21",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "deepseek/deepseek-4-pro",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "09f5071c-c7ab-49e9-9deb-fd92dda80543"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "deepseek-4-pro",
+            "provider": "deepseek"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 25906,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T06:08:17.595893Z",
+    "finished_at": "2026-06-12T06:13:06.656207Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T06:08:17.606712Z",
+        "finished_at": "2026-06-12T06:08:20.218142Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T06:08:20.218186Z",
+        "finished_at": "2026-06-12T06:08:33.796369Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T06:08:33.796468Z",
+        "finished_at": "2026-06-12T06:10:45.932755Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T06:10:47.299037Z",
+        "finished_at": "2026-06-12T06:12:54.632832Z"
+    },
+    "step_results": null
+}

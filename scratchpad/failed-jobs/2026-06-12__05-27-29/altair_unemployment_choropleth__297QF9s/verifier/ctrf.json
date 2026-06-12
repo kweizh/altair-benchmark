@@ -1,0 +1,110 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T05:33:24.500005+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 5,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781242309146,
+            "stop": 1781242404499
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781242309202,
+                "stop": 1781242309203,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_map_uses_lookup_transform_referencing_unemployment",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781242309203,
+                "stop": 1781242309205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_map_projection_is_albers_usa",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781242309205,
+                "stop": 1781242309206,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_map_color_threshold_blues",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781242309206,
+                "stop": 1781242309207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_map_tooltip_has_id_and_rate",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781242309207,
+                "stop": 1781242309208,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_map_filter_references_brush_param",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23,
+                "start": 1781242309208,
+                "stop": 1781242309231,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "map_and_histogram = ({'data': {'format': {'feature': 'counties', 'type': 'topojson'}, 'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v...': 'quantitative'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'bar'}, ...})\n\n    def test_map_filter_references_brush_param(map_and_histogram):\n        map_chart, hist_chart = map_and_histogram\n        transforms = map_chart.get(\"transform\", [])\n        filter_param_names: list[str] = []\n        for entry in transforms:\n            if not isinstance(entry, dict):\n                continue\n            flt = entry.get(\"filter\")\n            if isinstance(flt, dict) and \"param\" in flt:\n                filter_param_names.append(str(flt[\"param\"]))\n            elif isinstance(flt, str):\n                # Some compilers may emit a string predicate; record it for fallback matching.\n                filter_param_names.append(flt)\n        assert filter_param_names, (\n            \"Map chart must include a transform_filter that references a selection parameter.\"\n        )\n    \n        hist_params = hist_chart.get(\"params\", [])\n>       assert isinstance(hist_params, list) and hist_params, (\n            \"Histogram chart must declare an interval selection param via add_params.\"\n        )\nE       AssertionError: Histogram chart must declare an interval selection param via add_params.\nE       assert (True and [])\nE        +  where True = isinstance([], list)\n\ntests/test_final_state.py:242: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_histogram_has_interval_brush_on_binned_rate",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781242309231,
+                "stop": 1781242309240,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "map_and_histogram = ({'data': {'format': {'feature': 'counties', 'type': 'topojson'}, 'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v...': 'quantitative'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'bar'}, ...})\n\n    def test_histogram_has_interval_brush_on_binned_rate(map_and_histogram):\n        _, hist_chart = map_and_histogram\n        encoding = hist_chart.get(\"encoding\", {})\n        x_enc = encoding.get(\"x\", {})\n        assert isinstance(x_enc, dict), \"Histogram must have an x-encoding object.\"\n        assert x_enc.get(\"field\") == \"rate\", (\n            f\"Histogram x-encoding must bind to the 'rate' field, got {x_enc.get('field')!r}.\"\n        )\n        bin_spec = x_enc.get(\"bin\")\n        assert bin_spec, (\n            f\"Histogram x-encoding must set bin to true or a bin spec, got {bin_spec!r}.\"\n        )\n    \n        y_enc = encoding.get(\"y\", {})\n        assert isinstance(y_enc, dict), \"Histogram must have a y-encoding object.\"\n        assert y_enc.get(\"aggregate\") == \"count\" or y_enc.get(\"field\") == \"*\" and y_enc.get(\n            \"aggregate\"\n        ) == \"count\", (\n            f\"Histogram y-encoding must use a count aggregate, got {y_enc!r}.\"\n        )\n    \n        params = hist_chart.get(\"params\", [])\n        interval_params = [\n            p for p in params\n            if isinstance(p, dict)\n            and isinstance(p.get(\"select\"), dict)\n            and p[\"select\"].get(\"type\") == \"interval\"\n        ]\n>       assert interval_params, (\n            f\"Histogram must register an interval selection param, got params={params!r}.\"\n        )\nE       AssertionError: Histogram must register an interval selection param, got params=[].\nE       assert []\n\ntests/test_final_state.py:281: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_browser_render",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 95259,
+                "start": 1781242309240,
+                "stop": 1781242404499,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_browser_render():\n        reason = (\n            \"Altair must render the choropleth+histogram dashboard cleanly in a browser. \"\n            \"Vega-Embed should produce a #vis container populated with SVG or canvas elements, \"\n            \"and the page should not raise any JavaScript errors.\"\n        )\n        truth = (\n            f\"Navigate to file://{CHART_HTML}. Wait for Vega-Embed to finish rendering. \"\n            \"Verify that a div with id 'vis' exists and contains at least one descendant SVG or \"\n            \"canvas element produced by Vega-Embed (e.g. an svg.marks node or a canvas element). \"\n            \"Verify that no JavaScript console errors were emitted while loading or rendering.\"\n        )\n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_render\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because although the div with id 'vis' exists, it does not contain a descendant SVG or canvas element. Instead, it contains an error message div injected by Vega-Embed: \"JavaScript Error: Undefined data set name: 'source_1'\". Additionally, a JavaScript console error was detected: \"Uncaught (in promise) Error: Undefined data set name: 'source_1'\". This indicates that Vega-Embed failed to render the chart due to a specification error.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:305: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

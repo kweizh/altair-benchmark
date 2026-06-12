@@ -1,0 +1,61 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions * You **must** use the agent browser to perform all verification steps. * **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). * **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). * If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. * If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. * For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-generated chart.html must render a layered Seattle weather chart that visibly combines (1) a pale-orange temperature-range area, (2) a mean-temperature line, (3) precipitation bars on a secondary y axis, (4) a dashed annotation rule at 0 degrees C, and (5) a hover-driven nearest-x tooltip layer with a vertical rule and text. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html in a browser. Wait for the Vega-Lite chart to finish rendering. Verify that the page has no JavaScript console errors and that the rendered chart contains all of the following visible marks: a filled area band spanning daily min/max temperatures, a line connecting daily mean temperatures, vertical bars representing daily precipitation, a dashed horizontal rule at the 0 degree mark, and at least one text label (the tooltip layer rendering date / mean temperature / precipitation). Then move the pointer over the chart area and verify that a hover state activates (a vertical rule and tooltip text appear or update) without errors. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 508 characters   
+📋 Updating todo list (4 items) ✔ 
+❯ Verify the Altair-generated chart.html at http://localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 💫 Executing agent-browser snapshot
+| 📖 Reading unknown
+| 📖 Reading pochi://~/tool-results/executeCommand-TN7KSL8LokcGyBya-output.log
+| 💫 Executing agent-browser get html body
+| 💫 Executing agent-browser screenshot chart.png
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing agent-browser snapshot -d 2
+| 💫 Executing agent-browser find text "error" snapshot || agent-browser find text "fail" snapshot
+| 💫 Executing agent-browser get text body | grep -iE "error|fail|exception"
+| 💫 Executing agent-browser snapshot -c
+| 💫 Executing agent-browser wait 5000 && agent-browser snapshot
+| 💫 Executing agent-browser snapshot -c -d 3
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing agent-browser hover "svg"
+| 💫 Executing agent-browser snapshot
+| 💫 Executing agent-browser get text body | grep "NaN" | head -n 5
+| 💫 Executing agent-browser get html "svg" | grep -i "dash"
+| 💫 Executing agent-browser get html "svg" | grep -o 'stroke-dasharray="[^"]*"' | head -n 5
+| 💫 Executing agent-browser get html "svg" | grep -o "<rect" | wc -l
+| 💫 Executing agent-browser get html "svg" | grep -o "<path" | wc -l
+| 💫 Executing agent-browser hover "svg" && agent-browser screenshot chart_hover.png
+| 💫 Executing agent-browser get html "svg" | grep -iE "orange|#ff" | head -n 5
+| 💫 Executing agent-browser get html "svg" | grep -o 'fill="[^"]*"' | sort | uniq -c
+| 💫 Executing agent-browser get html "svg" | grep -o 'stroke="[^"]*"' | sort | uniq -c
+| 💫 Executing agent-browser get html "svg" | grep "dash" | head -n 5
+| 💫 Executing agent-browser get html "svg" | grep -o '<path[^>]*stroke-dasharray="4,4"[^>]*>'
+| 💫 Executing agent-browser get html "svg" | grep -oP '<[^>]*stroke-dasharray="4,4"[^>]*>'
+| 💫 Executing agent-browser get html "svg" | grep -i "rule" | grep -v "date"
+| 💫 Executing agent-browser get html "svg" | grep "steelblue" | head -n 5
+| 💫 Executing agent-browser get html "svg" | grep "stroke-dasharray" | grep -v "aria-label=\"date"
+| 💫 Executing agent-browser get html "svg" | grep -oP '<path[^>]*stroke-dasharray="[^"]+"[^>]*>'
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+✔ Verify the Altair-generated chart.html at http://localhost:8765/chart.html (browser)
+💭 Thinking for 301 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 334 characters   
+🎉 Task Completed
+{
+  "status": "fail",
+  "reason": "The test failed because the rendered chart did not meet several of the required verification criteria. Specifically:\n1. The line connecting daily mean temperatures was missing due to `NaN` data values.\n2. The dashed horizontal rule at the 0 degree mark was not found.\n3. The hover state was broken; while hover rules existed in the SVG, they had `NaN` coordinates, and no visible vertical rule or updated tooltip text appeared during interaction.\n4. Data issues were evident as `mean_temp` values were reported as `NaN` in the chart's accessibility tree and SVG attributes."
+}   
+  

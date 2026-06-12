@@ -1,0 +1,99 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py ......F.F                                      [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_click_selection_on_origin_field _____________________
+
+spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v5.20.1.json', 'config': {'view': {'continuousHeight': 300, 'cont...': ['dest_lat', 'dest_lon'], 'from': {'data': {...}, 'fields': [...], 'key': 'iata'}, 'lookup': 'destination'}]}], ...}
+
+    def test_click_selection_on_origin_field(spec: dict):
+        params = _collect_params(spec)
+        selections = []
+        for p in params:
+            sel = p.get("select")
+            if isinstance(sel, dict) and sel.get("type") == "point":
+                selections.append((p, sel))
+            elif sel == "point":
+                selections.append((p, {"type": "point"}))
+        assert selections, "No point selection parameter declared in the spec."
+        matching = []
+        for param, sel in selections:
+            fields = sel.get("fields")
+            on = sel.get("on")
+            empty = sel.get("empty")
+            if (
+                fields == ["origin"]
+                and isinstance(on, str)
+                and "click" in on
+                and empty is False
+            ):
+                matching.append(param)
+>       assert matching, (
+            "No point selection with fields=['origin'], on containing 'click', and empty=False. "
+            f"Found selections: {selections}"
+        )
+E       AssertionError: No point selection with fields=['origin'], on containing 'click', and empty=False. Found selections: [({'name': 'param_1', 'select': {'type': 'point', 'fields': ['origin'], 'on': 'click'}, 'views': ['view_1']}, {'type': 'point', 'fields': ['origin'], 'on': 'click'})]
+E       assert []
+
+tests/test_final_state.py:321: AssertionError
+__________________ test_browser_render_contains_geo_and_marks __________________
+
+    def test_browser_render_contains_geo_and_marks():
+        """Browser verification via pochi-verifier (geo paths + circles + click-driven rules)."""
+        try:
+            from pochi_verifier import PochiVerifier
+        except Exception:
+            pytest.skip("pochi_verifier not available in this environment.")
+    
+        verifier = PochiVerifier()
+        reason = (
+            "The generated chart.html must render an interactive US airports connections map "
+            "built with Vega-Altair. The page must show a US states geographic background, "
+            "circle marks for airports across the country, and route lines that only appear "
+            "after clicking an airport circle."
+        )
+        truth = (
+            "Open file:///home/user/myproject/chart.html in the browser. Wait for the chart "
+            "to render. Verify that: "
+            "(1) the chart container shows a US map (multiple SVG path elements forming state "
+            "shapes); "
+            "(2) many small circle marks are visible on top of the map representing airports; "
+            "(3) before any interaction, no flight route lines (rule marks) are visible; "
+            "(4) clicking a single airport circle causes one or more straight route lines "
+            "to appear, connecting that airport to other airports on the map; "
+            "(5) clicking on empty map background hides the route lines again."
+        )
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_render_contains_geo_and_marks",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test case failed because the interactive functionality and specific rendering requirements were not met. 
+E         
+E         1. **Rendering Requirement**: The test expected multiple SVG path elements for state shapes, but the chart rendered either on Canvas or as a single path element.
+E         2. **Interactive Functionality**: Clicking an airport circle did not display route lines. Investigation by the agent revealed a field mismatch in the Vega-Lite specification: it looked for an 'origin' field while the dataset used 'iata', preventing the selection from triggering the display of routes.
+E         3. **Reset Functionality**: Since route lines never appeared, the step to hide them by clicking the background also failed.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:412: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists_and_non_empty
+PASSED tests/test_final_state.py::test_projection_is_albers_usa
+PASSED tests/test_final_state.py::test_geoshape_layer_uses_states_topojson
+PASSED tests/test_final_state.py::test_circle_layer_from_airports_with_lat_long
+PASSED tests/test_final_state.py::test_rule_layer_has_four_geo_encodings
+PASSED tests/test_final_state.py::test_rule_layer_has_two_lookups_origin_and_destination
+PASSED tests/test_final_state.py::test_route_layer_is_gated_by_selection
+FAILED tests/test_final_state.py::test_click_selection_on_origin_field - Asse...
+FAILED tests/test_final_state.py::test_browser_render_contains_geo_and_marks
+=================== 2 failed, 7 passed in 296.15s (0:04:56) ====================

@@ -1,0 +1,107 @@
+- Initializing MCP connections...
+You
+# US County Unemployment Choropleth with Linked Brushable Histogram ## Background Build an interactive geographic dashboard in Vega-Altair (Python) that visualizes the 2018 US county-level unemployment rate as a choropleth map joined with a brushable histogram. The dashboard must combine a TopoJSON geographic layer with a separate tabular rate dataset using a lookup transform, an Albers USA projection, a threshold (binned) color scale, and a cross-view interval brush filter. ## Requirements * Use `vega-altair` to build a `vconcat` (or `hconcat`) dashboard composed of: 1. A US county choropleth rendered with `mark_geoshape()`. 2. A histogram of the unemployment `rate` rendered with `mark_bar()` that exposes an interval brush on its x-axis. * The map must: * Use `alt.topo_feature(data.us_10m.url, 'counties')` as its primary data source. * Use a `transform_lookup` that joins the county geometries to `data.unemployment.url` on `id` and pulls in the `rate` field. * Project with `albersUsa`. * Encode `color` from the looked-up `rate` field as quantitative, using a `threshold` scale (with a `domain` of at least three break points, e.g. `[0.05, 0.10, 0.15, 0.20]`) and a sequential `blues` color scheme. * Include a tooltip exposing both the county `id` and `rate`. * Apply a `transform_filter` that filters the displayed counties to the brush selection on the histogram. * The histogram must: * Read directly from `data.unemployment.url` (so all counties are visible in the histogram even when the map is filtered). * Bin the `rate` field on the x-axis and count rows on the y-axis (`mark_bar()`). * Carry an `alt.selection_interval(encodings=['x'])` parameter added with `add_params(...)`. The same parameter must be referenced by the map's `transform_filter`. * Save the final chart as an interactive HTML file using `chart.save('chart.html')` (any embed options are fine; the default canvas renderer is acceptable as long as a `<script>` tag containing the Vega-Lite spec is embedded in the HTML). * Wrap everything in a runnable script at `/home/user/myproject/solution.py`. ## Implementation Hints * Refer to Altair's Geoshape, Choropleth Classification, and Lookup transform documentation for the correct API usage. * Counties in `us_10m` join to the unemployment table via the FIPS `id` field. * The threshold scale should produce a banded/categorical legend with discrete bins. * The interval brush parameter must be created once and reused by both the histogram (`add_params`) and the map (`transform_filter`). * The generated HTML file embeds the Vega-Lite spec inside a JSON object passed to `vegaEmbed`; downstream verification will parse that spec. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 solution.py` * Running the command must write a non-empty `chart.html` file to `/home/user/myproject/chart.html`. * The embedded Vega-Lite specification inside `chart.html` must satisfy all of the following structural properties: * Contains a `geoshape` mark whose chart has a `transform` list including a `lookup` step referencing the `unemployment` dataset (URL contains the substring `unemployment`). * The geoshape chart's `projection.type` is `albersUsa`. * The geoshape chart's `color` encoding references a numeric `rate` field with a `threshold`-type scale and a `blues` color scheme. * The geoshape chart's `tooltip` encoding exposes both `id` and `rate` fields. * The geoshape chart includes a `filter` transform that references a selection parameter name (e.g. via `{"param": "<name>"}`). * A separate chart in the same spec uses a `bar` mark, contains a binned x-encoding on the `rate` field, and registers a `params` entry whose `select.type` is `interval` (the same param name referenced by the map's filter). * Browser verification (via `pochi-verifier`): When `chart.html` is opened in a headless browser, the rendered DOM must contain at least one SVG/canvas element produced by Vega-Embed (`#vis` container) and the page must not raise JavaScript errors.   
+
+Pochi
+💭 Thinking for 310 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 55 characters   
+💫 Executing mkdir -p /home/user/myproject && python3 -c "import altair; print(altair.__version__)" && python3 -c "from vega_datasets import data; print('vega_datasets available')" ✔ 
+💭 Thinking for 2202 characters   
+✏️  Writing /home/user/myproject/solution.py ✖ "File has not been read yet. Please read the file before writing it."
+💭 Thinking for 103 characters   
+💫 Executing ls /home/user/myproject/ ✔ 
+💭 Thinking for 75 characters   
+📖 Reading /home/user/myproject/solution.py ✔ 
+✏️  Writing /home/user/myproject/solution.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 solution.py ✔ 
+💫 Executing ls -la /home/user/myproject/chart.html && wc -c /home/user/myproject/chart.html ✔ 
+💭 Thinking for 157 characters   
+📖 Reading /home/user/myproject/chart.html ✔ 
+💭 Thinking for 2045 characters   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import json
+
+with open('chart.html', 'r') as f:
+    content = f.read()
+
+# Extract the JSON spec from the HTML
+start = content.find('var spec = ') + len('var spec = ')
+end = content.find(';', start)
+spec_json = content[start:end]
+spec = json.loads(spec_json)
+
+# Check 1: geoshape mark with lookup transform referencing unemployment
+geo_chart = spec['vconcat'][0]
+assert geo_chart['mark']['type'] == 'geoshape', f'Expected geoshape, got {geo_chart[\"mark\"]}'
+transforms = geo_chart['transform']
+lookup_found = any(t.get('lookup') == 'id' and 'unemployment' in t.get('from', {}).get('data', {}).get('url', '') for t in transforms)
+assert lookup_found, 'Lookup transform referencing unemployment not found'
+print('✅ Check 1: geoshape mark with lookup transform referencing unemployment')
+
+# Check 2: projection type albersUsa
+assert geo_chart['projection']['type'] == 'albersUsa', f'Expected albersUsa, got {geo_chart[\"projection\"][\"type\"]}'
+print('✅ Check 2: projection.type is albersUsa')
+
+# Check 3: color encoding with threshold scale and blues scheme
+color = geo_chart['encoding']['color']
+assert color['field'] == 'rate', f'Expected rate, got {color[\"field\"]}'
+assert color['scale']['type'] == 'threshold', f'Expected threshold, got {color[\"scale\"][\"type\"]}'
+assert color['scale']['scheme'] == 'blues', f'Expected blues, got {color[\"scale\"][\"scheme\"]}'
+assert len(color['scale']['domain']) >= 3, f'Expected at least 3 domain breakpoints, got {len(color[\"scale\"][\"domain\"])}'
+print('✅ Check 3: color encoding with threshold scale and blues scheme')
+
+# Check 4: tooltip with id and rate
+tooltips = geo_chart['encoding']['tooltip']
+tooltip_fields = [t['field'] for t in tooltips]
+assert 'id' in tooltip_fields and 'rate' in tooltip_fields, f'Expected id and rate in tooltip, got {tooltip_fields}'
+print('✅ Check 4: tooltip exposes id and rate')
+
+# Check 5: filter transform referencing a selection parameter
+filter_found = any('filter' in t and 'param' in t.get('filter', {}) for t in transforms)
+assert filter_found, 'Filter transform referencing selection parameter not found'
+print('✅ Check 5: filter transform referencing selection parameter')
+
+# Check 6: bar mark with binned rate and interval selection
+hist_chart = spec['vconcat'][1]
+assert hist_chart['mark']['type'] == 'bar', f'Expected bar, got {hist_chart[\"mark\"][\"type\"]}'
+assert 'bin' in hist_chart['encoding']['x'], 'Expected binned x encoding'
+assert hist_chart['encoding']['x']['field'] == 'rate', f'Expected rate, got {hist_chart[\"encoding\"][\"x\"][\"field\"]}'
+
+# Check interval param
+params = spec.get('params', [])
+interval_param = [p for p in params if p.get('select', {}).get('type') == 'interval']
+assert len(interval_param) > 0, 'No interval parameter found'
+print('✅ Check 6: bar mark with binned rate and interval selection')
+
+# Check param name matches filter
+param_name = interval_param[0]['name']
+filter_param = [t for t in transforms if 'filter' in t and 'param' in t.get('filter', {})]
+assert filter_param[0]['filter']['param'] == param_name, f'Param name mismatch: {param_name} vs {filter_param[0]}'
+print('✅ Check 7: interval param name matches filter param reference')
+
+print('\\nAll acceptance criteria verified! ✅')
+" ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The interactive US county unemployment choropleth dashboard has been implemented and verified.
+
+**Solution**: `/home/user/myproject/solution.py`
+
+**What it does**:
+1. **Choropleth map** — Uses `alt.topo_feature(data.us_10m.url, 'counties')` with a `transform_lookup` joining to `data.unemployment.url` on the `id` field, pulling in the `rate` field. Projected with `albersUsa`, colored with a `threshold` scale (breakpoints at 0.05, 0.10, 0.15, 0.20) using the `blues` scheme, and includes tooltips for `id` and `rate`. A `transform_filter` restricts displayed counties to the histogram brush selection.
+
+2. **Brushable histogram** — Reads directly from `data.unemployment.url`, bins the `rate` field on the x-axis with `mark_bar()`, and registers an `alt.selection_interval(encodings=['x'])` parameter. This same parameter is referenced by the map's filter transform.
+
+3. **Dashboard** — Combined via `alt.vconcat(choropleth, histogram)` and saved to `/home/user/myproject/chart.html`.
+
+**All acceptance criteria verified**:
+- ✅ `geoshape` mark with `lookup` transform referencing `unemployment` dataset
+- ✅ `projection.type` = `albersUsa`
+- ✅ `color` encoding uses `rate:Q` with `threshold` scale and `blues` scheme
+- ✅ `tooltip` exposes both `id` and `rate`
+- ✅ `filter` transform references the interval selection parameter
+- ✅ Separate `bar` mark chart with binned `rate` x-encoding and `interval` selection parameter matching the map's filter   
+  

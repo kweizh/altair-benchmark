@@ -1,0 +1,34 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The chart.html file must render an Altair layered visualization of Iowa electricity net generation per year, combining an IQR error band, a median line, a dashed red horizontal rule at y=0, and a text annotation highlighting the year with the largest median net generation. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html. Wait for the chart to render. Verify that the rendered chart contains all four of the following visual elements: (1) a filled error-band area spanning a range of values across the years; (2) a single connected line representing the median across the years drawn on top of the error band; (3) a dashed horizontal red line near the y=0 baseline; (4) a text label positioned near one specific year that shows both the year and a numeric median value. Also verify that the chart has a visible title and a smaller subtitle below it. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 483 characters   
+📋 Updating todo list (2 items) ✔ 
+❯ Verify the chart elements in chart.html at http://localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing npm install -g agent-browser@0.24.0 && agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing agent-browser wait 2000 && agent-browser snapshot && agent-browser screenshot chart.png && agent-browser get html body
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+✔ Verify the chart elements in chart.html at http://localhost:8765/chart.html (browser)
+💭 Thinking for 281 characters   
+📋 Updating todo list (2 items) ✔ 
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The chart at http://localhost:8765/chart.html was successfully verified to contain all required elements. \n1. A filled error-band area (IQR) spanning 2001 to 2017 was found.\n2. A connected median line was found drawn over the error band.\n3. A dashed horizontal red line was confirmed at the y=0 baseline.\n4. A text label \"2017: 21933\" was found near the year with the highest median.\n5. The title \"Iowa Electricity Net Generation\" and subtitle \"IQR Error Band and Median over Time\" were present and correctly styled."
+}   
+  

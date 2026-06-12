@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    var spec = {"$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json", "config": {"view": {"continuousHeight": 300, "continuousWidth": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/cars.json"}, "vconcat": [{"hconcat": [{"encoding": {"color": {"field": "Origin", "type": "nominal"}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "mark": {"type": "point"}, "name": "view_7ce6d19f4b864d10_0", "params": [{"name": "param_54853b0de6a785bc", "select": {"encodings": ["x", "y"], "type": "interval"}}]}, {"encoding": {"x": {"aggregate": "count", "type": "quantitative"}, "y": {"field": "Origin", "type": "nominal"}}, "mark": {"type": "bar"}, "transform": [{"filter": {"param": "param_54853b0de6a785bc"}}]}]}, {"encoding": {"color": {"aggregate": "count", "type": "quantitative"}, "x": {"bin": true, "field": "Weight_in_lbs", "type": "quantitative"}, "y": {"bin": true, "field": "Acceleration", "type": "quantitative"}}, "mark": {"type": "rect"}, "transform": [{"filter": {"param": "param_54853b0de6a785bc"}}]}]};
+    vegaEmbed('#vis', spec, {mode: 'vega-lite'}).catch(console.error);
+  </script>
+</body>
+</html>

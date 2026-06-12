@@ -1,0 +1,30 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The generated chart is a Scatter PLOt Matrix on the Penguins dataset built with alt.repeat over four quantitative features, with a single linked interval brush. When rendered in a browser, the page must show a grid of scatter cells and a working interval-selection brush that links highlighting across the cells. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html and wait for the Vega-Altair chart to finish rendering. Verify that the page contains a grid of at least 9 distinct scatter sub-plots arranged as a repeated matrix (rows x columns produced by the Altair repeat operator). Drag a rectangle inside any one of the cells using the mouse. After dragging, verify that an interval-selection brush rectangle is visible in that cell, AND that points falling outside the brushed rectangle in every other cell turn light gray while points inside the brush remain colored by Species. Release the mouse and confirm the brush rectangle persists. If any of these conditions fail, the verification must fail. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 577 characters   
+❯ Verify a Scatter Plot Matrix chart on localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+| 💫 Executing agent-browser --version && agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+| 💫 Executing agent-browser snapshot
+| 💫 Executing agent-browser get html body
+| 💫 Executing agent-browser reload && agent-browser wait 2000 && agent-browser snapshot
+| 💫 Executing agent-browser get html "#vis"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (7 items)
+✔ Verify a Scatter Plot Matrix chart on localhost:8765/chart.html (browser)
+💭 Thinking for 241 characters   
+🎉 Task Completed
+{
+  "status": "fail",
+  "reason": "The Vega-Altair chart failed to render on http://localhost:8765/chart.html due to a JavaScript error: 'Unrecognized signal name: \"param_54853b0de6a785bc\"'. This error prevented the grid of scatter sub-plots from being displayed, making it impossible to verify the grid, perform the interval selection, or observe the linked highlighting behavior."
+}   
+  

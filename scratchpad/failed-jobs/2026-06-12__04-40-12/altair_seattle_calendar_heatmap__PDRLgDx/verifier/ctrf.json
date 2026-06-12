@@ -1,0 +1,132 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:49:32.218699+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 1,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781239310236,
+            "stop": 1781239772218
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_embeds_vega_lite",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239310287,
+                "stop": 1781239310288,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_uses_rect_mark",
+                "status": "failed",
+                "duration": 23,
+                "start": 1781239310288,
+                "stop": 1781239310311,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_is_day_of_month",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781239310311,
+                "stop": 1781239310320,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_month",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781239310320,
+                "stop": 1781239310329,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_color_is_sum_precipitation_with_greens_scheme",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781239310330,
+                "stop": 1781239310339,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_facet_or_repeat_by_year",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781239310339,
+                "stop": 1781239310348,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_binding_select_year_param",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781239310348,
+                "stop": 1781239310359,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    def test_binding_select_year_param(spec):\n        params = _collect_params(spec)\n        select_params = [\n            p for p in params\n            if isinstance(p.get(\"bind\"), dict) and p[\"bind\"].get(\"input\") == \"select\"\n        ]\n>       assert len(select_params) == 1, (\n            f\"Expected exactly one params entry bound to binding_select, found {len(select_params)}.\"\n        )\nE       AssertionError: Expected exactly one params entry bound to binding_select, found 0.\nE       assert 0 == 1\nE        +  where 0 = len([])\n\ntests/test_final_state.py:240: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_opacity_is_conditional_on_year_param",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781239310360,
+                "stop": 1781239310369,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_includes_date_and_sum_precipitation",
+                "status": "failed",
+                "duration": 10,
+                "start": 1781239310370,
+                "stop": 1781239310380,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}\n\n    @pytest.fixture(scope=\"module\")\n    def rect_spec(spec) -> dict:\n        sub = _find_unit_spec_with_rect(spec)\n>       assert sub is not None, (\n            \"Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\"\n        )\nE       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.\nE       assert None is not None\n\ntests/test_final_state.py:128: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_render",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 461837,
+                "start": 1781239310380,
+                "stop": 1781239772217,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "http_server = None\n\n    def test_browser_render(http_server):\n        reason = (\n            \"The Altair-generated chart.html should render a Seattle precipitation calendar heatmap \"\n            \"with one panel per year (2012-2015), a 12-row by ~31-column grid of green-shaded rect \"\n            \"cells in each panel, and an HTML dropdown bound to the year that visibly dims the \"\n            \"non-selected yearly panels.\"\n        )\n        truth = (\n            f\"Navigate to {CHART_URL} and wait for the Vega-Embed rendering to complete. \"\n            \"Verify that the page shows at least 4 faceted yearly panels (one for each of 2012, 2013, \"\n            \"2014 and 2015). Each panel should contain a dense grid of rectangular cells arranged in \"\n            \"12 rows (months) by roughly 31 columns (days of month), shaded with a green color scale \"\n            \"(scheme='greens'). Verify that an HTML <select> dropdown is present on the page (the \"\n            \"year selector bound via binding_select). When a year is selected in the dropdown, the \"\n            \"panel for that year should appear at full opacity while the other yearly panels are \"\n            \"visibly dimmed (lower opacity). Tooltips over a cell should show the date and the \"\n            \"summed precipitation.\"\n        )\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_render\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the year selection functionality is not working as expected. While the chart renders correctly with 4 yearly panels (2012-2015), a 12x31 grid of green-shaded cells, and working tooltips, selecting a year from the HTML dropdown does not affect the opacity of the panels. All cells remain at a dimmed opacity of 0.2 regardless of the selection, likely due to a type mismatch in the Vega specification between the numeric data values and the string values from the select binding.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:363: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

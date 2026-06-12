@@ -1,0 +1,38 @@
+# Interactive US State Choropleth with Metric Switcher
+
+## Background
+Build a single self-contained Vega-Altair visualization that renders a US state-level choropleth map. The map must let the viewer switch the displayed quantitative metric between three columns of the `population_engineers_hurricanes` sample dataset using an interactive dropdown rendered alongside the chart.
+
+## Requirements
+- Render a US state-level choropleth using the TopoJSON `states` feature collection from the `us_10m` sample dataset and the per-state values in the `population_engineers_hurricanes` sample dataset.
+- Provide a dropdown control (driven by an Altair parameter) that lets the viewer pick which numeric column drives the choropleth color. The three options are exactly: `population`, `engineers`, `hurricanes`.
+- The currently displayed metric must update the encoded color in-place (the same map is recoloured; do not produce three side-by-side maps).
+- The color encoding must always be quantitative.
+- Use the `albersUsa` projection.
+- Each state shape must have a white border stroke.
+- Hovering a state must show a tooltip with at least the state name and the currently displayed metric value.
+- Persist the final chart as a single self-contained HTML file using Altair's HTML save mechanism.
+
+## Implementation Hints
+- The Vega-Altair sample datasets are exposed via `altair.datasets.data`. The geographic file is `data.us_10m.url`, and the per-state values live at `data.population_engineers_hurricanes.url`. The join key from the TopoJSON feature to the values dataset is the integer state `id`.
+- Use `alt.topo_feature(...)` together with `mark_geoshape(...)` as the base chart.
+- Use `transform_lookup` to pull all three numeric columns plus the state name onto each feature.
+- Use `alt.binding_select(...)` together with `alt.param(...)` to expose the dropdown, and `add_params(...)` to attach it to the chart.
+- Use a `transform_calculate` step whose expression references the parameter to project the chosen column onto a single field that the color and tooltip channels can encode.
+- Save the result with `chart.save('chart.html')`.
+
+## Acceptance Criteria
+- Project path: /home/user/altair_choropleth_app
+- Build command: `python build_chart.py`
+- The build command must regenerate `/home/user/altair_choropleth_app/chart.html`.
+- The generated HTML file must be self-contained (loads Vega/Vega-Lite/Vega-Embed from CDN or inlines them) and must embed a valid Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Contain at least one `geoshape` mark.
+  - Declare an `albersUsa` projection.
+  - Pull the per-state values from the `population_engineers_hurricanes` dataset via a `lookup` transform keyed on `id`, importing all three of `population`, `engineers`, and `hurricanes` (plus a state name field used in the tooltip).
+  - Declare a parameter bound to a `select` input whose `options` array equals exactly `["population", "engineers", "hurricanes"]`.
+  - Either define a `calculate` transform whose expression references that parameter to produce the field used in the color encoding, OR define three layers each filtered by the parameter value (one per metric).
+  - Use a quantitative color encoding on the metric-driven field.
+  - Use a tooltip encoding that includes at least two channels: the state name (nominal) and the currently selected metric value (quantitative).
+- Browser verification: opening the produced HTML must render a visible US map (multiple SVG/Canvas geo path elements) and expose an HTML `<select>` control with three options matching the three metric names.
+

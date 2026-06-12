@@ -1,0 +1,44 @@
+# Seattle Precipitation Calendar Heatmap with Altair
+
+## Background
+You will build a small Python program that uses Vega-Altair to produce a year-by-year calendar heatmap of Seattle precipitation. The chart shows, for every day of the year, how much rain fell, and lets the reader pick a single year from a dropdown to bring its facet into focus while dimming the others. The chart must be exported as a self-contained HTML file that opens correctly in a modern browser.
+
+The dataset is the standard `vega_datasets` Seattle weather sample, available as a URL via `vega_datasets.data.seattle_weather.url`. It contains daily observations with columns including `date`, `precipitation`, `temp_max`, `temp_min`, `wind`, and `weather`.
+
+## Requirements
+- Build a `rect`-based heatmap whose cells are colored by total precipitation per (year, month, day-of-month) cell.
+- The x axis must encode the day of the month (1-31) derived from `date` with the `date` time unit as an ordinal field.
+- The y axis must encode the month (Jan-Dec) derived from `date` with the `month` time unit as an ordinal field.
+- Color must encode the sum of `precipitation` as a quantitative field and use the `greens` color scheme.
+- The chart must show multiple yearly panels by faceting (or repeating) on `year(date):O`. The Seattle weather dataset spans 2012-2015, so you should see four yearly panels.
+- Add a dropdown widget bound to a year parameter using `alt.binding_select`, populated with all years present in the data (2012, 2013, 2014, 2015). When the reader selects a year, that year's facet must remain fully opaque (opacity 1) while every other facet is dimmed (opacity 0.2). Use the v5+ conditional encoding pattern (`alt.when(...).then(...).otherwise(...)`) to drive the opacity from the bound parameter.
+- Tooltip on each cell must show the full date (the `date` field as temporal) and the summed precipitation.
+- Configure axis titles, a chart title (something like `Seattle Daily Precipitation (Calendar Heatmap)`), and shortened month axis labels (for example `Jan`, `Feb`, ...).
+- Save the final chart as `chart.html` in the project directory using `Chart.save`. The HTML must embed the Vega-Lite specification so it can be opened directly in a browser without a Python runtime.
+
+## Implementation Hints
+- Use `data.seattle_weather.url` as the data source so the chart references the URL inside the spec rather than inlining the full table.
+- Encode time-unit-derived fields directly in the shorthand (for example, `date(date):O` and `month(date):O`) rather than pre-aggregating in Python.
+- The opacity condition should compare the per-cell year (also a `year(date)` time unit) against the value of the bound parameter; the value referenced inside `alt.when` should match the parameter, not a hard-coded year.
+- Pick between `.facet(column='year(date):O')` and `.repeat(...)` based on which keeps the bound parameter and the opacity condition working consistently across panels.
+- Remember that running `Chart.save('chart.html')` writes a standalone HTML file that loads Vega/Vega-Lite/Vega-Embed from a CDN.
+- The entrypoint script must be runnable as `python3 main.py` from the project directory and must (re)generate `chart.html` on each run.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 main.py
+- Running the command from the project directory must (re)create the file `/home/user/myproject/chart.html`.
+- The generated `chart.html` is a standalone HTML file that embeds a Vega-Lite specification and renders correctly in a modern browser (verified with `pochi-verifier`).
+- The embedded Vega-Lite spec, when inspected, must satisfy all of the following:
+    - Uses the `rect` mark.
+    - Encodes x with `timeUnit = date` over the `date` field, as an ordinal field.
+    - Encodes y with `timeUnit = month` over the `date` field, as an ordinal field.
+    - Facets or repeats panels by `timeUnit = year` over the `date` field.
+    - Encodes color as `aggregate = sum` of `precipitation`, quantitative, with the `greens` color scheme.
+    - Defines exactly one parameter that is bound via `binding_select` whose options list the four years 2012, 2013, 2014, and 2015.
+    - Opacity is a conditional encoding driven by that bound year parameter (selected year fully opaque, others dimmed).
+    - Tooltip lists the full date and the summed precipitation.
+- When opened in a browser, the page must show:
+    - A grid of yearly facet panels (4 panels for the four years in the dataset), each containing a 12-row by ~31-column grid of `rect` cells.
+    - A `<select>` HTML widget (the year dropdown) is present on the page.
+

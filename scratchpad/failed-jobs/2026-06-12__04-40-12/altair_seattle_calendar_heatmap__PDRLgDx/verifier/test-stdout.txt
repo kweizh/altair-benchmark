@@ -1,0 +1,180 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py .EEEEEFEEF                                     [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_spec_uses_rect_mark __________________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+______________ ERROR at setup of test_x_encoding_is_day_of_month _______________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+__________________ ERROR at setup of test_y_encoding_is_month __________________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+_____ ERROR at setup of test_color_is_sum_precipitation_with_greens_scheme _____
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+________________ ERROR at setup of test_facet_or_repeat_by_year ________________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+_________ ERROR at setup of test_opacity_is_conditional_on_year_param __________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+______ ERROR at setup of test_tooltip_includes_date_and_sum_precipitation ______
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    @pytest.fixture(scope="module")
+    def rect_spec(spec) -> dict:
+        sub = _find_unit_spec_with_rect(spec)
+>       assert sub is not None, (
+            "Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect."
+        )
+E       AssertionError: Could not find a unit spec using mark=rect. The calendar heatmap must use mark_rect.
+E       assert None is not None
+
+tests/test_final_state.py:128: AssertionError
+=================================== FAILURES ===================================
+________________________ test_binding_select_year_param ________________________
+
+spec = {'input': 'select', 'name': 'Select Year: ', 'options': [2012, 2013, 2014, 2015]}
+
+    def test_binding_select_year_param(spec):
+        params = _collect_params(spec)
+        select_params = [
+            p for p in params
+            if isinstance(p.get("bind"), dict) and p["bind"].get("input") == "select"
+        ]
+>       assert len(select_params) == 1, (
+            f"Expected exactly one params entry bound to binding_select, found {len(select_params)}."
+        )
+E       AssertionError: Expected exactly one params entry bound to binding_select, found 0.
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/test_final_state.py:240: AssertionError
+_____________________________ test_browser_render ______________________________
+
+http_server = None
+
+    def test_browser_render(http_server):
+        reason = (
+            "The Altair-generated chart.html should render a Seattle precipitation calendar heatmap "
+            "with one panel per year (2012-2015), a 12-row by ~31-column grid of green-shaded rect "
+            "cells in each panel, and an HTML dropdown bound to the year that visibly dims the "
+            "non-selected yearly panels."
+        )
+        truth = (
+            f"Navigate to {CHART_URL} and wait for the Vega-Embed rendering to complete. "
+            "Verify that the page shows at least 4 faceted yearly panels (one for each of 2012, 2013, "
+            "2014 and 2015). Each panel should contain a dense grid of rectangular cells arranged in "
+            "12 rows (months) by roughly 31 columns (days of month), shaded with a green color scale "
+            "(scheme='greens'). Verify that an HTML <select> dropdown is present on the page (the "
+            "year selector bound via binding_select). When a year is selected in the dropdown, the "
+            "panel for that year should appear at full opacity while the other yearly panels are "
+            "visibly dimmed (lower opacity). Tooltips over a cell should show the date and the "
+            "summed precipitation."
+        )
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_render",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The verification failed because the year selection functionality is not working as expected. While the chart renders correctly with 4 yearly panels (2012-2015), a 12x31 grid of green-shaded cells, and working tooltips, selecting a year from the HTML dropdown does not affect the opacity of the panels. All cells remain at a dimmed opacity of 0.2 regardless of the selection, likely due to a type mismatch in the Vega specification between the numeric data values and the string values from the select binding.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:363: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_http_server$ /usr/bin/python3 -m http.server 8765
+process 'altair_http_server' started pid=540
+altair_http_server process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists_and_embeds_vega_lite
+ERROR tests/test_final_state.py::test_spec_uses_rect_mark - AssertionError: C...
+ERROR tests/test_final_state.py::test_x_encoding_is_day_of_month - AssertionE...
+ERROR tests/test_final_state.py::test_y_encoding_is_month - AssertionError: C...
+ERROR tests/test_final_state.py::test_color_is_sum_precipitation_with_greens_scheme
+ERROR tests/test_final_state.py::test_facet_or_repeat_by_year - AssertionErro...
+ERROR tests/test_final_state.py::test_opacity_is_conditional_on_year_param - ...
+ERROR tests/test_final_state.py::test_tooltip_includes_date_and_sum_precipitation
+FAILED tests/test_final_state.py::test_binding_select_year_param - AssertionE...
+FAILED tests/test_final_state.py::test_browser_render - AssertionError: Brows...
+============== 2 failed, 1 passed, 7 errors in 461.98s (0:07:41) ===============

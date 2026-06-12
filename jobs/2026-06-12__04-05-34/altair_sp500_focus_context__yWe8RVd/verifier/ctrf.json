@@ -1,0 +1,92 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:16:34.005943+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781237690329,
+            "stop": 1781237794005
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1301,
+                "start": 1781237690367,
+                "stop": 1781237691668,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_is_vconcat_of_two",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237691668,
+                "stop": 1781237691669,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_panels_contain_area_marks",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237691670,
+                "stop": 1781237691671,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_panel_hosts_x_interval_brush",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237691671,
+                "stop": 1781237691672,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_x_domain_bound_to_brush",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237691672,
+                "stop": 1781237691673,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_has_rule_with_max_price_and_brush_filter",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237691673,
+                "stop": 1781237691674,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_two_area_panels_and_brush",
+                "status": "passed",
+                "duration": 102330,
+                "start": 1781237691674,
+                "stop": 1781237794004,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "id": "840c29c1-196e-4c6e-8dd8-5be1247ef3f1",
+    "task_name": "altair_barley_grouped_sort",
+    "trial_name": "altair_barley_grouped_sort__LF9zrgh",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__05-01-03/altair_barley_grouped_sort__LF9zrgh",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_barley_grouped_sort"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "1b9a88201c17a7711230e4ba0181f1eac8e151bc417caa551a03183a7b8f19a4",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_barley_grouped_sort",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_barley_grouped_sort__LF9zrgh",
+        "trials_dir": "jobs/2026-06-12__05-01-03",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "anthropic/claude-4-6-sonnet",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "c14a583c-971f-4733-b0a3-8b61df6b00d9"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "claude-4-6-sonnet",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 27493,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T05:06:23.396760Z",
+    "finished_at": "2026-06-12T05:11:11.943916Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T05:06:23.404682Z",
+        "finished_at": "2026-06-12T05:06:27.950711Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T05:06:27.950851Z",
+        "finished_at": "2026-06-12T05:06:45.799967Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T05:06:45.800078Z",
+        "finished_at": "2026-06-12T05:09:02.011354Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T05:09:03.341814Z",
+        "finished_at": "2026-06-12T05:11:00.119154Z"
+    },
+    "step_results": null
+}

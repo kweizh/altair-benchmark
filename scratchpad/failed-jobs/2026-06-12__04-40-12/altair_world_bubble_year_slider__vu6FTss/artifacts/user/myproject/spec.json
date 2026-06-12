@@ -1,0 +1,193 @@
+{
+  "config": {
+    "view": {
+      "continuousWidth": 300,
+      "continuousHeight": 300
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json",
+        "format": {
+          "feature": "countries",
+          "type": "topojson"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eeeeee",
+        "stroke": "white"
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/gapminder.json"
+      },
+      "mark": {
+        "type": "circle"
+      },
+      "encoding": {
+        "color": {
+          "field": "cluster",
+          "type": "nominal"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "pop",
+          "scale": {
+            "domain": [
+              0,
+              1303182268.0
+            ]
+          },
+          "type": "quantitative"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "country",
+          "from": {
+            "data": {
+              "name": "data-1b0f4778d5b1861acdf08a6675c9b971"
+            },
+            "key": "country",
+            "fields": [
+              "lon",
+              "lat"
+            ]
+          }
+        },
+        {
+          "filter": "(datum.year === Year)"
+        }
+      ]
+    }
+  ],
+  "height": 400,
+  "params": [
+    {
+      "name": "Year",
+      "bind": {
+        "input": "range",
+        "max": 2005,
+        "min": 1955,
+        "name": "Year",
+        "step": 5
+      },
+      "value": 1955
+    }
+  ],
+  "projection": {
+    "type": "naturalEarth1"
+  },
+  "title": "World Population Bubble Map",
+  "width": 800,
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "datasets": {
+    "data-1b0f4778d5b1861acdf08a6675c9b971": [
+      {
+        "country": "Afghanistan",
+        "lon": 65.0,
+        "lat": 33.0
+      },
+      {
+        "country": "Argentina",
+        "lon": -64.0,
+        "lat": -34.0
+      },
+      {
+        "country": "Australia",
+        "lon": 133.0,
+        "lat": -27.0
+      },
+      {
+        "country": "Austria",
+        "lon": 13.3,
+        "lat": 47.5
+      },
+      {
+        "country": "Bangladesh",
+        "lon": 90.0,
+        "lat": 24.0
+      },
+      {
+        "country": "Belgium",
+        "lon": 4.0,
+        "lat": 50.0
+      },
+      {
+        "country": "Bolivia",
+        "lon": -65.0,
+        "lat": -17.0
+      },
+      {
+        "country": "Brazil",
+        "lon": -55.0,
+        "lat": -10.0
+      },
+      {
+        "country": "Canada",
+        "lon": -106.0,
+        "lat": 56.0
+      },
+      {
+        "country": "China",
+        "lon": 105.0,
+        "lat": 35.0
+      },
+      {
+        "country": "France",
+        "lon": 2.0,
+        "lat": 46.0
+      },
+      {
+        "country": "Germany",
+        "lon": 9.0,
+        "lat": 51.0
+      },
+      {
+        "country": "India",
+        "lon": 79.0,
+        "lat": 22.0
+      },
+      {
+        "country": "Japan",
+        "lon": 138.0,
+        "lat": 36.0
+      },
+      {
+        "country": "Mexico",
+        "lon": -102.0,
+        "lat": 23.0
+      },
+      {
+        "country": "Nigeria",
+        "lon": 8.0,
+        "lat": 10.0
+      },
+      {
+        "country": "South Africa",
+        "lon": 24.0,
+        "lat": -29.0
+      },
+      {
+        "country": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.0
+      },
+      {
+        "country": "United States",
+        "lon": -97.0,
+        "lat": 38.0
+      }
+    ]
+  }
+}

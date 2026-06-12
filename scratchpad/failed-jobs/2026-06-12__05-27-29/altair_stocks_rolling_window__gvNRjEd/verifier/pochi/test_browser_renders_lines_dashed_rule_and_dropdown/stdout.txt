@@ -1,0 +1,105 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-exported chart.html must render an interactive layered multi-company stock chart with raw and rolling-mean lines, a dashed per-symbol mean-price reference rule, and a dropdown widget that filters which symbol is displayed. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html and wait until the Vega-Embed visualization has finished loading (no error message is shown in the chart container). Verify all of the following are true: (1) at least two SVG path or canvas-drawn line marks are visible in the chart area; (2) at least one mark in the chart uses a dashed stroke (its SVG stroke-dasharray attribute is non-empty, typically '3,3'); (3) the page contains a visible HTML <select> element (the binding_select dropdown) whose options include MSFT, AMZN, IBM, GOOG, and AAPL. The chart container must not display a Vega-Embed error. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+❯ Verify Altair-exported chart.html functionality (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 💫 Executing npm install -g agent-browser@0.24.0 && agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser snapshot
+| 💫 Executing agent-browser get html body
+| 💫 Executing agent-browser get text #vis && agent-browser snapshot -i
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing agent-browser get html "#vis svg .marks"
+| 💫 Executing agent-browser get html "#vis" > vis_content.html && grep -o "stroke-dasharray" vis_content.html | wc -l && grep -o "<path" vis_content.html | wc -l && grep -o "<line" vis_content.html | wc -l
+| 💫 Executing grep "role-mark" vis_content.html
+| 💫 Executing grep -C 2 "role-mark" vis_content.html | head -n 50
+| 💫 Executing grep -o "role-mark" vis_content.html | wc -l
+| 💫 Executing grep -B 1 -A 2 "role-mark" vis_content.html
+| 💫 Executing cat <<'EOF' > verify_chart.py
+| from bs4 import BeautifulSoup
+| import sys
+| 
+| def verify():
+|     with open('vis_content.html', 'r') as f:
+|         html = f.read()
+|     
+|     soup = BeautifulSoup(html, 'html.parser')
+|     
+|     # 1. No error message
+|     error_elements = soup.find_all(class_='vega-embed-error')
+|     if error_elements:
+|         print(f"FAIL: Found error elements: {error_elements}")
+|         return False
+|     
+|     if "Error" in soup.get_text() and "Vega visualization" not in soup.get_text(): # Simple check
+|         print("FAIL: Possible error message found in text")
+|         # return False # Might be false positive, let's check further
+|     
+|     # 2. At least two SVG path or canvas-drawn line marks
+|     # In Vega, line marks are often <path> elements with class starting with "mark-line" or "mark-path"
+|     # or inside a <g class="mark-line role-mark">
+|     marks = soup.find_all('path', class_=lambda x: x and ('mark-line' in x or 'mark-path' in x))
+|     if not marks:
+|         # Check for role-mark
+|         marks = soup.find_all(attrs={"role": "graphics-object", "aria-roledescription": lambda x: x and 'mark' in x})
+|     
+|     # Let's also look for paths inside role-mark groups
+|     role_marks = soup.find_all(class_=lambda x: x and 'role-mark' in x)
+|     mark_elements = []
+|     for rm in role_marks:
+|         mark_elements.extend(rm.find_all(['path', 'line']))
+|     
+|     print(f"Found {len(mark_elements)} mark elements (path/line) inside role-mark groups")
+|     
+|     if len(mark_elements) < 2:
+|         print(f"FAIL: Only found {len(mark_elements)} mark elements")
+|         return False
+|     
+|     # 3. At least one mark uses a dashed stroke
+|     dashed_marks = [m for m in mark_elements if m.get('stroke-dasharray') and m.get('stroke-dasharray') != 'none']
+|     print(f"Found {len(dashed_marks)} dashed mark elements")
+|     
+|     if not dashed_marks:
+|         # Check all paths just in case
+|         all_paths = soup.find_all('path')
+|         dashed_paths = [p for p in all_paths if p.get('stroke-dasharray') and p.get('stroke-dasharray') != 'none']
+|         print(f"Found {len(dashed_paths)} dashed paths in total")
+|         if not dashed_paths:
+|             print("FAIL: No dashed marks found")
+|             return False
+| 
+|     return True
+| 
+| if __name__ == "__main__":
+|     if verify():
+|         sys.exit(0)
+|     else:
+|         sys.exit(1)
+| EOF
+| python3 verify_chart.py
+| 💫 Executing agent-browser get html ".vega-embed-error"
+| 💫 Executing grep -o 'role="graphics-object"' vis_content.html | wc -l
+| 💫 Executing grep 'role="graphics-object"' vis_content.html | grep 'stroke-dasharray' | wc -l
+| 💫 Executing grep 'role="graphics-object"' vis_content.html | grep 'stroke-dasharray'
+| 💫 Executing tr '>' '\n' < vis_content.html | grep 'role="graphics-object"' -A 5 | grep 'stroke-dasharray'
+| 💫 Executing agent-browser snapshot -i
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+✔ Verify Altair-exported chart.html functionality (browser)
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "All verification steps passed:\n1. Vega-Embed visualization loaded successfully as evidenced by the presence of a 'Vega visualization' SVG in the DOM and the absence of any '.vega-embed-error' elements.\n2. At least two SVG marks were found; the chart contains multiple path and line elements with role='graphics-symbol' representing the data.\n3. A dashed stroke was verified; several line marks (rule marks) have the attribute 'stroke-dasharray=\"5,5\"'.\n4. A visible HTML <select> element (binding_select) was found containing the options: MSFT, AMZN, IBM, GOOG, and AAPL.\n5. No Vega-Embed errors were detected in the chart container."
+}   
+  

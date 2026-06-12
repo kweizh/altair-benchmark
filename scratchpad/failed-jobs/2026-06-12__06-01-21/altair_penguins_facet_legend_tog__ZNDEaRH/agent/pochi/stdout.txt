@@ -1,0 +1,168 @@
+- Initializing MCP connections...
+You
+# Faceted Penguins Scatter with Legend-Toggle Interaction ## Background You are exploring the Palmer penguins dataset with Vega-Altair. To compare species within each island side-by-side while still being able to focus on a single species across all islands, build a faceted scatter chart that lets the viewer toggle species visibility through the legend. ## Requirements * Load the penguins dataset from `vega_datasets` (`from vega_datasets import data; data.penguins()`). * Build a faceted scatter plot: * One panel per `Island`, arranged as columns. * Each panel plots `Beak Length (mm)` on the x-axis against `Body Mass (g)` on the y-axis. * Points are colored by `Species`. * Add a point selection that is projected over the `Species` field and bound to the chart's legend, so that clicking a legend entry toggles the corresponding species across every facet panel. * Drive the marks' `opacity` encoding from that selection: points that match the selected species are fully opaque, all other points are dimmed (use a small opacity such as \~0.1). * Resolve the y scale independently for each facet panel. * Configure both x and y scales so they do not include zero. * Save the chart to: * `/home/user/myproject/chart.html` — the rendered, embeddable HTML (used for browser verification). * `/home/user/myproject/chart.json` — the Vega-Lite specification produced by Altair (e.g. via `chart.to_dict()` or `chart.to_json()`). ## Implementation Hints * Use `alt.Chart(...).mark_point().encode(...)` to build a single base scatter, then compose it into a faceted chart with `.facet(...)`. * The legend-driven selection should be a point selection projected over a single field. Refer to Altair's selection / parameter docs and the Vega-Lite `bind: "legend"` pattern. * Use `alt.condition(...)` (or the equivalent `alt.when(...).then(...).otherwise(...)`) on the `opacity` channel so that the selection drives opacity rather than color. * Per-panel y axes are controlled through scale resolution at the compound-chart level. * Use `alt.X(...).scale(zero=False)` and `alt.Y(...).scale(zero=False)` to keep both axes from including zero. * Save the spec JSON exactly as Altair emits it; do not hand-edit the JSON. Use `chart.save('chart.html')` (and `chart.to_dict()` / `chart.to_json()` for the JSON file). ## Acceptance Criteria * Project path: /home/user/myproject * Ensure the script is executed and the artifacts exist. * Output artifacts: * `/home/user/myproject/chart.html` — standalone HTML produced by Altair that embeds the Vega-Lite spec via vegaEmbed. * `/home/user/myproject/chart.json` — the Vega-Lite specification of the same chart. * The Vega-Lite specification must satisfy all of the following: * It is a faceted chart whose column facet is the `Island` field. * It declares a point selection (Vega-Lite `param`) with: * `select.type = "point"` * `select.fields` containing exactly `"Species"` * `bind = "legend"` (string `"legend"` or an object `{ "legend": ... }`) * The `opacity` encoding is a `condition` that references that param by name. The selected branch uses a high opacity (1, or very close to 1) and the unselected branch uses a low opacity (around 0.1, and strictly less than 0.5). * The chart's `resolve.scale.y` is set to `"independent"`. * Both the x and y scales explicitly set `zero` to `false`. * The data points are colored by `Species` and plotted with `Beak Length (mm)` on x and `Body Mass (g)` on y. * Browser verification on `/home/user/myproject/chart.html`: * The page renders at least 3 facet panels (one per island). * A legend for `Species` is present and its symbols are clickable / interactive (cursor changes or click events are wired up).   
+
+Pochi
+I'll build this faceted penguins scatter plot step by step.   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject && pip install altair vega_datasets vl-convert 2>&1 | tail -5 ✔ 
+💫 Executing pip install --break-system-packages altair vega_datasets vl-convert 2>&1 | tail -5 ✔ 
+💫 Executing pip install --break-system-packages vl-convert-python 2>&1 | tail -5 ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/myproject/chart.py ✔ 
+💫 Executing cd /home/user/myproject && python chart.py 2>&1 ✖ "Command exited with code 1"
+💫 Executing python -c "from vega_datasets import data; print([d for d in dir(data) if not d.startswith('_')])" 2>&1 ✔ 
+The `penguins` dataset isn't in this version of `vega_datasets`. Let me check if there's a newer version or use an alternative source.   
+💫 Executing pip show vega_datasets 2>&1 ✔ 
+💫 Executing pip install --break-system-packages --upgrade vega_datasets 2>&1 | tail -5 ✔ 
+The `penguins` dataset isn't in vega_datasets 0.9.0. Let me use seaborn's penguins dataset instead, which is the same Palmer penguins dataset.   
+💫 Executing pip install --break-system-packages seaborn 2>&1 | tail -3 ✔ 
+💫 Executing python -c "import seaborn as sns; df = sns.load_dataset('penguins'); print(df.columns.tolist()); print(df.head(2))" 2>&1 ✔ 
+Seaborn's penguins dataset uses lowercase column names. I need to map them to the expected names (`Beak Length (mm)`, `Body Mass (g)`, `Species`, `Island`). Let me update the script.   
+✏️  Writing /home/user/myproject/chart.py ✔ 
+💫 Executing cd /home/user/myproject && python chart.py 2>&1 ✖ "Command exited with code 1"
+💫 Executing python -c "import altair; print(altair.__version__)" 2>&1 ✔ 
+Altair 6.x uses a different API for `resolve`. Let me check the correct syntax.   
+💫 Executing python -c "from altair import Resolve; help(Resolve)" 2>&1 ✔ 
+💫 Executing python -c "
+from altair import Resolve, ScaleResolveMap
+print(ScaleResolveMap)
+# Check how to create a Resolve with independent y
+r = Resolve(scale={'y': 'independent'})
+print(r.to_dict())
+" 2>&1 ✔ 
+Now I know the correct syntax. Let me update the script.   
+✏️  Writing /home/user/myproject/chart.py ✔ 
+💫 Executing cd /home/user/myproject && python chart.py 2>&1 ✔ 
+📋 Updating todo list (4 items) ✔ 
+Now let me verify the generated artifacts against all acceptance criteria.   
+📖 Reading /home/user/myproject/chart.json ✔ 
+💫 Executing ls -la /home/user/myproject/chart.html /home/user/myproject/chart.json 2>&1 ✔ 
+Both files exist. Now let me verify the JSON spec against the acceptance criteria using a focused script:   
+💫 Executing python3 << 'PYEOF'
+import json
+
+with open("/home/user/myproject/chart.json") as f:
+    spec = json.load(f)
+
+checks = []
+
+# 1. Faceted chart with column facet on Island
+facet = spec.get("facet", {})
+col = facet.get("column", {})
+checks.append(("Facet column field is Island", col.get("field") == "Island"))
+checks.append(("Facet column type is nominal", col.get("type") == "nominal"))
+
+# 2. Point selection param with type=point, fields=["Species"], bind="legend"
+params = spec.get("params", [])
+param = params[0] if params else {}
+checks.append(("Param name exists", "name" in param))
+checks.append(("Param select type is point", param.get("select", {}).get("type") == "point"))
+checks.append(("Param select fields is ['Species']", param.get("select", {}).get("fields") == ["Species"]))
+checks.append(("Param bind is legend", param.get("bind") == "legend"))
+
+# 3. Opacity encoding with condition referencing the param
+spec_inner = spec.get("spec", {})
+encoding = spec_inner.get("encoding", {})
+opacity = encoding.get("opacity", {})
+checks.append(("Opacity has condition", "condition" in opacity))
+cond = opacity.get("condition", {})
+checks.append(("Condition references species_legend param", cond.get("param") == "species_legend"))
+checks.append(("Condition value is 1.0 (opaque)", cond.get("value") == 1.0))
+checks.append(("Otherwise value is 0.1 (dimmed)", opacity.get("value") == 0.1))
+checks.append(("Otherwise opacity < 0.5", opacity.get("value", 1) < 0.5))
+
+# 4. Resolve scale y = independent
+resolve = spec.get("resolve", {})
+scale_resolve = resolve.get("scale", {})
+checks.append(("Resolve scale y is independent", scale_resolve.get("y") == "independent"))
+
+# 5. X and Y scales zero=false
+x_scale = encoding.get("x", {}).get("scale", {})
+y_scale = encoding.get("y", {}).get("scale", {})
+checks.append(("X scale zero is False", x_scale.get("zero") == False))
+checks.append(("Y scale zero is False", y_scale.get("zero") == False))
+
+# 6. Color by Species, x = Beak Length, y = Body Mass
+checks.append(("Color field is Species", encoding.get("color", {}).get("field") == "Species"))
+checks.append(("X field is Beak Length (mm)", encoding.get("x", {}).get("field") == "Beak Length (mm)"))
+checks.append(("Y field is Body Mass (g)", encoding.get("y", {}).get("field") == "Body Mass (g)"))
+
+# 7. Mark is point
+checks.append(("Mark type is point", spec_inner.get("mark", {}).get("type") == "point"))
+
+# Print results
+all_pass = True
+for desc, result in checks:
+    status = "PASS" if result else "FAIL"
+    if not result:
+        all_pass = False
+    print(f"[{status}] {desc}")
+
+print(f"\n{'ALL CHECKS PASSED' if all_pass else 'SOME CHECKS FAILED'}")
+PYEOF ✔ 
+All 18 acceptance criteria checks pass. Now let me verify the HTML renders correctly by checking its content:   
+💫 Executing python3 << 'PYEOF'
+# Verify the HTML file contains vegaEmbed and the spec
+with open("/home/user/myproject/chart.html") as f:
+    html = f.read()
+
+checks = []
+checks.append(("HTML contains vegaEmbed", "vegaEmbed" in html))
+checks.append(("HTML contains Vega-Lite spec", "https://vega.github.io/schema/vega-lite/" in html))
+checks.append(("HTML contains Species", "Species" in html))
+checks.append(("HTML contains Island", "Island" in html))
+
+# Count unique islands in the dataset to confirm 3 facets
+import json
+with open("/home/user/myproject/chart.json") as f:
+    spec = json.load(f)
+datasets = spec.get("datasets", {})
+for key, data in datasets.items():
+    if isinstance(data, list):
+        islands = set(d.get("Island") for d in data if d.get("Island"))
+        print(f"Unique islands in data: {islands}")
+        checks.append(("At least 3 islands (facets)", len(islands) >= 3))
+        break
+
+for desc, result in checks:
+    status = "PASS" if result else "FAIL"
+    print(f"[{status}] {desc}")
+PYEOF ✔ 
+All checks pass. Let me do a final verification of the HTML to make sure it's a properly self-contained page:   
+📖 Reading /home/user/myproject/chart.html ✔ 
+The HTML is a properly self-contained page with `vegaEmbed`, the full Vega-Lite spec, and CDN references to vega, vega-lite, and vega-embed.   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The faceted penguins scatter chart with legend-toggle interaction has been built and both artifacts are generated.
+
+## Artifacts
+
+- **`/home/user/myproject/chart.html`** — Standalone HTML embedding the Vega-Lite spec via vegaEmbed (57 KB)
+- **`/home/user/myproject/chart.json`** — The Vega-Lite specification (81 KB)
+
+## Vega-Lite Spec Verification (all 18 checks pass)
+
+| Criterion | Status |
+|---|---|
+| Faceted by `Island` as column | ✅ |
+| Point selection param `species_legend` with `select.type = "point"` | ✅ |
+| Selection `fields` = `["Species"]` | ✅ |
+| `bind = "legend"` | ✅ |
+| Opacity uses `condition` referencing `species_legend` | ✅ |
+| Selected opacity = 1.0 | ✅ |
+| Unselected opacity = 0.1 (< 0.5) | ✅ |
+| `resolve.scale.y = "independent"` | ✅ |
+| X scale `zero = false` | ✅ |
+| Y scale `zero = false` | ✅ |
+| Color by `Species` | ✅ |
+| X = `Beak Length (mm)` | ✅ |
+| Y = `Body Mass (g)` | ✅ |
+| Mark type = `point` | ✅ |
+| 3 islands in data (Torgersen, Biscoe, Dream) | ✅ |
+| HTML contains vegaEmbed with CDN scripts | ✅ |
+
+## Implementation Notes
+
+The `penguins` dataset was not available in the installed `vega_datasets` (v0.9.0), so the script loads the same Palmer penguins data from `seaborn` and renames columns to match the expected field names (`Species`, `Island`, `Beak Length (mm)`, `Body Mass (g)`). The Altair 6.x API uses `alt.selection_point()` with `bind="legend"` and `alt.Resolve(scale={"y": "independent"})` for the per-panel y-axis resolution.   
+  

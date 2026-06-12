@@ -1,0 +1,366 @@
+- Initializing MCP connections...
+You
+# Seattle Precipitation Calendar Heatmap with Altair ## Background You will build a small Python program that uses Vega-Altair to produce a year-by-year calendar heatmap of Seattle precipitation. The chart shows, for every day of the year, how much rain fell, and lets the reader pick a single year from a dropdown to bring its facet into focus while dimming the others. The chart must be exported as a self-contained HTML file that opens correctly in a modern browser. The dataset is the standard `vega_datasets` Seattle weather sample, available as a URL via `vega_datasets.data.seattle_weather.url`. It contains daily observations with columns including `date`, `precipitation`, `temp_max`, `temp_min`, `wind`, and `weather`. ## Requirements * Build a `rect`-based heatmap whose cells are colored by total precipitation per (year, month, day-of-month) cell. * The x axis must encode the day of the month (1-31) derived from `date` with the `date` time unit as an ordinal field. * The y axis must encode the month (Jan-Dec) derived from `date` with the `month` time unit as an ordinal field. * Color must encode the sum of `precipitation` as a quantitative field and use the `greens` color scheme. * The chart must show multiple yearly panels by faceting (or repeating) on `year(date):O`. The Seattle weather dataset spans 2012-2015, so you should see four yearly panels. * Add a dropdown widget bound to a year parameter using `alt.binding_select`, populated with all years present in the data (2012, 2013, 2014, 2015). When the reader selects a year, that year's facet must remain fully opaque (opacity 1) while every other facet is dimmed (opacity 0.2). Use the v5+ conditional encoding pattern (`alt.when(...).then(...).otherwise(...)`) to drive the opacity from the bound parameter. * Tooltip on each cell must show the full date (the `date` field as temporal) and the summed precipitation. * Configure axis titles, a chart title (something like `Seattle Daily Precipitation (Calendar Heatmap)`), and shortened month axis labels (for example `Jan`, `Feb`, ...). * Save the final chart as `chart.html` in the project directory using `Chart.save`. The HTML must embed the Vega-Lite specification so it can be opened directly in a browser without a Python runtime. ## Implementation Hints * Use `data.seattle_weather.url` as the data source so the chart references the URL inside the spec rather than inlining the full table. * Encode time-unit-derived fields directly in the shorthand (for example, `date(date):O` and `month(date):O`) rather than pre-aggregating in Python. * The opacity condition should compare the per-cell year (also a `year(date)` time unit) against the value of the bound parameter; the value referenced inside `alt.when` should match the parameter, not a hard-coded year. * Pick between `.facet(column='year(date):O')` and `.repeat(...)` based on which keeps the bound parameter and the opacity condition working consistently across panels. * Remember that running `Chart.save('chart.html')` writes a standalone HTML file that loads Vega/Vega-Lite/Vega-Embed from a CDN. * The entrypoint script must be runnable as `python3 main.py` from the project directory and must (re)generate `chart.html` on each run. ## Acceptance Criteria * Project path: /home/user/myproject * Command: python3 main.py * Running the command from the project directory must (re)create the file `/home/user/myproject/chart.html`. * The generated `chart.html` is a standalone HTML file that embeds a Vega-Lite specification and renders correctly in a modern browser (verified with `pochi-verifier`). * The embedded Vega-Lite spec, when inspected, must satisfy all of the following: * Uses the `rect` mark. * Encodes x with `timeUnit = date` over the `date` field, as an ordinal field. * Encodes y with `timeUnit = month` over the `date` field, as an ordinal field. * Facets or repeats panels by `timeUnit = year` over the `date` field. * Encodes color as `aggregate = sum` of `precipitation`, quantitative, with the `greens` color scheme. * Defines exactly one parameter that is bound via `binding_select` whose options list the four years 2012, 2013, 2014, and 2015. * Opacity is a conditional encoding driven by that bound year parameter (selected year fully opaque, others dimmed). * Tooltip lists the full date and the summed precipitation. * When opened in a browser, the page must show: * A grid of yearly facet panels (4 panels for the four years in the dataset), each containing a 12-row by \~31-column grid of `rect` cells. * A `<select>` HTML widget (the year dropdown) is present on the page.   
+
+Pochi
+I'll start by exploring the project directory and understanding what's already there, then build the solution.   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing python3 -c "import altair; print(altair.__version__)" 2>&1 ✔ 
+💫 Executing python3 -c "import vega_datasets; print(vega_datasets.data.seattle_weather.url)" 2>&1 ✔ 
+📋 Updating todo list (3 items) ✔ 
+Let me check the Altair v5 API for the conditional opacity pattern and parameter binding syntax:   
+💫 Executing python3 -c "
+import altair as alt
+# Check available API
+print('alt.when:', hasattr(alt, 'when'))
+print('alt.param:', hasattr(alt, 'param'))
+print('alt.binding_select:', hasattr(alt, 'binding_select'))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+import vega_datasets
+
+# Quick test: load the data and inspect columns
+import pandas as pd
+df = pd.read_csv(vega_datasets.data.seattle_weather.url)
+print(df.columns.tolist())
+print(df['date'].dtype)
+print(df['date'].min(), df['date'].max())
+print(df['precipitation'].describe())
+print('Years:', sorted(df['date'].str[:4].unique()))
+" 2>&1 ✔ 
+Good. The date column is a string in `YYYY/MM/DD` format. Altair's time unit parsing handles this via the `date` field reference. Now let me build the chart:   
+✏️  Writing /home/user/myproject/main.py ✔ 
+💫 Executing cd /home/user/myproject && python3 main.py 2>&1 ✖ "Command exited with code 1"
+Let me fix the opacity encoding. In Altair v5, the conditional pattern uses `alt.condition` directly or `alt.when(...).then(...).otherwise(...)`:   
+💫 Executing python3 -c "
+import altair as alt
+# Check what's available on Opacity
+o = alt.Opacity()
+print(type(o))
+print(dir(o))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+# Check if alt.when works with condition
+help(alt.when)
+" 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+# Check how condition works on encoding channels
+help(alt.condition)
+" 2>&1 | head -60 ✔ 
+Now I understand the API. Let me rewrite the script using `alt.condition` directly or the `alt.when(...).then(...).otherwise(...)` pattern:   
+✏️  Writing /home/user/myproject/main.py ✔ 
+💫 Executing cd /home/user/myproject && python3 main.py 2>&1 ✖ "Command exited with code 1"
+I see - the Tooltip encoding syntax is different in this version, and the opacity condition approach needs adjustment. Let me fix both:   
+💫 Executing python3 -c "
+import altair as alt
+# Check tooltip syntax
+help(alt.Tooltip)
+" 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+# Check how condition works on Opacity
+# Let's look at how to properly use condition with opacity
+print('=== Testing condition on Opacity ===')
+# The condition should be passed directly to Opacity
+help(alt.OpacityValue)
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+# Check ConditionalPredicateValueDefnumberExprRef
+help(alt.ConditionalPredicateValueDefnumberExprRef)
+" 2>&1 | head -30 ✔ 
+Now I understand the API better. Let me rewrite the script properly:   
+✏️  Writing /home/user/myproject/main.py ✔ 
+💫 Executing cd /home/user/myproject && python3 main.py 2>&1 ✖ "Command exited with code 1"
+The issue is `OpacityValue` expects `condition` as the first positional argument, not `value`. And the Tooltip shorthand syntax needs to be different. Let me look at how Tooltip is supposed to work:   
+💫 Executing python3 -c "
+import altair as alt
+# Test tooltip with list of strings
+chart = alt.Chart().mark_point().encode(
+    tooltip=['date:T', 'sum(precipitation):Q']
+)
+print(chart.to_dict())
+" 2>&1 ✔ 
+OK, tooltip with shorthand strings works. Now for opacity, let me check the correct way:   
+💫 Executing python3 -c "
+import altair as alt
+
+# OpacityValue expects condition as first arg, value as second
+# Let's try passing them correctly
+cond = alt.condition(
+    \"datum['year(date)'] == selected_year\",
+    alt.value(1.0),
+    alt.value(0.2),
+)
+print(type(cond))
+print(cond.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import altair as alt
+
+cond = alt.condition(
+    \"datum['year(date)'] == selected_year\",
+    alt.value(1.0),
+    alt.value(0.2),
+)
+print(cond)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Test OpacityValue - condition is the FIRST positional arg
+cond = alt.condition(
+    \"datum['year(date)'] == selected_year\",
+    alt.value(1.0),
+    alt.value(0.2),
+)
+# OpacityValue(condition, value=...)
+op = alt.OpacityValue(cond, value=1.0)
+print(op.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import altair as alt
+
+# OpacityValue(value, condition=...)
+cond = alt.condition(
+    \"datum['year(date)'] == selected_year\",
+    alt.value(1.0),
+    alt.value(0.2),
+)
+# The signature is OpacityValue(value, condition=...)
+op = alt.OpacityValue(1.0, condition=cond)
+print(op.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+Hmm, it says "Existing parameter names are: value condition" but then says "has no parameter named 'condition'". This is confusing - it might be a case sensitivity issue with the schema. Let me check:   
+💫 Executing python3 -c "
+import altair as alt
+from altair.utils.schemapi import SchemaBase
+
+# Let's look at what OpacityValue actually accepts
+print(alt.OpacityValue.__init__.__doc__)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+import inspect
+sig = inspect.signature(alt.OpacityValue.__init__)
+print(sig)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Let's check what 'condition' dict looks like for OpacityValue
+# The error says the param is named 'condition' but it's not accepting it
+# Maybe the issue is that the condition dict needs to be wrapped differently?
+
+# Let's try using the when/then/otherwise pattern
+print('=== Testing when/then/otherwise ===')
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(1.0).otherwise(0.2)
+print(type(cond))
+print(cond.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import altair as alt
+
+# when/then/otherwise expects alt.value() not raw numbers
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(alt.value(1.0)).otherwise(alt.value(0.2))
+print(type(cond))
+print(cond.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import altair as alt
+
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(alt.value(1.0)).otherwise(alt.value(0.2))
+print(cond)
+" 2>&1 ✔ 
+Now let me try using this with OpacityValue:   
+💫 Executing python3 -c "
+import altair as alt
+
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(alt.value(1.0)).otherwise(alt.value(0.2))
+# Try passing as condition keyword
+op = alt.OpacityValue(1.0, condition=cond)
+print(op.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+This is strange - the error says "Existing parameter names are: value condition" but then says "has no parameter named 'condition'". Let me look at the source:   
+💫 Executing python3 -c "
+import altair as alt
+import inspect
+# Print the source of OpacityValue
+print(inspect.getsource(alt.OpacityValue))
+" 2>&1 ✔ 
+I see - the `__init__` accepts `value` as the first positional arg and `condition` as a keyword arg. But the validation is failing. Let me check the parent class:   
+💫 Executing python3 -c "
+import altair as alt
+import inspect
+print(inspect.getsource(alt.ValueChannelMixin))
+" 2>&1 ✔ 
+The issue is in `to_dict` - it tries to parse the condition dict and when it finds `"field"` in the condition dict, it tries to parse it as a shorthand. But wait, the condition dict I'm passing doesn't have a `field` key. Let me debug more:   
+💫 Executing python3 -c "
+import altair as alt
+
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(alt.value(1.0)).otherwise(alt.value(0.2))
+print('cond:', cond)
+
+# The condition dict has 'condition' as a list and 'value' as the default
+# But OpacityValue expects condition to be passed separately
+# Let me try passing just the condition part
+op = alt.OpacityValue(1.0, condition=cond)
+print('op._kwds:', op._kwds)
+" 2>&1 ✔ 
+I see - the `when/then/otherwise` already produces a `{'condition': [...], 'value': ...}` dict, so I'm double-wrapping. The `cond` dict already has the structure that OpacityValue expects. Let me pass it differently:   
+💫 Executing python3 -c "
+import altair as alt
+
+# The when/then/otherwise returns a dict that's the full spec
+# {'condition': [...], 'value': 0.2}
+# This IS the full opacity encoding. Let me pass it directly to encode
+
+# Actually, let me try using alt.condition differently
+# Looking at the error 'Existing parameter names are: value   condition'
+# Maybe the issue is that the schema expects 'condition' but there's a typo in the schema itself
+
+# Let me try a different approach: pass the condition as a positional arg
+cond = alt.when(\"datum['year(date)'] == selected_year\").then(alt.value(1.0)).otherwise(alt.value(0.2))
+# The when/then returns {'condition': [...], 'value': 0.2}
+# This is the complete opacity encoding. Let's use it directly in .encode()
+print('cond:', cond)
+" 2>&1 ✔ 
+The `when/then/otherwise` result is already a complete encoding dict. Let me use it directly:   
+✏️  Writing /home/user/myproject/main.py ✔ 
+💫 Executing cd /home/user/myproject && python3 main.py 2>&1 ✔ 
+The chart generated successfully. Let me verify the output:   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && ls -la chart.html && head -50 chart.html ✔ 
+The HTML file is generated. Let me verify the spec against the acceptance criteria:   
+💫 Executing python3 -c "
+import json
+
+# Parse the spec from the HTML
+with open('/home/user/myproject/chart.html') as f:
+    html = f.read()
+
+# Extract the JSON spec
+import re
+match = re.search(r'var spec = ({.*?});', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+print('=== SPEC VERIFICATION ===')
+print()
+
+# 1. rect mark
+print('1. Mark type:', spec['spec']['mark']['type'])
+assert spec['spec']['mark']['type'] == 'rect', 'Must be rect mark'
+print('   ✅ rect mark')
+
+# 2. x encoding
+x = spec['spec']['encoding']['x']
+print(f'2. X: timeUnit={x.get(\"timeUnit\")}, field={x.get(\"field\")}, type={x.get(\"type\")}')
+assert x['timeUnit'] == 'date', 'x timeUnit must be date'
+assert x['field'] == 'date', 'x field must be date'
+assert x['type'] == 'ordinal', 'x type must be ordinal'
+print('   ✅ x encoding')
+
+# 3. y encoding
+y = spec['spec']['encoding']['y']
+print(f'3. Y: timeUnit={y.get(\"timeUnit\")}, field={y.get(\"field\")}, type={y.get(\"type\")}')
+assert y['timeUnit'] == 'month', 'y timeUnit must be month'
+assert y['field'] == 'date', 'y field must be date'
+assert y['type'] == 'ordinal', 'y type must be ordinal'
+print('   ✅ y encoding')
+
+# 4. Facet by year
+facet = spec['facet']
+print(f'4. Facet: column timeUnit={facet[\"column\"].get(\"timeUnit\")}, field={facet[\"column\"].get(\"field\")}, type={facet[\"column\"].get(\"type\")}')
+assert facet['column']['timeUnit'] == 'year', 'facet timeUnit must be year'
+assert facet['column']['field'] == 'date', 'facet field must be date'
+print('   ✅ facet by year')
+
+# 5. Color encoding
+color = spec['spec']['encoding']['color']
+print(f'5. Color: aggregate={color.get(\"aggregate\")}, field={color.get(\"field\")}, type={color.get(\"type\")}, scheme={color[\"scale\"].get(\"scheme\")}')
+assert color['aggregate'] == 'sum', 'color aggregate must be sum'
+assert color['field'] == 'precipitation', 'color field must be precipitation'
+assert color['type'] == 'quantitative', 'color type must be quantitative'
+assert color['scale']['scheme'] == 'greens', 'color scheme must be greens'
+print('   ✅ color encoding')
+
+# 6. Parameter
+params = spec.get('params', [])
+print(f'6. Params: {len(params)} param(s)')
+assert len(params) == 1, 'Must have exactly one parameter'
+p = params[0]
+print(f'   name={p[\"name\"]}, bind.input={p[\"bind\"][\"input\"]}, options={p[\"bind\"][\"options\"]}')
+assert p['name'] == 'selected_year', 'param name must be selected_year'
+assert p['bind']['input'] == 'select', 'must use binding_select'
+assert p['bind']['options'] == [2012, 2013, 2014, 2015], 'options must be 2012-2015'
+print('   ✅ parameter')
+
+# 7. Opacity condition
+opacity = spec['spec']['encoding']['opacity']
+print(f'7. Opacity: {opacity}')
+assert 'condition' in opacity, 'must have condition'
+cond = opacity['condition']
+assert len(cond) >= 1
+c = cond[0] if isinstance(cond, list) else cond
+assert 'test' in c, 'condition must have test'
+assert 'selected_year' in c['test'], 'test must reference selected_year'
+assert c['value'] == 1.0, 'selected year must be fully opaque'
+assert opacity['value'] == 0.2, 'other years must be dimmed'
+print('   ✅ opacity condition')
+
+# 8. Tooltip
+tooltip = spec['spec']['encoding']['tooltip']
+print(f'8. Tooltip: {len(tooltip)} entries')
+for t in tooltip:
+    print(f'   field={t.get(\"field\")}, type={t.get(\"type\")}, aggregate={t.get(\"aggregate\")}')
+has_date = any(t.get('field') == 'date' and t.get('type') == 'temporal' for t in tooltip)
+has_precip = any(t.get('field') == 'precipitation' and t.get('aggregate') == 'sum' for t in tooltip)
+assert has_date, 'tooltip must include date'
+assert has_precip, 'tooltip must include summed precipitation'
+print('   ✅ tooltip')
+
+# 9. Data source
+print(f'9. Data: {spec.get(\"data\", {}).get(\"url\", \"N/A\")}')
+assert 'url' in spec.get('data', {}), 'must use URL data source'
+print('   ✅ data URL')
+
+print()
+print('=== ALL CHECKS PASSED ===')
+" 2>&1 ✔ 
+All checks pass. Let me also verify the file exists at the expected path and the script is re-runnable:   
+💫 Executing ls -la /home/user/myproject/chart.html && ls -la /home/user/myproject/main.py ✔ 
+💫 Executing cd /home/user/myproject && python3 main.py 2>&1 ✔ 
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+The Seattle precipitation calendar heatmap has been built and verified. Here's a summary:
+
+**Files created:**
+- `/home/user/myproject/main.py` — the entrypoint script
+- `/home/user/myproject/chart.html` — the standalone HTML output
+
+**What the chart does:**
+- Uses `rect` marks to create a heatmap of daily precipitation
+- X axis: day of month (1–31), ordinal, derived via `date(date):O`
+- Y axis: month (Jan–Dec), ordinal, derived via `month(date):O` with `%b` formatting
+- Color: sum of precipitation, quantitative, using the `greens` color scheme
+- Facets by `year(date):O` into 4 panels (2012–2015)
+- Includes a `<select>` dropdown bound to a `selected_year` parameter with options [2012, 2013, 2014, 2015]
+- Opacity is conditionally driven: the selected year's panel is fully opaque (1.0), others are dimmed (0.2), using `alt.when(...).then(...).otherwise(...)`
+- Tooltips show the full date (temporal) and summed precipitation
+- Data is loaded from the `vega_datasets` CDN URL (not inlined)
+
+**Verified spec properties:**
+- ✅ `rect` mark
+- ✅ X: `timeUnit=date`, `field=date`, `type=ordinal`
+- ✅ Y: `timeUnit=month`, `field=date`, `type=ordinal`
+- ✅ Facet: `timeUnit=year`, `field=date`
+- ✅ Color: `aggregate=sum`, `field=precipitation`, `type=quantitative`, `scheme=greens`
+- ✅ Exactly one parameter with `binding_select`, options [2012, 2013, 2014, 2015]
+- ✅ Opacity conditional on `selected_year` parameter
+- ✅ Tooltip with date (temporal) and summed precipitation
+- ✅ Data via URL (CDN)
+- ✅ Re-runnable: `python3 main.py` regenerates `chart.html`   
+  

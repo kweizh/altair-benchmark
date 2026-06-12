@@ -1,0 +1,128 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:39:58.083503+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781239006241,
+            "stop": 1781239198083
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1372,
+                "start": 1781239006287,
+                "stop": 1781239007659,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_json_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781239007660,
+                "stop": 1781239007660,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_vconcat_with_two_views",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239007661,
+                "stop": 1781239007662,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_upper_view_is_layered_rule_and_bar",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781239007663,
+                "stop": 1781239007663,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_uses_low_and_high",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239007664,
+                "stop": 1781239007665,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bar_layer_uses_open_and_close",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239007665,
+                "stop": 1781239007666,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_uses_conditional_on_open_close",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781239007666,
+                "stop": 1781239007668,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_view_is_volume_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239007668,
+                "stop": 1781239007669,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_view_has_interval_brush_on_x",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239007669,
+                "stop": 1781239007670,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_upper_x_scale_domain_references_brush",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781239007671,
+                "stop": 1781239007671,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_renders_candlestick_and_volume_in_browser",
+                "status": "passed",
+                "duration": 190410,
+                "start": 1781239007672,
+                "stop": 1781239198082,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

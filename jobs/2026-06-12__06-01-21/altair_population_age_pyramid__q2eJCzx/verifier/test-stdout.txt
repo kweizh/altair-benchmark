@@ -1,0 +1,36 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ..F........                                    [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_population_dataset_url __________________________
+
+spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...type': 'quantitative'}, 'y': {'axis': {'title': 'Age'}, 'field': 'age', 'sort': 'descending', 'type': 'ordinal'}}, ...}
+
+    def test_population_dataset_url(spec: dict):
+        urls = _all_data_urls(spec)
+>       assert DATASET_URL in urls, (
+            f"Spec must reference the dataset URL {DATASET_URL!r}. Found data URLs: {urls!r}."
+        )
+E       AssertionError: Spec must reference the dataset URL 'https://vega.github.io/vega-datasets/data/population.json'. Found data URLs: ['https://cdn.jsdelivr.net/npm/vega-datasets@v3.2.1/data/population.json'].
+E       assert 'https://vega.github.io/vega-datasets/data/population.json' in ['https://cdn.jsdelivr.net/npm/vega-datasets@v3.2.1/data/population.json']
+
+tests/test_final_state.py:141: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_html_artifact_exists
+PASSED tests/test_final_state.py::test_spec_artifact_exists
+PASSED tests/test_final_state.py::test_calculate_transform_signs_people_by_sex
+PASSED tests/test_final_state.py::test_filter_transform_references_year_param
+PASSED tests/test_final_state.py::test_mark_is_bar
+PASSED tests/test_final_state.py::test_x_encoding_uses_signed_field_with_abs_label_expr
+PASSED tests/test_final_state.py::test_y_encoding_is_age_ordinal_reversed
+PASSED tests/test_final_state.py::test_color_encoding_custom_scale_and_legend
+PASSED tests/test_final_state.py::test_year_dropdown_param
+PASSED tests/test_final_state.py::test_browser_renders_pyramid_with_dropdown_and_signed_bars
+FAILED tests/test_final_state.py::test_population_dataset_url - AssertionErro...
+=================== 1 failed, 10 passed in 112.05s (0:01:52) ===================

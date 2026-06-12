@@ -1,0 +1,92 @@
+Skipping image OS validation for hb__altair_co2_anomaly_band: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-p8funwp > /logs/artifacts/run-id && echo altair_co2_anomaly_band__p8FUnwP > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Iowa Electricity Anomaly Band Chart (Vega-Altair)
+
+## Background
+Build a layered statistical visualization with Vega-Altair that summarizes the yearly distribution of Iowa electricity net generation across its different source categories, and highlights the year with the largest median output.
+
+The data lives at the URL referenced by `data.iowa_electricity.url` (from the `vega_datasets` package). Each row has a `year` (date), a `source` (e.g. `Coal`, `Hydro`, `Fossil Fuels`, `Renewables`), and a numeric `net_generation`.
+
+## Requirements
+Produce a single, layered Altair chart written to an HTML file. The chart must contain exactly four overlaid layers, all sharing a temporal x-axis built from `year`:
+
+1. An IQR error band of `net_generation` per year (across `source` groups), drawn with a smooth (monotone) interpolation.
+2. A line of the median `net_generation` per year.
+3. A horizontal dashed rule drawn at `y = 0`, colored red.
+4. A text annotation that labels the single year with the largest median `net_generation`. The label must contain both the year and the median value, and must be selected from the data using a window-rank transform so the annotation is data-driven, not hard-coded.
+
+The chart must carry both a title and a subtitle, and use an explicit temporal scale on the x-axis.
+
+## Implementation Hints
+- The dataset is at `data.iowa_electricity.url`; declare the x field as temporal and use the Vega-Lite `year(year)` time-unit shorthand or an equivalent temporal binning of the date column.
+- For layer 1, use `mark_errorband` with `extent='iqr'` and `interpolate='monotone'`.
+- For layer 2, use `mark_line` with a median aggregate on `net_generation`.
+- For layer 3, use `mark_rule` with a dashed stroke (`strokeDash=[4, 4]`) at `y = 0`, colored red.
+- For layer 4, precompute the per-year median with `transform_aggregate`, then use `transform_window` with the `rank` operation (sorted by descending median) to pick the top year, filter to rank 1, and render the year and median value as a `mark_text` annotation.
+- Apply a `time` scale on the x channel and set a chart title with a subtitle (e.g. via `alt.TitleParams`).
+- Save the final chart as a self-contained HTML file using Altair's `save` method.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the script is executed and the artifacts exist.
+- Log file: /home/user/myproject/output.log
+- Output artifact: /home/user/myproject/chart.html (self-contained Altair HTML chart).
+- The HTML file must embed a single Vega-Lite spec with a top-level `layer` array containing the four layers described above, in any order:
+  - An `errorband` mark with `extent: "iqr"` and `interpolate: "monotone"`.
+  - A `line` mark whose y encoding represents the median of `net_generation`.
+  - A `rule` mark whose y encoding (datum or value) is `0`, with `strokeDash` set to `[4, 4]` and a red color.
+  - A `text` mark whose layer (or one of its referenced data transforms) includes a `window` transform using the `rank` operation and a `filter` keeping only the top-ranked row.
+- The shared x encoding must be a temporal field (`type: "temporal"`) derived from the `year` column, and the spec must include a `scale` with `"type": "time"` on x.
+- The spec must include a title with both a `text` and a `subtitle`.
+- After running the script, the log file must contain a line in the format: `Chart written: /home/user/myproject/chart.html`.
+- Browser verification: opening `chart.html` must render an SVG/canvas chart that contains a visible error band area, a median line, a dashed horizontal rule, and a text annotation pointing at the maximum-median year.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

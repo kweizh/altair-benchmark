@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "repeat": {"column": ["Beak Length (mm)", "Beak Depth (mm)", "Flipper Length (mm)", "Body Mass (g)"], "row": ["Beak Length (mm)", "Beak Depth (mm)", "Flipper Length (mm)", "Body Mass (g)"]}, "spec": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v2/data/penguins.json"}, "mark": {"type": "point"}, "encoding": {"color": {"condition": {"param": "param_54853b0de6a785bc", "field": "Species", "type": "nominal"}, "value": "lightgray"}, "x": {"field": {"repeat": "column"}, "scale": {"zero": false}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "scale": {"zero": false}, "type": "quantitative"}}, "name": "view_9cbc24212ab76866_0"}, "params": [{"name": "param_54853b0de6a785bc", "select": {"type": "interval", "encodings": ["x", "y"]}, "views": ["view_9cbc24212ab76866_0_child__row_Beak Length (mm)column_Beak Length (mm)", "view_9cbc24212ab76866_0_child__row_Beak Length (mm)column_Beak Depth (mm)", "view_9cbc24212ab76866_0_child__row_Beak Length (mm)column_Flipper Length (mm)", "view_9cbc24212ab76866_0_child__row_Beak Length (mm)column_Body Mass (g)", "view_9cbc24212ab76866_0_child__row_Beak Depth (mm)column_Beak Length (mm)", "view_9cbc24212ab76866_0_child__row_Beak Depth (mm)column_Beak Depth (mm)", "view_9cbc24212ab76866_0_child__row_Beak Depth (mm)column_Flipper Length (mm)", "view_9cbc24212ab76866_0_child__row_Beak Depth (mm)column_Body Mass (g)", "view_9cbc24212ab76866_0_child__row_Flipper Length (mm)column_Beak Length (mm)", "view_9cbc24212ab76866_0_child__row_Flipper Length (mm)column_Beak Depth (mm)", "view_9cbc24212ab76866_0_child__row_Flipper Length (mm)column_Flipper Length (mm)", "view_9cbc24212ab76866_0_child__row_Flipper Length (mm)column_Body Mass (g)", "view_9cbc24212ab76866_0_child__row_Body Mass (g)column_Beak Length (mm)", "view_9cbc24212ab76866_0_child__row_Body Mass (g)column_Beak Depth (mm)", "view_9cbc24212ab76866_0_child__row_Body Mass (g)column_Flipper Length (mm)", "view_9cbc24212ab76866_0_child__row_Body Mass (g)column_Body Mass (g)"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ..........F                                    [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_streamgraph_renders_in_browser ______________________
+
+serve_chart = 'http://localhost:8765/chart.html'
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7fd53b65ffe0>
+
+    def test_streamgraph_renders_in_browser(serve_chart, browser_verifier):
+        chart_url = serve_chart
+        reason = (
+            "The HTML should render an interactive Altair streamgraph of US "
+            "unemployment counts across industries. Industry bands must be "
+            "vertically stacked around a central baseline (center stack, "
+            "streamgraph shape) and colored by industry. Moving the pointer "
+            "horizontally must reveal a vertical ruler at the nearest month and "
+            "a text annotation showing the dominant industry for that month."
+        )
+        truth = f"""
+    1. Open a browser tab and navigate to {chart_url}.
+    2. Wait for the chart to render. Confirm a streamgraph appears: multiple
+       coloured industry bands stacked symmetrically around a horizontal centerline
+       (i.e., the bands extend both above and below a central baseline, not from a
+       y=0 baseline). The X axis spans roughly 2000-2010 (yearmonth ticks).
+    3. Move the mouse pointer horizontally across the chart area at mid-height.
+       Confirm that a vertical ruler line appears at the position of the pointer
+       and tracks the nearest month as the pointer moves.
+    4. While hovering, confirm that a text label (the top industry name for that
+       month, such as "Government", "Manufacturing", "Trade Transportation Utilities",
+       etc.) is shown near the ruler, and that the label updates as you move the
+       pointer to different months.
+    """
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_streamgraph_renders_in_browser",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The verification failed because the chart at http://localhost:8765/chart.html did not render. The browser agent identified a syntax error in the JavaScript code on the page: a template placeholder `{{mode: "vega-lite"}}` was present in the `vegaEmbed` call, which is invalid JavaScript. Consequently, no SVG or Canvas elements were generated, and the streamgraph, axis, and interactive elements (ruler and labels) could not be verified.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:407: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/serve_chart$ python3 -m http.server 8765
+process 'serve_chart' started pid=1091
+serve_chart process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_runs_successfully
+PASSED tests/test_final_state.py::test_chart_html_exists_and_nonempty
+PASSED tests/test_final_state.py::test_area_layer_with_monotone_interpolate
+PASSED tests/test_final_state.py::test_area_layer_center_stacked_sum_count
+PASSED tests/test_final_state.py::test_area_layer_x_yearmonth_date
+PASSED tests/test_final_state.py::test_area_layer_color_series_category20b
+PASSED tests/test_final_state.py::test_nearest_pointerover_selection_point
+PASSED tests/test_final_state.py::test_rule_layer_bound_to_selection
+PASSED tests/test_final_state.py::test_text_layer_present
+PASSED tests/test_final_state.py::test_window_rank_groupby_date
+FAILED tests/test_final_state.py::test_streamgraph_renders_in_browser - Asser...
+=================== 1 failed, 10 passed in 133.41s (0:02:13) ===================

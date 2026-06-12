@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:11:45.141780+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 4,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781244571400,
+            "stop": 1781244705141
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1251,
+                "start": 1781244571436,
+                "stop": 1781244572687,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_is_vconcat_of_two",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244572688,
+                "stop": 1781244572689,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_panels_contain_area_marks",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244572689,
+                "stop": 1781244572690,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_panel_hosts_x_interval_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 22,
+                "start": 1781244572690,
+                "stop": 1781244572712,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...s': [{'name': 'brush', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_95ce3b0e671f0461_1']}], ...}\n\n    def test_lower_panel_hosts_x_interval_brush(built_spec):\n        lower = built_spec[\"vconcat\"][1]\n        brush_name = _find_brush_param_name(lower)\n>       assert brush_name is not None, (\n            \"Lower (context) panel must declare a selection_interval parameter \"\n            \"restricted to encodings=['x'] via add_params.\"\n        )\nE       AssertionError: Lower (context) panel must declare a selection_interval parameter restricted to encodings=['x'] via add_params.\nE       assert None is not None\n\ntests/test_final_state.py:260: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_x_domain_bound_to_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1781244572713,
+                "stop": 1781244572721,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...s': [{'name': 'brush', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_95ce3b0e671f0461_1']}], ...}\n\n    def test_upper_panel_x_domain_bound_to_brush(built_spec):\n        upper = built_spec[\"vconcat\"][0]\n        lower = built_spec[\"vconcat\"][1]\n        brush_name = _find_brush_param_name(lower)\n>       assert brush_name is not None, (\n            \"Cannot validate x-domain binding because the lower panel has no \"\n            \"selection_interval(encodings=['x']) brush parameter.\"\n        )\nE       AssertionError: Cannot validate x-domain binding because the lower panel has no selection_interval(encodings=['x']) brush parameter.\nE       assert None is not None\n\ntests/test_final_state.py:270: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_has_rule_with_max_price_and_brush_filter",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 8,
+                "start": 1781244572722,
+                "stop": 1781244572730,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...s': [{'name': 'brush', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_95ce3b0e671f0461_1']}], ...}\n\n    def test_upper_panel_has_rule_with_max_price_and_brush_filter(built_spec):\n        upper = built_spec[\"vconcat\"][0]\n        lower = built_spec[\"vconcat\"][1]\n        brush_name = _find_brush_param_name(lower)\n>       assert brush_name is not None, \"No brush parameter found for filter check.\"\nE       AssertionError: No brush parameter found for filter check.\nE       assert None is not None\n\ntests/test_final_state.py:285: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_two_area_panels_and_brush",
+                "status": "passed",
+                "duration": 132409,
+                "start": 1781244572731,
+                "stop": 1781244705140,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

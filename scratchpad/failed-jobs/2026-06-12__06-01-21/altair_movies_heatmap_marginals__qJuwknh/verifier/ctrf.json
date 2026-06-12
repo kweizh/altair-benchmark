@@ -1,0 +1,116 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:24:02.348199+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 7,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781245282583,
+            "stop": 1781245442347
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781245282630,
+                "stop": 1781245282632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_nonempty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245282632,
+                "stop": 1781245282633,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_compound_layout_top_above_center_and_right",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245282633,
+                "stop": 1781245282634,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_heatmap_is_rect_with_binned_x_and_y",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781245282635,
+                "stop": 1781245282635,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_heatmap_color_uses_count_aggregate_with_viridis",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781245282636,
+                "stop": 1781245282636,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_2d_interval_brush_on_heatmap",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23,
+                "start": 1781245282637,
+                "stop": 1781245282660,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...4853b0de6a785bc', 'select': {'encodings': ['x', 'y'], 'type': 'interval'}, 'views': ['view_f2499105062e19f5_0']}], ...}\n\n    def test_2d_interval_brush_on_heatmap(spec):\n        params = _find_params(spec)\n        interval_params = []\n        for p in params:\n            sel = p.get(\"select\")\n            if isinstance(sel, dict) and sel.get(\"type\") == \"interval\":\n                interval_params.append(p)\n        assert interval_params, (\n            \"Spec must declare at least one interval-selection parameter (the 2D brush).\"\n        )\n        xy_brushes = []\n        for p in interval_params:\n            sel = p.get(\"select\")\n            encs = (sel or {}).get(\"encodings\") or []\n            if \"x\" in encs and \"y\" in encs:\n                xy_brushes.append(p[\"name\"])\n        assert xy_brushes, (\n            \"An interval selection projected over BOTH 'x' and 'y' encodings is required \"\n            f\"(2D brush). Found interval params: {[p.get('name') for p in interval_params]}.\"\n        )\n    \n        _top, center, _right = _get_subplots(spec)\n        heatmap_param_names = []\n        for node in _iter_all_specs(center):\n            for p in node.get(\"params\") or []:\n                heatmap_param_names.append(p.get(\"name\"))\n>       assert any(n in xy_brushes for n in heatmap_param_names), (\n            \"The 2D-brush interval selection must be attached to the heatmap subplot. \"\n            f\"Heatmap params: {heatmap_param_names}; 2D-brush params: {xy_brushes}.\"\n        )\nE       AssertionError: The 2D-brush interval selection must be attached to the heatmap subplot. Heatmap params: []; 2D-brush params: ['param_54853b0de6a785bc'].\nE       assert False\nE        +  where False = any(<generator object test_2d_interval_brush_on_heatmap.<locals>.<genexpr> at 0x7f72e44435e0>)\n\ntests/test_final_state.py:250: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_top_marginal_is_layered_with_brush_filter",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 13,
+                "start": 1781245282660,
+                "stop": 1781245282673,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...4853b0de6a785bc', 'select': {'encodings': ['x', 'y'], 'type': 'interval'}, 'views': ['view_f2499105062e19f5_0']}], ...}\n\n    def test_top_marginal_is_layered_with_brush_filter(spec):\n        top, _center, _right = _get_subplots(spec)\n        brush_names = _brush_names(spec)\n        assert brush_names, \"Spec must include at least one interval-selection parameter.\"\n>       _check_layered_marginal(top, brush_names, \"Top\")\n\ntests/test_final_state.py:277: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nmarginal = {'hconcat': [{'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/movies.json'}, 'layer': [{'enco...'encoding': {}, 'mark': {'text': '', 'type': 'text'}}], 'resolve': {'scale': {'x': 'independent', 'y': 'independent'}}}\nbrush_names = ['param_54853b0de6a785bc'], axis = 'Top'\n\n    def _check_layered_marginal(marginal: dict, brush_names: list[str], axis: str):\n        layers = marginal.get(\"layer\")\n>       assert isinstance(layers, list) and len(layers) >= 2, (\n            f\"{axis} marginal must be a layered chart with at least 2 bar layers \"\n            f\"(gray total + colored filtered).\"\n        )\nE       AssertionError: Top marginal must be a layered chart with at least 2 bar layers (gray total + colored filtered).\nE       assert (False)\nE        +  where False = isinstance(None, list)\n\ntests/test_final_state.py:258: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_right_marginal_is_layered_with_brush_filter",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245282674,
+                "stop": 1781245282675,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_three_subplots",
+                "status": "passed",
+                "duration": 159672,
+                "start": 1781245282675,
+                "stop": 1781245442347,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

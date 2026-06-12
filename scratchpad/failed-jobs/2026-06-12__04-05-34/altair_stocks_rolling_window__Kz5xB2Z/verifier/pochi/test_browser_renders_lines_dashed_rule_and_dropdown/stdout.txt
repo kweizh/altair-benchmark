@@ -1,0 +1,46 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-exported chart.html must render an interactive layered multi-company stock chart with raw and rolling-mean lines, a dashed per-symbol mean-price reference rule, and a dropdown widget that filters which symbol is displayed. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html and wait until the Vega-Embed visualization has finished loading (no error message is shown in the chart container). Verify all of the following are true: (1) at least two SVG path or canvas-drawn line marks are visible in the chart area; (2) at least one mark in the chart uses a dashed stroke (its SVG stroke-dasharray attribute is non-empty, typically '3,3'); (3) the page contains a visible HTML <select> element (the binding_select dropdown) whose options include MSFT, AMZN, IBM, GOOG, and AAPL. The chart container must not display a Vega-Embed error. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 599 characters   
+❯ Verify the Altair-exported chart.html at http://localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser snapshot
+| 💫 Executing agent-browser get html "#vis"
+| 💫 Executing grep "stroke-dasharray" /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log
+| 💫 Executing grep -o "stroke-dasharray" /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | wc -l
+| 💫 Executing grep -o 'stroke-dasharray="3,3"' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | wc -l
+| 💫 Executing grep -o 'stroke-dasharray="[^"]*"' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | sort | uniq -c
+| 💫 Executing grep -o 'class="mark-[^"]*"' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | sort | uniq -c
+| 💫 Executing agent-browser get text "#vis"
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing grep -A 1 'class="mark-line' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log
+| 💫 Executing grep -o '<path[^>]*class="mark-line[^>]*>' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log
+| 💫 Executing grep -o '<[^>]*class="mark-line[^>]*>' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log
+| 💫 Executing grep -o '<path[^>]*>' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | head -n 20
+| 💫 Executing grep 'stroke-dasharray' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | grep -o '<path[^>]*>' | head -n 5
+| 💫 Executing grep -o '<path[^>]*stroke-dasharray="[^"]*"[^>]*>' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | head -n 5
+| 💫 Executing grep -o '<[^>]*stroke-dasharray="4,4"[^>]*>' /root/.pochi/tasks/39f37eac-a776-4051-83cd-e0b18b6bb5a6/tool-results/executeCommand-PzsT2oDmEdWbg7Rz-output.log | head -n 5
+| 💫 Executing agent-browser get html "select"
+| 💫 Executing agent-browser snapshot -c -d 10
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+✔ Verify the Altair-exported chart.html at http://localhost:8765/chart.html (browser)
+💭 Thinking for 337 characters   
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The verification of http://localhost:8765/chart.html was successful. The Vega-Embed visualization loaded without errors. The chart area contains multiple line marks, including raw stock prices and rolling means. Specifically, dashed lines (stroke-dasharray='4,4') representing the all-time mean were identified. Additionally, a visible <select> element (dropdown) was confirmed to contain the required options: MSFT, AMZN, IBM, GOOG, and AAPL. No Vega-Embed error messages were present."
+}   
+  

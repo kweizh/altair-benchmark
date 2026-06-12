@@ -1,0 +1,99 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T05:12:01.405523+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781241119935,
+            "stop": 1781241121405
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "failed",
+                "duration": 1251,
+                "start": 1781241119969,
+                "stop": 1781241121220,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_is_vconcat_of_two",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781241121221,
+                "stop": 1781241121232,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_both_panels_contain_area_marks",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781241121233,
+                "stop": 1781241121244,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_lower_panel_hosts_x_interval_brush",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781241121244,
+                "stop": 1781241121255,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_x_domain_bound_to_brush",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781241121256,
+                "stop": 1781241121267,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_upper_panel_has_rule_with_max_price_and_brush_filter",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781241121267,
+                "stop": 1781241121278,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_two_area_panels_and_brush",
+                "status": "failed",
+                "duration": 125,
+                "start": 1781241121279,
+                "stop": 1781241121404,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def built_spec() -> dict[str, Any]:\n        _build_chart()\n        assert os.path.isfile(CHART_HTML), f\"{CHART_HTML} was not produced by build_chart.py\"\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as fp:\n            html = fp.read()\n        assert len(html) > 0, \"chart.html is empty.\"\n>       return _extract_spec(html)\n\ntests/test_final_state.py:204: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"utf-8\">\\n<title>S&amp;P 500 Focus + Context</title>\\n<script src=\"htt...\\n  vegaEmbed(\\'#vis\\', spec, {renderer: \\'svg\\', actions: true}).catch(console.error);\\n</script>\\n</body>\\n</html>\\n'\n\n    def _extract_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-saved HTML file.\"\"\"\n        # Altair's default template embeds the spec as: var spec = { ... };\n        match = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if match is None:\n            # Fallback: look for vegaEmbed(\"#vis\", { ... }\n            match = re.search(r\"vegaEmbed\\([^,]+,\\s*(\\{.*?\\})\\s*,\", html, re.DOTALL)\n>       assert match is not None, (\n            \"Could not locate the embedded Vega-Lite JSON spec inside chart.html.\"\n        )\nE       AssertionError: Could not locate the embedded Vega-Lite JSON spec inside chart.html.\nE       assert None is not None\n\ntests/test_final_state.py:45: AssertionError"
+            }
+        ]
+    }
+}

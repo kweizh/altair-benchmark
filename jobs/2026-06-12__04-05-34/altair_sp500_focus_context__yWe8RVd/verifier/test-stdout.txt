@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+________________ test_browser_renders_two_area_panels_and_brush ________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_server$ python3 -m http.server 8765
+process 'altair_chart_server' started pid=1449
+altair_chart_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_top_level_is_vconcat_of_two
+PASSED tests/test_final_state.py::test_both_panels_contain_area_marks
+PASSED tests/test_final_state.py::test_lower_panel_hosts_x_interval_brush
+PASSED tests/test_final_state.py::test_upper_panel_x_domain_bound_to_brush
+PASSED tests/test_final_state.py::test_upper_panel_has_rule_with_max_price_and_brush_filter
+PASSED tests/test_final_state.py::test_browser_renders_two_area_panels_and_brush
+======================== 7 passed in 103.67s (0:01:43) =========================

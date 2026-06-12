@@ -1,0 +1,55 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py ......F..                                      [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_click_selection_on_origin_field _____________________
+
+spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v5.20.1.json', 'config': {'view': {'continuousHeight': 300, 'cont...['latitude2', 'longitude2'], 'from': {'data': {...}, 'fields': [...], 'key': 'iata'}, 'lookup': 'destination'}]}], ...}
+
+    def test_click_selection_on_origin_field(spec: dict):
+        params = _collect_params(spec)
+        selections = []
+        for p in params:
+            sel = p.get("select")
+            if isinstance(sel, dict) and sel.get("type") == "point":
+                selections.append((p, sel))
+            elif sel == "point":
+                selections.append((p, {"type": "point"}))
+        assert selections, "No point selection parameter declared in the spec."
+        matching = []
+        for param, sel in selections:
+            fields = sel.get("fields")
+            on = sel.get("on")
+            empty = sel.get("empty")
+            if (
+                fields == ["origin"]
+                and isinstance(on, str)
+                and "click" in on
+                and empty is False
+            ):
+                matching.append(param)
+>       assert matching, (
+            "No point selection with fields=['origin'], on containing 'click', and empty=False. "
+            f"Found selections: {selections}"
+        )
+E       AssertionError: No point selection with fields=['origin'], on containing 'click', and empty=False. Found selections: [({'name': 'param_1', 'select': {'type': 'point', 'fields': ['origin'], 'on': 'click'}, 'views': ['view_1']}, {'type': 'point', 'fields': ['origin'], 'on': 'click'})]
+E       assert []
+
+tests/test_final_state.py:321: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists_and_non_empty
+PASSED tests/test_final_state.py::test_projection_is_albers_usa
+PASSED tests/test_final_state.py::test_geoshape_layer_uses_states_topojson
+PASSED tests/test_final_state.py::test_circle_layer_from_airports_with_lat_long
+PASSED tests/test_final_state.py::test_rule_layer_has_four_geo_encodings
+PASSED tests/test_final_state.py::test_rule_layer_has_two_lookups_origin_and_destination
+PASSED tests/test_final_state.py::test_route_layer_is_gated_by_selection
+PASSED tests/test_final_state.py::test_browser_render_contains_geo_and_marks
+FAILED tests/test_final_state.py::test_click_selection_on_origin_field - Asse...
+=================== 1 failed, 8 passed in 222.50s (0:03:42) ====================

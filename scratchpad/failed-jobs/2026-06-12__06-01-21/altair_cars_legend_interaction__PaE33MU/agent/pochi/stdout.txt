@@ -1,0 +1,208 @@
+- Initializing MCP connections...
+You
+# Shared Legend-Driven Cars Dashboard with Vega-Altair ## Background Vega-Altair is a declarative statistical visualization library for Python that compiles to Vega-Lite. In this task you will build an interactive multi-view dashboard on the classic `cars` dataset (available as `vega_datasets.data.cars`). The dashboard is driven by a SINGLE shared legend-bound selection over `Origin` so that clicking an entry in the `Origin` legend simultaneously highlights/dims the matching marks in three different charts. ## Requirements Produce a single Python entry-point at `/home/user/myproject/solution.py` that, when executed, builds the chart and writes a Vega-embed HTML file to `/home/user/myproject/chart.html`. The rendered chart must contain exactly three sub-views composed in the layout `(A | B) & C`: * **View A — Scatter (`mark_point` or `mark_circle`)** * x: `Horsepower` (quantitative) * y: `Miles_per_Gallon` (quantitative) * color: `Origin` (nominal) * **View B — Stacked bar chart (`mark_bar`)** * x: `Cylinders` as an ordinal axis (`Cylinders:O`) * y: `count()` aggregate (quantitative) * color: `Origin` (nominal) * The bars MUST be stacked along the y axis by `Origin` (one stacked bar per Cylinders value). Do NOT make this a side-by-side / grouped bar chart, i.e. do not use an `xOffset` encoding. * **View C — Histogram (`mark_bar`)** * x: `Acceleration` (quantitative), binned * y: `count()` aggregate (quantitative) * color: `Origin` (nominal) ## Shared Legend Selection (the central requirement) Define ONE `selection_point` parameter projected over `fields=['Origin']` and bound to the `Origin` color legend with `bind='legend'`. This single shared selection MUST drive opacity in all three sub-views: * When NOTHING is selected (initial state), every mark must be fully opaque (opacity ≈ 1). * When the user clicks an `Origin` legend entry, marks belonging to that origin in ALL THREE charts must remain fully opaque (≈ 1), and marks belonging to the OTHER origins must be dimmed (≈ 0.15). * Clicking the same legend entry again (or clicking the background) must clear the selection and restore full opacity everywhere. This behavior MUST be implemented with `alt.condition(selection, alt.value(1), alt.value(0.15))` (or the equivalent `alt.when(...).then(...).otherwise(...)` API) bound to the `opacity` channel on each of the three views. All three views MUST reference the SAME parameter — do not create a second selection for the bar chart or the histogram. Compose the three views as `(A | B) & C` using Altair's `|` and `&` operators, so the top-level Vega-Lite spec is a `vconcat` whose first row is an `hconcat` of A and B and whose second row is C. ## Implementation Hints * Use `vega_datasets.data.cars` (or `data.cars.url`) as the input data. * Use the Altair 5+ `selection_point(fields=[...], bind='legend')` API and attach the selection to the composed dashboard with `add_params(...)`. A single shared parameter attached at the top level is reused by every subview that references it. * Use `alt.condition(...)` (or `alt.when(...).then(...).otherwise(...)`) on the `opacity` channel of each subview — pass `alt.value(1)` and `alt.value(0.15)`. * For the histogram, use Altair's binning API (e.g. `alt.X('Acceleration:Q').bin()` or `alt.X('Acceleration', bin=True)`) together with `y='count()'`. * For the stacked bar chart, encode the categorical color with `Origin:N` and let Vega-Lite stack the bars by default (do NOT add an `xOffset` encoding, which would produce a grouped/side-by-side bar chart instead of a stacked one). * Save the chart with `chart.save('/home/user/myproject/chart.html')` so the resulting HTML embeds the full Vega-Lite spec. * Avoid hard-coding visual styling such as widths, fonts, color palettes, or titles — the verifier intentionally ignores these. ## Acceptance Criteria Project path: /home/user/myproject Command: python solution.py Artifact: /home/user/myproject/chart.html The verifier extracts the embedded Vega-Lite JSON spec from `chart.html` and checks: * The top-level spec uses `vconcat` containing exactly 2 entries; the first entry uses `hconcat` containing exactly 2 entries. (Layout = `(A | B) & C`.) * The spec declares exactly one shared point-selection parameter (visible either at the top-level `params` of the composed spec, or replicated identically across the sub-views) whose `select.type == 'point'`, whose `select.fields` contains `'Origin'`, and whose `select.bind == 'legend'`. Record its parameter name as `legend_param`. * View A (first entry inside `hconcat`): * mark is `point` or `circle`. * `encoding.x.field == 'Horsepower'`, `encoding.y.field == 'Miles_per_Gallon'`, `encoding.color.field == 'Origin'`. * `encoding.opacity` is a conditional expression that references `legend_param` and resolves to a high opacity value (≈ 1) when selected and a low opacity value (≤ 0.5) otherwise. * View B (second entry inside `hconcat`): * mark is `bar`. * `encoding.x.field == 'Cylinders'` with ordinal type (`type == 'ordinal'`), `encoding.y.aggregate == 'count'`, `encoding.color.field == 'Origin'`. * The bar chart MUST be stacked, NOT grouped: the spec must NOT contain an `encoding.xOffset` channel. Stacking may be expressed implicitly by Vega-Lite defaults or explicitly via `stack`; either is accepted as long as no `xOffset` channel is present. * `encoding.opacity` is a conditional expression referencing the same `legend_param` with the same selected ≈ 1 / unselected ≤ 0.5 semantics. * View C (second entry of the top-level `vconcat`): * mark is `bar`. * `encoding.x.field == 'Acceleration'` and `encoding.x.bin` is truthy (either `true` or an object). * `encoding.y.aggregate == 'count'`. * `encoding.color.field == 'Origin'`. * `encoding.opacity` is a conditional expression referencing the same `legend_param` with the same selected ≈ 1 / unselected ≤ 0.5 semantics. In addition, a browser verification step opens `chart.html` through a local HTTP server, waits for the Vega-embed runtime to render, and confirms that three sub-views are visible, the `Origin` legend is clickable, and clicking a legend entry simultaneously highlights the matching marks across all three views (dimming the other origins).   
+
+Pochi
+I'll build the Vega-Altair dashboard with shared legend selection. Let me start by examining the project structure and then create the solution.   
+📂 Listing files in /home/user/myproject recursively ✔ 
+💫 Executing python3 -c "import altair; print(altair.__version__)" 2>&1 ✔ 
+💫 Executing python3 -c "import vega_datasets; print(vega_datasets.__version__)" 2>&1 ✔ 
+Good, Altair 6.2.1 and vega_datasets are available. Let me check the existing solution.py:   
+📖 Reading /home/user/myproject/solution.py ✔ 
+Now I'll implement the full solution:   
+✏️  Writing /home/user/myproject/solution.py ✔ 
+Now let me run it to generate the chart:   
+💫 Executing cd /home/user/myproject && python3 solution.py ✔ 
+The chart was generated. There's a warning about deduplication — that's actually confirming the selection parameter is being shared/reused across all views, which is exactly what we want. Let me verify the output file exists:   
+💫 Executing ls -la /home/user/myproject/chart.html ✔ 
+Let me verify the embedded Vega-Lite spec to make sure all the requirements are met:   
+💫 Executing python3 -c "
+import json
+
+with open('/home/user/myproject/chart.html') as f:
+    html = f.read()
+
+# Extract the spec from the HTML
+# Vega-embed stores it in a script tag or in the JS
+import re
+match = re.search(r'var spec\s*=\s*({.*?});', html, re.DOTALL)
+if not match:
+    match = re.search(r'\"spec\":\s*({.*?})[\",]', html, re.DOTALL)
+if not match:
+    # Try finding the JSON object embedded in vegaEmbed call
+    match = re.search(r'vegaEmbed\([^,]+,\s*({.*?})\)', html, re.DOTALL)
+if not match:
+    print('Could not extract spec from HTML')
+    print(html[:2000])
+else:
+    spec = json.loads(match.group(1))
+    print(json.dumps(spec, indent=2)[:5000])
+"
+ ✔ 
+The spec is correct. Let me do a quick structured verification of all the key requirements:   
+💫 Executing python3 -c "
+import json, re
+
+with open('/home/user/myproject/chart.html') as f:
+    html = f.read()
+
+match = re.search(r'vegaEmbed\([^,]+,\s*({.*?})\)', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+# 1. Top-level vconcat with 2 entries
+assert 'vconcat' in spec, 'MISSING vconcat'
+assert len(spec['vconcat']) == 2, f'vconcat length: {len(spec[\"vconcat\"])}'
+
+# 2. First entry is hconcat with 2 entries
+row1 = spec['vconcat'][0]
+assert 'hconcat' in row1, 'MISSING hconcat in row1'
+assert len(row1['hconcat']) == 2, f'hconcat length: {len(row1[\"hconcat\"])}'
+
+# 3. Single shared param
+params = spec.get('params', [])
+assert len(params) == 1, f'params count: {len(params)}'
+param = params[0]
+assert param['select']['type'] == 'point', f'select type: {param[\"select\"][\"type\"]}'
+assert param['select']['fields'] == ['Origin'], f'fields: {param[\"select\"][\"fields\"]}'
+assert param['bind'] == 'legend', f'bind: {param[\"bind\"]}'
+param_name = param['name']
+print(f'Param name: {param_name}')
+
+# 4. View A (scatter)
+view_a = row1['hconcat'][0]
+assert view_a['mark']['type'] == 'circle', f'View A mark: {view_a[\"mark\"][\"type\"]}'
+ea = view_a['encoding']
+assert ea['x']['field'] == 'Horsepower', f'View A x: {ea[\"x\"][\"field\"]}'
+assert ea['y']['field'] == 'Miles_per_Gallon', f'View A y: {ea[\"y\"][\"field\"]}'
+assert ea['color']['field'] == 'Origin', f'View A color: {ea[\"color\"][\"field\"]}'
+assert ea['opacity']['condition']['param'] == param_name
+assert ea['opacity']['condition']['value'] == 1
+assert ea['opacity']['value'] == 0.15
+
+# 5. View B (stacked bar)
+view_b = row1['hconcat'][1]
+assert view_b['mark']['type'] == 'bar', f'View B mark: {view_b[\"mark\"][\"type\"]}'
+eb = view_b['encoding']
+assert eb['x']['field'] == 'Cylinders', f'View B x field: {eb[\"x\"][\"field\"]}'
+assert eb['x']['type'] == 'ordinal', f'View B x type: {eb[\"x\"][\"type\"]}'
+assert eb['y']['aggregate'] == 'count', f'View B y agg: {eb[\"y\"][\"aggregate\"]}'
+assert eb['color']['field'] == 'Origin', f'View B color: {eb[\"color\"][\"field\"]}'
+assert 'xOffset' not in eb, 'View B has xOffset (should be stacked, not grouped)'
+assert eb['opacity']['condition']['param'] == param_name
+assert eb['opacity']['condition']['value'] == 1
+assert eb['opacity']['value'] == 0.15
+
+# 6. View C (histogram)
+view_c = spec['vconcat'][1]
+assert view_c['mark']['type'] == 'bar', f'View C mark: {view_c[\"mark\"][\"type\"]}'
+ec = view_c['encoding']
+assert ec['x']['field'] == 'Acceleration', f'View C x field: {ec[\"x\"][\"field\"]}'
+assert 'bin' in ec['x'], f'View C x bin: {ec[\"x\"]}'
+assert ec['y']['aggregate'] == 'count', f'View C y agg: {ec[\"y\"][\"aggregate\"]}'
+assert ec['color']['field'] == 'Origin', f'View C color: {ec[\"color\"][\"field\"]}'
+assert ec['opacity']['condition']['param'] == param_name
+assert ec['opacity']['condition']['value'] == 1
+assert ec['opacity']['value'] == 0.15
+
+print()
+print('ALL CHECKS PASSED')
+"
+ ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+with open('/home/user/myproject/chart.html') as f:
+    html = f.read()
+# find the vegaEmbed call pattern
+import re
+for m in re.finditer(r'vegaEmbed', html):
+    print(html[m.start():m.start()+200])
+"
+ ✔ 
+💫 Executing python3 -c "
+import json, re
+
+with open('/home/user/myproject/chart.html') as f:
+    html = f.read()
+
+match = re.search(r'var spec = ({.*?});', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+# 1. Top-level vconcat with 2 entries
+assert 'vconcat' in spec, 'MISSING vconcat'
+assert len(spec['vconcat']) == 2, f'vconcat length: {len(spec[\"vconcat\"])}'
+
+# 2. First entry is hconcat with 2 entries
+row1 = spec['vconcat'][0]
+assert 'hconcat' in row1, 'MISSING hconcat in row1'
+assert len(row1['hconcat']) == 2, f'hconcat length: {len(row1[\"hconcat\"])}'
+
+# 3. Single shared param
+params = spec.get('params', [])
+assert len(params) == 1, f'params count: {len(params)}'
+param = params[0]
+assert param['select']['type'] == 'point', f'select type: {param[\"select\"][\"type\"]}'
+assert param['select']['fields'] == ['Origin'], f'fields: {param[\"select\"][\"fields\"]}'
+assert param['bind'] == 'legend', f'bind: {param[\"bind\"]}'
+param_name = param['name']
+print(f'Param name: {param_name}')
+
+# 4. View A (scatter)
+view_a = row1['hconcat'][0]
+assert view_a['mark']['type'] == 'circle', f'View A mark: {view_a[\"mark\"][\"type\"]}'
+ea = view_a['encoding']
+assert ea['x']['field'] == 'Horsepower', f'View A x: {ea[\"x\"][\"field\"]}'
+assert ea['y']['field'] == 'Miles_per_Gallon', f'View A y: {ea[\"y\"][\"field\"]}'
+assert ea['color']['field'] == 'Origin', f'View A color: {ea[\"color\"][\"field\"]}'
+assert ea['opacity']['condition']['param'] == param_name
+assert ea['opacity']['condition']['value'] == 1
+assert ea['opacity']['value'] == 0.15
+
+# 5. View B (stacked bar)
+view_b = row1['hconcat'][1]
+assert view_b['mark']['type'] == 'bar', f'View B mark: {view_b[\"mark\"][\"type\"]}'
+eb = view_b['encoding']
+assert eb['x']['field'] == 'Cylinders', f'View B x field: {eb[\"x\"][\"field\"]}'
+assert eb['x']['type'] == 'ordinal', f'View B x type: {eb[\"x\"][\"type\"]}'
+assert eb['y']['aggregate'] == 'count', f'View B y agg: {eb[\"y\"][\"aggregate\"]}'
+assert eb['color']['field'] == 'Origin', f'View B color: {eb[\"color\"][\"field\"]}'
+assert 'xOffset' not in eb, 'View B has xOffset (should be stacked, not grouped)'
+assert eb['opacity']['condition']['param'] == param_name
+assert eb['opacity']['condition']['value'] == 1
+assert eb['opacity']['value'] == 0.15
+
+# 6. View C (histogram)
+view_c = spec['vconcat'][1]
+assert view_c['mark']['type'] == 'bar', f'View C mark: {view_c[\"mark\"][\"type\"]}'
+ec = view_c['encoding']
+assert ec['x']['field'] == 'Acceleration', f'View C x field: {ec[\"x\"][\"field\"]}'
+assert 'bin' in ec['x'], f'View C x bin: {ec[\"x\"]}'
+assert ec['y']['aggregate'] == 'count', f'View C y agg: {ec[\"y\"][\"aggregate\"]}'
+assert ec['color']['field'] == 'Origin', f'View C color: {ec[\"color\"][\"field\"]}'
+assert ec['opacity']['condition']['param'] == param_name
+assert ec['opacity']['condition']['value'] == 1
+assert ec['opacity']['value'] == 0.15
+
+print()
+print('ALL CHECKS PASSED')
+"
+ ✔ 
+All checks pass. Let me provide a summary of what was built:   
+🎉 Task Completed
+The Vega-Altair dashboard has been implemented at `/home/user/myproject/solution.py` and generates `/home/user/myproject/chart.html`.
+
+**Implementation details:**
+
+The solution creates three sub-views composed as `(A | B) & C`:
+
+- **View A (Scatter):** `mark_circle` with x=`Horsepower`, y=`Miles_per_Gallon`, color=`Origin`
+- **View B (Stacked Bar):** `mark_bar` with x=`Cylinders:O`, y=`count()`, color=`Origin` — stacked (no `xOffset` channel)
+- **View C (Histogram):** `mark_bar` with x=`Acceleration` (binned), y=`count()`, color=`Origin`
+
+**Shared legend selection:** A single `selection_point(fields=['Origin'], bind='legend')` named `legend_select` is defined once and attached to the composed chart via `add_params()`. All three sub-views reference this same parameter in their `opacity` encoding via `alt.condition(legend_selection, alt.value(1), alt.value(0.15))`. Clicking an Origin in the legend highlights that origin across all three charts simultaneously, dimming the others to 0.15 opacity.
+
+**Verification of the generated spec confirms:**
+- Top-level `vconcat` with 2 entries, first is `hconcat` with 2 entries
+- Single `selection_point` param with `type: 'point'`, `fields: ['Origin']`, `bind: 'legend'`
+- All three views have correct encodings and opacity conditions referencing the same param
+- View B has no `xOffset` channel (stacked, not grouped)
+- View C has `bin: {}` on the x encoding   
+  

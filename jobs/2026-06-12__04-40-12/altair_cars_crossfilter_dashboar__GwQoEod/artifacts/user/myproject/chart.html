@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "vconcat": [{"hconcat": [{"mark": {"type": "point"}, "encoding": {"color": {"field": "Origin", "type": "nominal"}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "name": "view_7ce6d19f4b864d10_0"}, {"mark": {"type": "bar"}, "encoding": {"x": {"aggregate": "count", "type": "quantitative"}, "y": {"field": "Origin", "type": "nominal"}}, "transform": [{"filter": {"param": "param_54853b0de6a785bc"}}]}]}, {"mark": {"type": "rect"}, "encoding": {"color": {"aggregate": "count", "type": "quantitative"}, "x": {"bin": {}, "field": "Weight_in_lbs", "type": "quantitative"}, "y": {"bin": {}, "field": "Acceleration", "type": "quantitative"}}, "transform": [{"filter": {"param": "param_54853b0de6a785bc"}}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/cars.json"}, "params": [{"name": "param_54853b0de6a785bc", "select": {"type": "interval", "encodings": ["x", "y"]}, "views": ["view_7ce6d19f4b864d10_0"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

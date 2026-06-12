@@ -1,0 +1,63 @@
+{
+    "id": "2aa3d36a-aed8-4641-be8a-f7b0234a84b0",
+    "started_at": "2026-06-12T04:40:14.714514",
+    "updated_at": "2026-06-12T05:01:01.389150",
+    "finished_at": "2026-06-12T05:01:01.389150",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 1,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__pending-tasks": {
+                "n_trials": 19,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.3
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "altair_co2_anomaly_band__GKus6zL",
+                            "altair_seattle_calendar_heatmap__PDRLgDx",
+                            "altair_unemployment_streamgraph__dRL5gGQ",
+                            "altair_unemployment_choropleth__oQaFBPv",
+                            "altair_sp500_focus_context__YNKUzeT",
+                            "altair_airports_connections_map__2pbc74R",
+                            "altair_penguins_splom_brush__jqJff5G",
+                            "altair_cars_crossfilter_dashboar__GwQoEod",
+                            "altair_cars_legend_interaction__adViY8G",
+                            "altair_movies_heatmap_marginals__NokjkCy",
+                            "altair_seattle_weather_layered__QFQ3Err",
+                            "altair_us_state_population_choro__bAaHyQJ",
+                            "altair_stocks_candlestick__3UNkFrw"
+                        ],
+                        "1.0": [
+                            "altair_stocks_rolling_window__MQBUNMy",
+                            "altair_barley_grouped_sort__ShCJ8wq",
+                            "altair_population_age_pyramid__beF34MW",
+                            "altair_penguins_facet_legend_tog__aK5jqJ2",
+                            "altair_world_bubble_year_slider__vu6FTss",
+                            "altair_iris_regression_band__ZDZYMAd"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "InitialStateError": [
+                        "altair_movies_dropdown_year_slid__VUBRX3m"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 348641,
+        "cost_usd": null
+    }
+}

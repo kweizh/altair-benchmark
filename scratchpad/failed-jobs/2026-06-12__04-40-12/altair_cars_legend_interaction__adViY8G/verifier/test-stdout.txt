@@ -1,0 +1,92 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 6 items
+
+tests/test_final_state.py ..EEE.                                         [100%]
+
+==================================== ERRORS ====================================
+____________________ ERROR at setup of test_view_a_scatter _____________________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...], 'type': 'point'}, 'views': ['view_cecac4397f64a0f7_0', 'view_c52c1de70cd1abd9_1', 'view_72e1c083c9525c3e_1']}], ...}
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'origin_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_72e1c083c9525c3e_1'}}
+
+    @pytest.fixture(scope="session")
+    def legend_param_name(built_spec: dict, views: dict) -> str:
+        """Locate the unique legend-bound `Origin` selection parameter name."""
+        all_params = _collect_params(built_spec, views["A"], views["B"], views["C"])
+        assert all_params, (
+            "No `params` declared anywhere in the spec; expected a "
+            "`selection_point(fields=['Origin'], bind='legend')` parameter."
+        )
+        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]
+>       assert matching, (
+            "Did not find a point-selection parameter with fields containing 'Origin' "
+            "and bind='legend'. The dashboard must declare exactly one shared "
+            "legend-bound selection over `Origin`."
+        )
+E       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.
+E       assert []
+
+tests/test_final_state.py:258: AssertionError
+__________________ ERROR at setup of test_view_b_stacked_bar ___________________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...], 'type': 'point'}, 'views': ['view_cecac4397f64a0f7_0', 'view_c52c1de70cd1abd9_1', 'view_72e1c083c9525c3e_1']}], ...}
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'origin_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_72e1c083c9525c3e_1'}}
+
+    @pytest.fixture(scope="session")
+    def legend_param_name(built_spec: dict, views: dict) -> str:
+        """Locate the unique legend-bound `Origin` selection parameter name."""
+        all_params = _collect_params(built_spec, views["A"], views["B"], views["C"])
+        assert all_params, (
+            "No `params` declared anywhere in the spec; expected a "
+            "`selection_point(fields=['Origin'], bind='legend')` parameter."
+        )
+        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]
+>       assert matching, (
+            "Did not find a point-selection parameter with fields containing 'Origin' "
+            "and bind='legend'. The dashboard must declare exactly one shared "
+            "legend-bound selection over `Origin`."
+        )
+E       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.
+E       assert []
+
+tests/test_final_state.py:258: AssertionError
+________________ ERROR at setup of test_view_c_binned_histogram ________________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...], 'type': 'point'}, 'views': ['view_cecac4397f64a0f7_0', 'view_c52c1de70cd1abd9_1', 'view_72e1c083c9525c3e_1']}], ...}
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'origin_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_72e1c083c9525c3e_1'}}
+
+    @pytest.fixture(scope="session")
+    def legend_param_name(built_spec: dict, views: dict) -> str:
+        """Locate the unique legend-bound `Origin` selection parameter name."""
+        all_params = _collect_params(built_spec, views["A"], views["B"], views["C"])
+        assert all_params, (
+            "No `params` declared anywhere in the spec; expected a "
+            "`selection_point(fields=['Origin'], bind='legend')` parameter."
+        )
+        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]
+>       assert matching, (
+            "Did not find a point-selection parameter with fields containing 'Origin' "
+            "and bind='legend'. The dashboard must declare exactly one shared "
+            "legend-bound selection over `Origin`."
+        )
+E       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.
+E       assert []
+
+tests/test_final_state.py:258: AssertionError
+==================================== PASSES ====================================
+_______________________ test_browser_legend_interaction ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_legend_static_server$ python -m http.server 8765
+process 'altair_legend_static_server' started pid=593
+altair_legend_static_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_layout_is_vconcat_of_hconcat_and_view
+PASSED tests/test_final_state.py::test_browser_legend_interaction
+ERROR tests/test_final_state.py::test_view_a_scatter - AssertionError: Did no...
+ERROR tests/test_final_state.py::test_view_b_stacked_bar - AssertionError: Di...
+ERROR tests/test_final_state.py::test_view_c_binned_histogram - AssertionErro...
+=================== 3 passed, 3 errors in 171.47s (0:02:51) ====================

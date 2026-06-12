@@ -1,0 +1,48 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The page must render an Altair cross-filtering dashboard built on the cars dataset with three linked sub-views laid out as (left | right) over bottom: a scatter of Horsepower vs Miles_per_Gallon colored by Origin (top-left), a bar chart grouped by Origin (top-right), and a 2D binned heatmap of Weight_in_lbs vs Acceleration colored by count (bottom). Dragging an interval brush in the scatter view must cross-filter both the bar chart and the heatmap so they reflect only the brushed cars. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html and wait for the Vega-Embed runtime to finish rendering. Confirm that three sub-plots are visible on the page, arranged with two plots side-by-side on top and one plot beneath them. The top-left view is a scatter plot of dots with axes labelled Horsepower (x) and Miles_per_Gallon (y) and dot color varying by Origin. The top-right view is a horizontal bar chart with a categorical axis showing Origin categories. The bottom view is a coloured rectangular grid (binned heatmap) whose axes are labelled with Weight_in_lbs and Acceleration. Then drag a rectangular brush across a sub-region of the scatter view; verify that the bar chart and the heatmap update so that only data inside the brushed region remains visible (cross-filtering behavior). ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 509 characters   
+📋 Updating todo list (3 items) ✔ 
+❯ Verify Altair cross-filtering dashboard at http://localhost:8765/chart.html (browser)
+| 💫 Executing agent-browser --version
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing npm install -g agent-browser@0.24.0 && agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (8 items)
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (8 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 💫 Executing agent-browser snapshot -c
+| 📖 Reading unknown
+| 📖 Reading pochi://~/tool-results/executeCommand-3EGG3fn34FRLUSzP-output.log
+| 💫 Executing agent-browser screenshot chart_initial.png && agent-browser snapshot -c -i
+| 💫 Executing agent-browser get html body
+| 💫 Executing grep -E "Horsepower|Miles_per_Gallon|Origin|Weight_in_lbs|Acceleration" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-3EGG3fn34FRLUSzP-output.log | head -n 50
+| 💫 Executing grep -E "Weight_in_lbs|Acceleration" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-3EGG3fn34FRLUSzP-output.log | head -n 50
+| 💫 Executing grep -B 5 -A 20 "Origin" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-3EGG3fn34FRLUSzP-output.log | grep -v "Horsepower" | head -n 50
+| 💫 Executing grep -A 2 "mark-group role-scope" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-opvUV4QNAOX6BWyw-output.log | grep "transform"
+| 💫 Executing grep -E "mark-group role-scope .*_group" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-opvUV4QNAOX6BWyw-output.log | grep -o 'transform="translate([^)]*)"'
+| 💫 Executing agent-browser get html "#vis"
+| 💫 Executing agent-browser --help
+| 💫 Executing agent-browser get box "#vis"
+| 💫 Executing agent-browser get box "svg"
+| 💫 Executing agent-browser eval "const rect = document.querySelector('svg').getBoundingClientRect(); JSON.stringify({x: rect.x, y: rect.y, width: rect.width, height: rect.height})"
+| 💫 Executing agent-browser mouse move 150 150 && agent-browser mouse down && agent-browser mouse move 250 250 && agent-browser mouse up && agent-browser wait 1000 && agent-browser snapshot -c
+| 💫 Executing grep -A 5 "Origin" /root/.pochi/tasks/7c43a40c-b5cd-47a0-ac9a-c80b8e364943/tool-results/executeCommand-EmIgHj2QaJB7WDiP-output.log | grep "Count of Records" | head -n 10
+| 💫 Executing agent-browser screenshot chart_after_interaction.png && agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (8 items)
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (8 items)
+✔ Verify Altair cross-filtering dashboard at http://localhost:8765/chart.html (browser)
+💭 Thinking for 222 characters   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "I have successfully verified the Altair cross-filtering dashboard at http://localhost:8765/chart.html. \n\nThe verification confirmed:\n1. **Layout**: Three sub-plots are present, arranged with two side-by-side on top and one beneath.\n2. **Top-Left Plot**: A scatter plot with 'Horsepower' on the X-axis, 'Miles_per_Gallon' on the Y-axis, and dots colored by 'Origin'.\n3. **Top-Right Plot**: A horizontal bar chart showing 'Origin' categories.\n4. **Bottom Plot**: A binned heatmap with 'Weight_in_lbs' and 'Acceleration' axes.\n5. **Cross-filtering**: Dragging an interval brush in the scatter plot correctly filtered the data in both the bar chart and the heatmap, as evidenced by the updated counts and color scales.\n\nAll steps in the verification process were completed successfully."
+}   
+  

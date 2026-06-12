@@ -1,0 +1,126 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:10:19.977328+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 3,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781237339593,
+            "stop": 1781237419977
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237339663,
+                "stop": 1781237339664,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_records_chart_path",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781237339665,
+                "stop": 1781237339666,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_layered",
+                "status": "failed",
+                "duration": 41,
+                "start": 1781237339667,
+                "stop": 1781237339708,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_errorband_layer",
+                "status": "failed",
+                "duration": 19,
+                "start": 1781237339709,
+                "stop": 1781237339728,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_line_layer_median",
+                "status": "failed",
+                "duration": 23,
+                "start": 1781237339728,
+                "stop": 1781237339751,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_at_zero",
+                "status": "failed",
+                "duration": 22,
+                "start": 1781237339751,
+                "stop": 1781237339773,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_text_layer_with_window_rank",
+                "status": "failed",
+                "duration": 22,
+                "start": 1781237339773,
+                "stop": 1781237339795,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_x_axis_is_temporal_with_time_scale",
+                "status": "failed",
+                "duration": 20,
+                "start": 1781237339796,
+                "stop": 1781237339816,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_title_with_subtitle",
+                "status": "failed",
+                "duration": 23,
+                "start": 1781237339816,
+                "stop": 1781237339839,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def spec() -> dict:\n        assert os.path.isfile(CHART_HTML), f\"Chart file {CHART_HTML} must exist.\"\n>       return _extract_vega_lite_spec(_read(CHART_HTML))\n\ntests/test_final_state.py:115: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html_text: str) -> dict:\n        \"\"\"Find the Vega-Lite JSON spec embedded inside the Altair HTML output.\"\"\"\n        marker = '\"$schema\"'\n        start = html_text.find(marker)\n        while start != -1:\n            brace = html_text.rfind(\"{\", 0, start)\n            if brace < 0:\n                start = html_text.find(marker, start + 1)\n                continue\n            depth = 0\n            in_str = False\n            esc = False\n            i = brace\n            while i < len(html_text):\n                ch = html_text[i]\n                if in_str:\n                    if esc:\n                        esc = False\n                    elif ch == \"\\\\\":\n                        esc = True\n                    elif ch == '\"':\n                        in_str = False\n                else:\n                    if ch == '\"':\n                        in_str = True\n                    elif ch == \"{\":\n                        depth += 1\n                    elif ch == \"}\":\n                        depth -= 1\n                        if depth == 0:\n                            candidate = html_text[brace : i + 1]\n                            try:\n                                obj = json.loads(candidate)\n                                if (\n                                    isinstance(obj, dict)\n                                    and \"vega-lite\" in str(obj.get(\"$schema\", \"\"))\n                                ):\n                                    return obj\n                            except json.JSONDecodeError:\n                                pass\n                            break\n                i += 1\n            start = html_text.find(marker, start + 1)\n>       raise AssertionError(\"Could not extract a Vega-Lite spec from chart.html\")\nE       AssertionError: Could not extract a Vega-Lite spec from chart.html\n\ntests/test_final_state.py:64: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_anomaly_band",
+                "status": "passed",
+                "duration": 80137,
+                "start": 1781237339839,
+                "stop": 1781237419976,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:46:58.199491+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781239540013,
+            "stop": 1781239618199
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_html_artifact_exists",
+                "status": "passed",
+                "duration": 717,
+                "start": 1781239540069,
+                "stop": 1781239540786,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_artifact_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540787,
+                "stop": 1781239540788,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_population_dataset_url",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540788,
+                "stop": 1781239540789,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_calculate_transform_signs_people_by_sex",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781239540790,
+                "stop": 1781239540793,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_transform_references_year_param",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781239540793,
+                "stop": 1781239540795,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540795,
+                "stop": 1781239540796,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_uses_signed_field_with_abs_label_expr",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781239540797,
+                "stop": 1781239540797,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_age_ordinal_reversed",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540798,
+                "stop": 1781239540799,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_custom_scale_and_legend",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540799,
+                "stop": 1781239540800,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_year_dropdown_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781239540800,
+                "stop": 1781239540801,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_pyramid_with_dropdown_and_signed_bars",
+                "status": "passed",
+                "duration": 77396,
+                "start": 1781239540802,
+                "stop": 1781239618198,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

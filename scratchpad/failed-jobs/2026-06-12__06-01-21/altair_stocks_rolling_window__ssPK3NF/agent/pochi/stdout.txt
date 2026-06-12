@@ -1,0 +1,626 @@
+- Initializing MCP connections...
+You
+# Multi-Company Stock Chart with Rolling Window, Per-Symbol Reference Lines, and Dropdown Filter ## Background You are building an interactive multi-company stock visualization with Vega-Altair. The chart will combine raw price lines, smoothed rolling-mean lines, per-symbol all-time-mean reference rules, a dropdown widget that filters down to a single symbol, and pan/zoom interactivity on the x-axis. The data source is the well-known `data.stocks.url` URL dataset (long-form columns `date`, `symbol`, `price`). Use the URL directly (do not pre-aggregate in pandas) so that all reshaping happens inside the Vega-Lite spec. ## Requirements * Build a single Altair script that produces a layered chart and saves it to disk as an HTML file. * The chart must be composed of the following layers, all sharing the same x-axis (`date:T`): 1. A thin raw price line per symbol (low opacity), with `price:Q` on y and color by `symbol:N`. 2. A bold rolling-mean line per symbol, where the rolling mean is computed inside the spec with a window transform that averages `price` over a 30-trading-day centered window (15 days before and 15 days after each point), grouped by symbol. 3. A horizontal dashed reference rule per symbol at the symbol's all-time mean price. The all-time mean must be computed inside the spec with a join-aggregate transform grouped by symbol. * Add a dropdown widget bound to a parameter that filters the chart to a single symbol. The dropdown options must be exactly the five tickers in the stocks dataset: `MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`. * Enable pan/zoom on the x-axis (the standard Altair shortcut for this also adds an interval-bound-to-scales selection to the chart). * Save the final chart to `/home/user/myproject/chart.html`. ## Implementation Hints * Use `data.stocks.url` from `vega_datasets` (or the equivalent string URL) as the chart source so the transforms run in the Vega-Lite engine. * Look at the `transform_window` documentation for the `frame`, `groupby`, and aggregate-function arguments needed to compute a centered rolling mean. * Look at the `transform_joinaggregate` documentation for the pattern that attaches a per-group aggregate back onto every row. * Bind a parameter to a select widget and reference that parameter inside a `transform_filter` predicate. * Use the shortcut method on the layered chart that adds pan/zoom on scales. * Save the chart using Altair's built-in HTML export. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 /home/user/myproject/build_chart.py` * Running the command must (re)generate `/home/user/myproject/chart.html` without errors. * The exported HTML file must contain an embedded Vega-Lite specification (the standard Altair HTML export embeds the spec as a JSON literal) that, when parsed, satisfies: * It is a layered chart (top-level `layer` array) with at least three layers. * One layer uses a `transform` containing a `window` operation that computes `mean` of `price`, grouped by `symbol`, with a frame whose absolute extents are 15 (i.e. window size 30). * One layer uses a `transform` containing a `joinaggregate` that computes `mean` of `price`, grouped by `symbol`, and the resulting field is referenced by a rule mark whose stroke is dashed. * The spec contains a `params` entry whose `bind` is a `select` input with options `['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']`. * The spec contains a `transform` with a `filter` that references that parameter (so the dropdown filters which symbol is displayed). * The spec contains an interval selection bound to `scales` (the artifact produced by enabling pan/zoom on the chart). * The rendered HTML, when opened in a browser, must show at least two SVG/Canvas line marks, at least one dashed rule mark, and a `<select>` element for the dropdown.   
+
+Pochi
+I'll start by exploring the project directory and understanding what's already there, then build the chart.   
+📂 Listing files in /home/user/myproject ✔ 
+💫 Executing python3 -c "import altair; print(altair.__version__)" 2>&1 ✔ 
+💫 Executing python3 -c "import vega_datasets; print(vega_datasets.data.stocks.url)" 2>&1 ✔ 
+Good — Altair 6.2.1 is available and the stocks dataset URL is confirmed. Let me check the Altair API for the relevant transform and interaction methods.   
+💫 Executing python3 -c "
+import altair as alt
+# Check available methods for pan/zoom
+import inspect
+# Check if interactive with bind_scales works
+print('Testing altair features...')
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+# Verify transform_window and transform_joinaggregate are available
+print(dir(alt))
+print('---')
+# Check LayeredChart methods
+src = alt.Chart('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/stocks.csv')
+layered = alt.layer(src.mark_line(), src.mark_line())
+print(type(layered))
+print([m for m in dir(layered) if 'interact' in m.lower() or 'param' in m.lower() or 'select' in m.lower() or 'bind' in m.lower()])
+" 2>&1 ✔ 
+Now let me verify the exact API patterns for `transform_window`, `transform_joinaggregate`, parameter binding, and the `interactive()` method:   
+💫 Executing python3 -c "
+import altair as alt
+
+# Check transform_window signature
+help(alt.WindowTransform)
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check transform_joinaggregate signature
+help(alt.JoinAggregateTransform)
+" 2>&1 | head -40 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check binding_select
+help(alt.binding_select)
+" 2>&1 | head -40 ✔ 
+Now let me check how `param` works with bindings and how `transform_filter` references params:   
+💫 Executing python3 -c "
+import altair as alt
+
+# Check param function
+help(alt.param)
+" 2>&1 | head -50 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check FilterTransform
+help(alt.FilterTransform)
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check ParameterPredicate
+help(alt.ParameterPredicate)
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check how to use param with filter - let's look at FieldEqualPredicate
+help(alt.FieldEqualPredicate)
+" 2>&1 | head -30 ✔ 
+Now let me check how `interactive()` works on a layered chart and how `add_params` is used:   
+💫 Executing python3 -c "
+import altair as alt
+
+# Check the interactive method signature
+help(alt.LayerChart.interactive)
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+import altair as alt
+
+# Check how to use expr to reference a param in filter
+# In Vega-Lite, to filter based on a param value, we use an expression like 'datum.symbol == symbol_param'
+# Let's check the Expr class
+help(alt.expr)
+" 2>&1 | head -30 ✔ 
+Now let me understand how to reference a parameter in a filter. In Vega-Lite, when you have a parameter bound to a select dropdown, you reference it in a filter using `param` or an expression. Let me test a quick pattern:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# Quick test: create a param with bind, use transform_filter with field equal to param
+symbol_param = alt.param(
+    name='symbol_selector',
+    value='MSFT',
+    bind=alt.binding_select(
+        options=['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL'],
+        name='Symbol: '
+    )
+)
+
+# Check what the param looks like
+print(symbol_param.to_dict())
+" 2>&1 ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# Test the full param with bind
+symbol_param = alt.param(
+    name='symbol_selector',
+    value='MSFT',
+    bind=alt.binding_select(
+        options=['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL'],
+        name='Symbol: '
+    )
+)
+
+# When added to a chart via .add_params(), it becomes a top-level param
+# For filter, we need to use datum.symbol == symbol_selector
+# Let's test the expression approach
+filter_expr = alt.datum.symbol == symbol_param
+print(type(filter_expr))
+print(filter_expr.to_dict())
+" 2>&1 ✔ 
+The filter expression works. Now let me also check how `transform_filter` works with an expression:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# Test transform_filter with expression
+print(alt.FilterTransform(filter='datum.symbol == \"MSFT\"').to_dict())
+" 2>&1 ✔ 
+Good. Now let me also verify how `transform_window` and `transform_joinaggregate` are used in practice:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# Test WindowFieldDef for rolling mean
+window_field = alt.WindowFieldDef(field='price', op='mean', as_='rolling_mean')
+print(window_field.to_dict())
+
+# Test JoinAggregateFieldDef
+joinagg_field = alt.JoinAggregateFieldDef(field='price', op='mean', as_='alltime_mean')
+print(joinagg_field.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# Check WindowFieldDef
+help(alt.WindowFieldDef)
+" 2>&1 | head -40 ✔ 
+The `as` parameter is passed via `**kwds`. Let me check:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# The 'as' is a Python keyword, so it's passed via **kwds
+window_field = alt.WindowFieldDef(field='price', op='mean')
+# Try passing as via kwds
+window_field = alt.WindowFieldDef(**{'field': 'price', 'op': 'mean', 'as': 'rolling_mean'})
+print(window_field.to_dict())
+
+joinagg_field = alt.JoinAggregateFieldDef(**{'field': 'price', 'op': 'mean', 'as': 'alltime_mean'})
+print(joinagg_field.to_dict())
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# In the WindowTransform, the 'window' parameter takes a list of dicts/WindowFieldDef
+# Let's use a dict instead to pass 'as'
+window_transform = alt.WindowTransform(
+    window=[{'field': 'price', 'op': 'mean', 'as': 'rolling_mean'}],
+    frame=[-15, 15],
+    groupby=['symbol']
+)
+print(window_transform.to_dict())
+" 2>&1 ✔ 
+Now let me test the joinaggregate:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+joinagg_transform = alt.JoinAggregateTransform(
+    joinaggregate=[{'field': 'price', 'op': 'mean', 'as': 'alltime_mean'}],
+    groupby=['symbol']
+)
+print(joinagg_transform.to_dict())
+" 2>&1 ✔ 
+Now let me test the full pattern for how to reference a param in a filter expression. In Altair, when you add a param to a chart via `.add_params()`, you can reference it with `alt.datum.field == param_name`. Let me verify the expression syntax:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+# The param name needs to be referenced as a string in the filter expression
+# Let's test: datum.symbol == 'symbol_selector' where symbol_selector is the param name
+# In Vega-Lite, when you have a param named 'symbol_selector', you reference it as symbol_selector in expressions
+
+# Actually, the way to reference a param in a filter is:
+# filter = alt.FieldEqualPredicate(field='symbol', equal=alt.param('symbol_selector'))
+# or filter = 'datum.symbol == symbol_selector'
+
+# Let's test the expression approach
+filter_expr = 'datum.symbol == symbol_selector'
+print(alt.FilterTransform(filter=filter_expr).to_dict())
+" 2>&1 ✔ 
+Now let me test the full pattern with a minimal example to make sure everything compiles:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import altair as alt
+
+url = 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/stocks.csv'
+
+# Create the param for the dropdown
+symbol_param = alt.param(
+    name='symbol_selector',
+    value='MSFT',
+    bind=alt.binding_select(
+        options=['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL'],
+        name='Symbol: '
+    )
+)
+
+base = alt.Chart(url).transform_filter(
+    'datum.symbol == symbol_selector'
+)
+
+# Layer 1: raw price lines
+line1 = base.mark_line(opacity=0.3, strokeWidth=1).encode(
+    x='date:T',
+    y='price:Q',
+    color='symbol:N'
+)
+
+# Layer 2: rolling mean
+line2 = base.transform_window(
+    window=[{'field': 'price', 'op': 'mean', 'as': 'rolling_mean'}],
+    frame=[-15, 15],
+    groupby=['symbol']
+).mark_line(strokeWidth=3).encode(
+    x='date:T',
+    y='rolling_mean:Q',
+    color='symbol:N'
+)
+
+# Layer 3: all-time mean rule
+line3 = base.transform_joinaggregate(
+    joinaggregate=[{'field': 'price', 'op': 'mean', 'as': 'alltime_mean'}],
+    groupby=['symbol']
+).mark_rule(strokeDash=[5, 5]).encode(
+    y='alltime_mean:Q',
+    color='symbol:N'
+)
+
+chart = alt.layer(line1, line2, line3).add_params(symbol_param).interactive(bind_y=False)
+
+print('Chart spec compiled successfully')
+print(chart.to_dict())
+" 2>&1 ✔ 
+The spec compiles correctly. Now let me check if the interactive pan/zoom interval selection is bound to `scales` — yes it is (`'bind': 'scales'`). But I notice the interval selection only binds to one view. The acceptance criteria says the spec must contain an interval selection bound to `scales`. Let me verify the interactive selection is correctly applied. The `interactive()` method adds the interval selection to the chart, which is what we need. Now let me also check that the `x` encoding is present in the rule layer (it should inherit from the base chart's transform but not necessarily have x encoding). Let me check the spec more carefully — the rule mark layer doesn't have `x` in encoding. This is fine for Vega-Lite since rules span the full width by default. Let me now write the final script and test it:   
+📋 Updating todo list (3 items) ✔ 
+✏️  Writing /home/user/myproject/build_chart.py ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 build_chart.py 2>&1 ✔ 
+Script ran without errors. Now let me verify the HTML output:   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 -c "
+import json
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Extract the Vega-Lite spec from the HTML
+# Altair embeds it as JSON in a script tag or as a JS variable
+import re
+match = re.search(r'vegaEmbed\([^,]+,\s*(\{.*?\})\s*[,\)]', html, re.DOTALL)
+if not match:
+    # Try alternative pattern
+    match = re.search(r'spec\s*=\s*(\{.*?\});', html, re.DOTALL)
+if not match:
+    # Try to find the spec in the HTML
+    match = re.search(r'\"spec\":\s*(\{.*?\})\s*[,}]', html, re.DOTALL)
+
+# Let's just look for the spec pattern more broadly
+print('HTML length:', len(html))
+print('Contains vegaEmbed:', 'vegaEmbed' in html)
+print('Contains layer:', '\"layer\"' in html or \"'layer'\" in html)
+print('Contains window:', '\"window\"' in html)
+print('Contains joinaggregate:', '\"joinaggregate\"' in html)
+print('Contains strokeDash:', '\"strokeDash\"' in html)
+print('Contains symbol_selector:', 'symbol_selector' in html)
+print('Contains select input:', '\"input\": \"select\"' in html or \"'input': 'select'\" in html)
+print('Contains bind scales:', '\"bind\": \"scales\"' in html or \"'bind': 'scales'\" in html)
+print('Contains MSFT, AMZN, IBM, GOOG, AAPL:', all(s in html for s in ['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']))
+print('Contains interval:', 'interval' in html)
+print('Contains frame:', '\"frame\"' in html)
+print('Contains -15:', '-15' in html)
+print('Contains 15:', '15' in html)
+" 2>&1 ✔ 
+All acceptance criteria are met. Let me also do a more thorough structural verification by parsing the embedded spec:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import json, re
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Find the spec JSON - it's embedded as the second argument to vegaEmbed
+# Pattern: vegaEmbed('#...', {...}, ...)
+pattern = r'vegaEmbed\(\s*\"[^\"]+\",\s*(\{.*?\})\s*\)'
+match = re.search(pattern, html, re.DOTALL)
+if match:
+    spec = json.loads(match.group(1))
+else:
+    # Try finding it another way
+    print('Trying alternative extraction...')
+    # Find the start of the JSON object after vegaEmbed
+    idx = html.find('vegaEmbed')
+    start = html.find('{', idx)
+    # Find matching closing brace
+    depth = 0
+    end = start
+    for i in range(start, len(html)):
+        if html[i] == '{':
+            depth += 1
+        elif html[i] == '}':
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+    spec = json.loads(html[start:end])
+
+print('Top-level keys:', list(spec.keys()))
+print('Has layer:', 'layer' in spec)
+print('Number of layers:', len(spec.get('layer', [])))
+
+# Check each layer
+for i, layer in enumerate(spec.get('layer', [])):
+    print(f'Layer {i}: mark={layer.get(\"mark\", {}).get(\"type\")}')
+    transforms = layer.get('transform', [])
+    for t in transforms:
+        if 'window' in t:
+            w = t['window']
+            print(f'  window transform: {w}')
+            print(f'  frame: {t.get(\"frame\")}')
+            print(f'  groupby: {t.get(\"groupby\")}')
+        if 'joinaggregate' in t:
+            ja = t['joinaggregate']
+            print(f'  joinaggregate transform: {ja}')
+            print(f'  groupby: {t.get(\"groupby\")}')
+        if 'filter' in t:
+            print(f'  filter: {t[\"filter\"]}')
+
+# Check params
+for p in spec.get('params', []):
+    print(f'Param: name={p.get(\"name\")}, bind={p.get(\"bind\")}, select={p.get(\"select\")}')
+
+print()
+print('All checks passed!')
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing cd /home/user/myproject && python3 -c "
+import json, re
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Find the spec - look for the JSON object passed to vegaEmbed
+# The spec is embedded as a JS object (may use single quotes)
+# Let's find it by looking for the pattern after vegaEmbed
+
+# Altair 6 uses a specific embedding pattern. Let's find the spec by looking for 'spec'
+# The HTML has the spec as a JS object literal. Let's extract it more carefully.
+
+# Find the start of the spec - it begins after vegaEmbed('#vis', 
+idx = html.find('vegaEmbed')
+# Find the second argument (the spec)
+# Count braces
+start = html.find('{', html.find(',', idx))
+depth = 0
+end = start
+in_string = False
+string_char = None
+for i in range(start, len(html)):
+    c = html[i]
+    if in_string:
+        if c == '\\\\':
+            pass  # skip next char
+        elif c == string_char:
+            in_string = False
+    else:
+        if c in '\"\\'':
+            in_string = True
+            string_char = c
+        elif c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+
+spec_str = html[start:end]
+print('Spec string length:', len(spec_str))
+print('First 200 chars:', spec_str[:200])
+print('Last 100 chars:', spec_str[-100:])
+" 2>&1 ✔ 
+That's just one of the layers. Let me look at the full HTML structure more carefully:   
+📖 Reading /home/user/myproject/chart.html ✔ 
+The spec is a clean JSON literal inside `var spec = {...}`. Let me verify it programmatically:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import json, re
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Extract the spec: var spec = {...};
+match = re.search(r'var spec = (\{.*?\});', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+print('=== TOP-LEVEL STRUCTURE ===')
+print('Keys:', list(spec.keys()))
+print('Has layer:', 'layer' in spec)
+print('Number of layers:', len(spec.get('layer', [])))
+print()
+
+# Check layers
+for i, layer in enumerate(spec.get('layer', [])):
+    mark_type = layer.get('mark', {}).get('type')
+    print(f'--- Layer {i}: mark={mark_type} ---')
+    transforms = layer.get('transform', [])
+    for t in transforms:
+        if 'window' in t:
+            w = t['window']
+            print(f'  window: {json.dumps(w)}')
+            print(f'  frame: {t.get(\"frame\")}')
+            print(f'  groupby: {t.get(\"groupby\")}')
+        if 'joinaggregate' in t:
+            ja = t['joinaggregate']
+            print(f'  joinaggregate: {json.dumps(ja)}')
+            print(f'  groupby: {t.get(\"groupby\")}')
+            # Check the mark is a rule with dashed stroke
+            mark = layer.get('mark', {})
+            print(f'  mark type: {mark.get(\"type\")}')
+            print(f'  strokeDash: {mark.get(\"strokeDash\")}')
+        if 'filter' in t:
+            print(f'  filter: {t[\"filter\"]}')
+    print()
+
+# Check params
+print('=== PARAMS ===')
+for p in spec.get('params', []):
+    print(f'  name: {p.get(\"name\")}')
+    bind = p.get('bind')
+    if bind:
+        print(f'  bind.input: {bind.get(\"input\")}')
+        print(f'  bind.options: {bind.get(\"options\")}')
+    sel = p.get('select')
+    if sel:
+        print(f'  select.type: {sel.get(\"type\")}')
+        print(f'  select.encodings: {sel.get(\"encodings\")}')
+    print(f'  bind: {p.get(\"bind\")}')
+    print()
+
+print('=== ACCEPTANCE CRITERIA ===')
+checks = []
+
+# 1. Layered chart with at least 3 layers
+checks.append(('Layered chart with >=3 layers', 
+    'layer' in spec and len(spec['layer']) >= 3))
+
+# 2. Window transform with mean of price, grouped by symbol, frame [-15, 15]
+has_window = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'window' in t:
+            w = t['window']
+            if (any('mean' in str(item) for item in w) and 
+                any('price' in str(item) for item in w) and
+                t.get('frame') == [-15, 15] and
+                t.get('groupby') == ['symbol']):
+                has_window = True
+checks.append(('Window transform: mean(price), groupby=symbol, frame=[-15,15]', has_window))
+
+# 3. Joinaggregate transform with mean of price, grouped by symbol, rule mark with dashed stroke
+has_joinagg = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'joinaggregate' in t:
+            ja = t['joinaggregate']
+            if (any('mean' in str(item) for item in ja) and
+                any('price' in str(item) for item in ja) and
+                t.get('groupby') == ['symbol'] and
+                layer.get('mark', {}).get('type') == 'rule' and
+                layer.get('mark', {}).get('strokeDash') is not None):
+                has_joinagg = True
+checks.append(('Joinaggregate: mean(price), groupby=symbol, rule+dashed', has_joinagg))
+
+# 4. Select input with options [MSFT, AMZN, IBM, GOOG, AAPL]
+has_select = False
+for p in spec.get('params', []):
+    bind = p.get('bind')
+    if bind and bind.get('input') == 'select':
+        if bind.get('options') == ['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']:
+            has_select = True
+checks.append(('Select dropdown with 5 tickers', has_select))
+
+# 5. Filter referencing the parameter
+has_filter = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'filter' in t and 'symbol_selector' in str(t['filter']):
+            has_filter = True
+checks.append(('Filter referencing symbol_selector param', has_filter))
+
+# 6. Interval selection bound to scales
+has_interval_scales = False
+for p in spec.get('params', []):
+    sel = p.get('select')
+    if sel and sel.get('type') == 'interval' and p.get('bind') == 'scales':
+        has_interval_scales = True
+checks.append(('Interval selection bound to scales', has_interval_scales))
+
+for desc, result in checks:
+    status = 'PASS' if result else 'FAIL'
+    print(f'  [{status}] {desc}')
+
+print()
+print('All checks passed!' if all(r for _, r in checks) else 'SOME CHECKS FAILED!')
+" 2>&1 ✖ "Command exited with code 1"
+The error is in my check script (accessing `.get` on a string), but the actual spec structure is confirmed correct. Let me fix the check script:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import json, re
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+match = re.search(r'var spec = (\{.*?\});', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+print('=== ACCEPTANCE CRITERIA ===')
+all_pass = True
+
+# 1. Layered chart with at least 3 layers
+c1 = 'layer' in spec and len(spec['layer']) >= 3
+print(f'  [{\"PASS\" if c1 else \"FAIL\"}] Layered chart with >=3 layers ({len(spec.get(\"layer\",[]))} layers)')
+all_pass &= c1
+
+# 2. Window transform
+c2 = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'window' in t:
+            w = t['window']
+            if (any('mean' in str(item) for item in w) and 
+                any('price' in str(item) for item in w) and
+                t.get('frame') == [-15, 15] and
+                t.get('groupby') == ['symbol']):
+                c2 = True
+print(f'  [{\"PASS\" if c2 else \"FAIL\"}] Window: mean(price), groupby=symbol, frame=[-15,15]')
+all_pass &= c2
+
+# 3. Joinaggregate
+c3 = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'joinaggregate' in t:
+            ja = t['joinaggregate']
+            mark = layer.get('mark', {})
+            if (any('mean' in str(item) for item in ja) and
+                any('price' in str(item) for item in ja) and
+                t.get('groupby') == ['symbol'] and
+                mark.get('type') == 'rule' and
+                mark.get('strokeDash') is not None):
+                c3 = True
+print(f'  [{\"PASS\" if c3 else \"FAIL\"}] Joinaggregate: mean(price), groupby=symbol, rule+dashed')
+all_pass &= c3
+
+# 4. Select dropdown
+c4 = False
+for p in spec.get('params', []):
+    bind = p.get('bind')
+    if isinstance(bind, dict) and bind.get('input') == 'select':
+        if bind.get('options') == ['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']:
+            c4 = True
+print(f'  [{\"PASS\" if c4 else \"FAIL\"}] Select dropdown with 5 tickers')
+all_pass &= c4
+
+# 5. Filter referencing param
+c5 = False
+for layer in spec.get('layer', []):
+    for t in layer.get('transform', []):
+        if 'filter' in t and 'symbol_selector' in str(t['filter']):
+            c5 = True
+print(f'  [{\"PASS\" if c5 else \"FAIL\"}] Filter referencing symbol_selector param')
+all_pass &= c5
+
+# 6. Interval selection bound to scales
+c6 = False
+for p in spec.get('params', []):
+    sel = p.get('select')
+    if isinstance(sel, dict) and sel.get('type') == 'interval' and p.get('bind') == 'scales':
+        c6 = True
+print(f'  [{\"PASS\" if c6 else \"FAIL\"}] Interval selection bound to scales')
+all_pass &= c6
+
+print()
+print('ALL CHECKS PASSED!' if all_pass else 'SOME CHECKS FAILED!')
+" 2>&1 ✔ 
+All 6 acceptance criteria pass. Let me update the todo list:   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+The multi-company stock chart has been built and saved successfully.
+
+**Files created:**
+- `/home/user/myproject/build_chart.py` — the build script
+- `/home/user/myproject/chart.html` — the exported interactive chart
+
+**How to run:**
+```
+python3 /home/user/myproject/build_chart.py
+```
+
+**What the chart contains (3 layers):**
+
+1. **Raw price lines** — thin, low-opacity (`opacity=0.3`) lines per symbol, colored by `symbol:N`
+2. **Rolling mean lines** — bold (`strokeWidth=3`) lines computed via `transform_window` with `mean(price)`, `frame=[-15, 15]` (30-trading-day centered window), grouped by `symbol`
+3. **All-time mean rules** — horizontal dashed (`strokeDash=[5,5]`) reference rules computed via `transform_joinaggregate` with `mean(price)`, grouped by `symbol`
+
+**Interactivity:**
+- **Dropdown filter** — a `<select>` widget bound to `symbol_selector` parameter with options `MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`; filters all layers via `datum.symbol == symbol_selector`
+- **Pan/zoom on x-axis** — interval selection bound to `scales` on the x encoding (via `.interactive(bind_y=False)`)
+
+All transforms run inside the Vega-Lite engine — no pandas pre-aggregation.   
+  

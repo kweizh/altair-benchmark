@@ -1,0 +1,136 @@
+import os
+import json
+import altair as alt
+from vega_datasets import data
+
+# Define country centroids for the 63 countries in the gapminder dataset
+centroids_values = [
+    {'country': 'Afghanistan', 'latitude': 34.13402601376932, 'longitude': 66.59216131095278},
+    {'country': 'Argentina', 'latitude': -35.697270518120085, 'longitude': -64.53238503843076},
+    {'country': 'Aruba', 'latitude': 12.515625722992898, 'longitude': -69.97564014284046},
+    {'country': 'Australia', 'latitude': -25.69733767398308, 'longitude': 134.02277170916162},
+    {'country': 'Austria', 'latitude': 47.631858269895794, 'longitude': 13.797778364631036},
+    {'country': 'Bahamas', 'latitude': 24.72162633646784, 'longitude': -78.07275370060313},
+    {'country': 'Bangladesh', 'latitude': 23.673728665121, 'longitude': 90.43212562608612},
+    {'country': 'Barbados', 'latitude': 13.183219369337529, 'longitude': -59.557383949150285},
+    {'country': 'Belgium', 'latitude': 50.6182138854095, 'longitude': 4.675010154696485},
+    {'country': 'Bolivia', 'latitude': -16.7312488393574, 'longitude': -64.45209597511206},
+    {'country': 'Brazil', 'latitude': -11.524630416426652, 'longitude': -54.35520660825642},
+    {'country': 'Canada', 'latitude': 57.55048004465564, 'longitude': -98.41680517868062},
+    {'country': 'Chile', 'latitude': -37.82938283049967, 'longitude': -70.76863431739216},
+    {'country': 'China', 'latitude': 38.07325481105728, 'longitude': 104.69113855849604},
+    {'country': 'Colombia', 'latitude': 4.187753877352739, 'longitude': -72.6445066243485},
+    {'country': 'Costa Rica', 'latitude': 9.863467407406214, 'longitude': -84.14673625701816},
+    {'country': 'Croatia', 'latitude': 44.91192100856702, 'longitude': 16.625761129583374},
+    {'country': 'Cuba', 'latitude': 21.476176522869448, 'longitude': -79.69817857618705},
+    {'country': 'Dominican Republic', 'latitude': 18.77954818522993, 'longitude': -70.43495198520012},
+    {'country': 'Ecuador', 'latitude': -1.5642721388853116, 'longitude': -78.4630326109714},
+    {'country': 'Egypt', 'latitude': 26.60517034450628, 'longitude': 30.240135435012338},
+    {'country': 'El Salvador', 'latitude': 13.758041517055418, 'longitude': -88.85911489238985},
+    {'country': 'Finland', 'latitude': 65.01578959749911, 'longitude': 25.65738433454702},
+    {'country': 'France', 'latitude': 46.6423682169416, 'longitude': 2.1940236627886227},
+    {'country': 'Georgia', 'latitude': 42.17986277737226, 'longitude': 43.37886653411224},
+    {'country': 'Germany', 'latitude': 51.08304539800482, 'longitude': 10.426171427430804},
+    {'country': 'Greece', 'latitude': 39.42012261727978, 'longitude': 23.11036893616188},
+    {'country': 'Grenada', 'latitude': 12.112926656338908, 'longitude': -61.67937937204098},
+    {'country': 'Haiti', 'latitude': 18.883520486983567, 'longitude': -72.89291379842},
+    {'country': 'Hong Kong', 'latitude': 22.2783, 'longitude': 114.1747},
+    {'country': 'Iceland', 'latitude': 65.12360920205514, 'longitude': -19.05682967106099},
+    {'country': 'India', 'latitude': 23.58630056774672, 'longitude': 81.17300408530181},
+    {'country': 'Indonesia', 'latitude': 0.1559197995903765, 'longitude': 113.96538246847302},
+    {'country': 'Iran', 'latitude': 32.906023742890056, 'longitude': 54.23707700106544},
+    {'country': 'Iraq', 'latitude': 33.105075667527906, 'longitude': 43.83252918105688},
+    {'country': 'Ireland', 'latitude': 53.30489539816495, 'longitude': -8.241128545554096},
+    {'country': 'Israel', 'latitude': 31.513542220043195, 'longitude': 35.027923472437024},
+    {'country': 'Italy', 'latitude': 42.98201127614267, 'longitude': 12.763657166123137},
+    {'country': 'Jamaica', 'latitude': 18.12207889341651, 'longitude': -77.30358894542778},
+    {'country': 'Japan', 'latitude': 36.76738832597829, 'longitude': 137.46934234351835},
+    {'country': 'Kenya', 'latitude': 0.6899182318376179, 'longitude': 37.95309411262371},
+    {'country': 'South Korea', 'latitude': 36.402386712544114, 'longitude': 127.76224551357647},
+    {'country': 'North Korea', 'latitude': 40.19198091470839, 'longitude': 127.3379805653744},
+    {'country': 'Lebanon', 'latitude': 33.91160170722086, 'longitude': 35.89651946324749},
+    {'country': 'Mexico', 'latitude': 23.87436068093592, 'longitude': -101.55399731630118},
+    {'country': 'Netherlands', 'latitude': 52.134054128923886, 'longitude': 5.554136426128487},
+    {'country': 'New Zealand', 'latitude': -43.82765432544426, 'longitude': 170.69035541428696},
+    {'country': 'Nigeria', 'latitude': 9.61029352034213, 'longitude': 8.147714845256194},
+    {'country': 'Norway', 'latitude': 64.97775882947745, 'longitude': 16.670259272390894},
+    {'country': 'Pakistan', 'latitude': 30.11618837141088, 'longitude': 69.08835090769651},
+    {'country': 'Peru', 'latitude': -8.522717984240291, 'longitude': -74.11416196781884},
+    {'country': 'Philippines', 'latitude': 15.586542251094242, 'longitude': 121.82208941416744},
+    {'country': 'Poland', 'latitude': 52.06848055692473, 'longitude': 19.43573279234468},
+    {'country': 'Portugal', 'latitude': 39.67529214702138, 'longitude': -7.933662183874006},
+    {'country': 'Rwanda', 'latitude': -2.014687460047154, 'longitude': 29.91943968176408},
+    {'country': 'Saudi Arabia', 'latitude': 24.136038144757897, 'longitude': 44.6009581782256},
+    {'country': 'South Africa', 'latitude': -28.55361930679731, 'longitude': 24.75252746489084},
+    {'country': 'Spain', 'latitude': 40.36500833668384, 'longitude': -3.6516251409956975},
+    {'country': 'Switzerland', 'latitude': 46.73678128684938, 'longitude': 8.286928794895285},
+    {'country': 'Turkey', 'latitude': 38.93207363123396, 'longitude': 35.56886764076691},
+    {'country': 'United Kingdom', 'latitude': 53.97844735080214, 'longitude': -2.852943909329258},
+    {'country': 'United States', 'latitude': 38.8208089190304, 'longitude': -96.3316166082964},
+    {'country': 'Venezuela', 'latitude': 7.148324760507107, 'longitude': -66.36492135985132}
+]
+
+# Convert centroids list to Altair InlineData
+centroids_data = alt.Data(values=centroids_values)
+
+# Get the maximum population across all years in the gapminder dataset
+# To avoid any hardcoding, let's load the data from vega_datasets and compute max pop
+df_gap = data.gapminder()
+max_pop = int(df_gap['pop'].max())
+
+# Base layer: a world country base map
+countries_base = alt.topo_feature(data.world_110m.url, 'countries')
+base_map = alt.Chart(countries_base).mark_geoshape(
+    fill='#eeeeee',
+    stroke='white'
+)
+
+# Year slider parameter
+slider = alt.param(
+    name='Year',
+    value=1955,
+    bind=alt.binding_range(min=1955, max=2005, step=5, name='Year')
+)
+
+# Overlay: population bubbles
+bubble_layer = alt.Chart(data.gapminder.url).mark_circle().transform_lookup(
+    lookup='country',
+    from_=alt.LookupData(data=centroids_data, key='country', fields=['longitude', 'latitude'])
+).transform_filter(
+    alt.datum.year == slider
+).encode(
+    longitude='longitude:Q',
+    latitude='latitude:Q',
+    size=alt.Size(
+        'pop:Q', 
+        scale=alt.Scale(domain=[0, max_pop], range=[10, 1500]),
+        title='Population'
+    ),
+    color=alt.Color('cluster:N', title='Region/Cluster'),
+    tooltip=[
+        alt.Tooltip('country:N', title='Country'),
+        alt.Tooltip('pop:Q', format=',', title='Population'),
+        alt.Tooltip('year:O', title='Year'),
+        alt.Tooltip('life_expect:Q', title='Life Expectancy'),
+        alt.Tooltip('fertility:Q', title='Fertility')
+    ]
+)
+
+# Layer base map and bubble overlay
+chart = alt.layer(base_map, bubble_layer).project(
+    type='naturalEarth1'
+).properties(
+    width=800,
+    height=500,
+    title="World Population Bubble Map (1955-2005)"
+).add_params(
+    slider
+)
+
+# Save chart to chart.html and spec.json
+chart.save('chart.html')
+
+with open('spec.json', 'w') as f:
+    f.write(chart.to_json())
+
+print("Successfully generated chart.html and spec.json.")

@@ -1,0 +1,118 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 5 items
+
+tests/test_final_state.py .FFF.                                          [100%]
+
+=================================== FAILURES ===================================
+___________________ test_view_a_scatter_with_interval_brush ____________________
+
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}
+
+    def test_view_a_scatter_with_interval_brush(views):
+        """View A must be a scatter of Horsepower vs MPG colored by Origin, with an x+y interval brush."""
+        a = views["A"]
+        assert _normalize_mark(a.get("mark")) == "point", (
+            f"View A must use mark_point; got mark={a.get('mark')!r}."
+        )
+        enc = a.get("encoding") or {}
+        assert enc.get("x", {}).get("field") == "Horsepower", (
+            f"View A encoding.x.field must be 'Horsepower'; got {enc.get('x')!r}."
+        )
+        assert enc.get("y", {}).get("field") == "Miles_per_Gallon", (
+            f"View A encoding.y.field must be 'Miles_per_Gallon'; got {enc.get('y')!r}."
+        )
+        # color may be wrapped inside a condition; first check the direct field
+        color = enc.get("color") or {}
+        color_field = color.get("field")
+        if color_field is None and isinstance(color.get("condition"), dict):
+            color_field = color["condition"].get("field")
+        assert color_field == "Origin", (
+            f"View A encoding.color.field must be 'Origin'; got {enc.get('color')!r}."
+        )
+    
+        brush = _find_brush_param(a)
+>       assert brush is not None, (
+            "View A must declare a selection_interval param whose `select.encodings` "
+            "covers both 'x' and 'y' (i.e. an x+y interval brush attached via add_params)."
+        )
+E       AssertionError: View A must declare a selection_interval param whose `select.encodings` covers both 'x' and 'y' (i.e. an x+y interval brush attached via add_params).
+E       assert None is not None
+
+tests/test_final_state.py:189: AssertionError
+______________________ test_view_b_bar_filtered_by_brush _______________________
+
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}
+
+    def test_view_b_bar_filtered_by_brush(views):
+        """View B must be a bar chart of count(*) by Origin, filtered by the brush from View A."""
+        a, b = views["A"], views["B"]
+        assert _normalize_mark(b.get("mark")) == "bar", (
+            f"View B must use mark_bar; got mark={b.get('mark')!r}."
+        )
+        enc = b.get("encoding") or {}
+        x_enc = enc.get("x") or {}
+        y_enc = enc.get("y") or {}
+        fields = {"x": x_enc.get("field"), "y": y_enc.get("field")}
+        aggregates = {"x": x_enc.get("aggregate"), "y": y_enc.get("aggregate")}
+    
+        origin_channels = [ch for ch, fld in fields.items() if fld == "Origin"]
+        assert len(origin_channels) == 1, (
+            f"Exactly one of View B's x/y encodings must have field='Origin'; got {fields!r}."
+        )
+        other = "x" if origin_channels[0] == "y" else "y"
+        assert aggregates[other] == "count", (
+            f"The non-Origin axis of View B must use aggregate='count'; got {aggregates!r}."
+        )
+    
+        brush = _find_brush_param(a)
+>       assert brush is not None, "Cannot validate View B's filter: View A is missing the brush param."
+E       AssertionError: Cannot validate View B's filter: View A is missing the brush param.
+E       assert None is not None
+
+tests/test_final_state.py:217: AssertionError
+_________________ test_view_c_binned_heatmap_filtered_by_brush _________________
+
+views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}
+
+    def test_view_c_binned_heatmap_filtered_by_brush(views):
+        """View C must be a 2D binned mark_rect heatmap colored by count(), filtered by the brush."""
+        a, c = views["A"], views["C"]
+        assert _normalize_mark(c.get("mark")) == "rect", (
+            f"View C must use mark_rect; got mark={c.get('mark')!r}."
+        )
+        enc = c.get("encoding") or {}
+        x_enc = enc.get("x") or {}
+        y_enc = enc.get("y") or {}
+        color_enc = enc.get("color") or {}
+    
+        assert x_enc.get("field") == "Weight_in_lbs", (
+            f"View C encoding.x.field must be 'Weight_in_lbs'; got {x_enc!r}."
+        )
+        assert y_enc.get("field") == "Acceleration", (
+            f"View C encoding.y.field must be 'Acceleration'; got {y_enc!r}."
+        )
+>       assert x_enc.get("bin"), (
+            f"View C encoding.x.bin must be truthy (binning enabled on x); got x={x_enc!r}."
+        )
+E       AssertionError: View C encoding.x.bin must be truthy (binning enabled on x); got x={'bin': {}, 'field': 'Weight_in_lbs', 'type': 'quantitative'}.
+E       assert {}
+E        +  where {} = <built-in method get of dict object at 0x7f61e28769c0>('bin')
+E        +    where <built-in method get of dict object at 0x7f61e28769c0> = {'bin': {}, 'field': 'Weight_in_lbs', 'type': 'quantitative'}.get
+
+tests/test_final_state.py:244: AssertionError
+==================================== PASSES ====================================
+______________________ test_browser_cross_filter_behavior ______________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_static_server$ /usr/bin/python3 -m http.server 8765
+process 'altair_static_server' started pid=693
+altair_static_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_layout_is_A_pipe_B_amp_C
+PASSED tests/test_final_state.py::test_browser_cross_filter_behavior
+FAILED tests/test_final_state.py::test_view_a_scatter_with_interval_brush - A...
+FAILED tests/test_final_state.py::test_view_b_bar_filtered_by_brush - Asserti...
+FAILED tests/test_final_state.py::test_view_c_binned_heatmap_filtered_by_brush
+=================== 3 failed, 2 passed in 134.18s (0:02:14) ====================

@@ -1,0 +1,348 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 11 items
+
+tests/test_final_state.py ..EEEEEEEE.                                    [100%]
+
+==================================== ERRORS ====================================
+_________ ERROR at setup of test_area_layer_with_monotone_interpolate __________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+__________ ERROR at setup of test_area_layer_center_stacked_sum_count __________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+______________ ERROR at setup of test_area_layer_x_yearmonth_date ______________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+__________ ERROR at setup of test_area_layer_color_series_category20b __________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+__________ ERROR at setup of test_nearest_pointerover_selection_point __________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+_____________ ERROR at setup of test_rule_layer_bound_to_selection _____________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+__________________ ERROR at setup of test_text_layer_present ___________________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+_______________ ERROR at setup of test_window_rank_groupby_date ________________
+
+run_solution = CompletedProcess(args=['python3', 'solution.py'], returncode=0, stdout='Chart saved to /home/user/myproject/out/chart.html\n', stderr='')
+
+    @pytest.fixture(scope="module")
+    def chart_spec(run_solution):
+        assert run_solution.returncode == 0, (
+            "python3 solution.py exited non-zero.\n"
+            f"stdout={run_solution.stdout!r}\nstderr={run_solution.stderr!r}"
+        )
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected solution to write {CHART_HTML}."
+        )
+        with open(CHART_HTML, encoding="utf-8") as f:
+            html = f.read()
+        assert html.strip(), f"{CHART_HTML} is empty."
+>       spec = _extract_spec_from_html(html)
+
+tests/test_final_state.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>'
+
+    def _extract_spec_from_html(html: str) -> dict:
+        """Extract the Vega-Lite JSON spec embedded in an Altair-saved HTML file."""
+        # Altair's default HTML template includes a call of the form
+        #   vegaEmbed("#vis", {spec...}, embedOpt).then(...)
+        # We locate the first balanced JSON object passed as the 2nd argument.
+        match = re.search(r"vegaEmbed\s*\(\s*[^,]+,\s*", html)
+        assert match, "Could not find vegaEmbed(...) call in HTML."
+        start = match.end()
+        # Walk forward to find the balanced JSON object beginning with '{'.
+        while start < len(html) and html[start] != "{":
+            start += 1
+>       assert start < len(html), "Could not locate opening '{' after vegaEmbed(...,"
+E       AssertionError: Could not locate opening '{' after vegaEmbed(...,
+E       assert 4098 < 4098
+E        +  where 4098 = len('<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <style>\n    #vis.vega-embed {\n      width: 100%;\n    ..., spec, embedOpt)\n        .catch(error => showError(el, error));\n    })(vegaEmbed);\n\n  </script>\n</body>\n</html>')
+
+tests/test_final_state.py:44: AssertionError
+==================================== PASSES ====================================
+_____________________ test_streamgraph_renders_in_browser ______________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/serve_chart$ python3 -m http.server 8765
+process 'serve_chart' started pid=1269
+serve_chart process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_solution_runs_successfully
+PASSED tests/test_final_state.py::test_chart_html_exists_and_nonempty
+PASSED tests/test_final_state.py::test_streamgraph_renders_in_browser
+ERROR tests/test_final_state.py::test_area_layer_with_monotone_interpolate - ...
+ERROR tests/test_final_state.py::test_area_layer_center_stacked_sum_count - A...
+ERROR tests/test_final_state.py::test_area_layer_x_yearmonth_date - Assertion...
+ERROR tests/test_final_state.py::test_area_layer_color_series_category20b - A...
+ERROR tests/test_final_state.py::test_nearest_pointerover_selection_point - A...
+ERROR tests/test_final_state.py::test_rule_layer_bound_to_selection - Asserti...
+ERROR tests/test_final_state.py::test_text_layer_present - AssertionError: Co...
+ERROR tests/test_final_state.py::test_window_rank_groupby_date - AssertionErr...
+=================== 3 passed, 8 errors in 182.74s (0:03:02) ====================

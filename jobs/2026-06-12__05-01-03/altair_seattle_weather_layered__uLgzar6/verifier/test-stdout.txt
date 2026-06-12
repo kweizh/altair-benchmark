@@ -1,0 +1,328 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py .EEEEEEE..                                     [100%]
+
+==================================== ERRORS ====================================
+_______ ERROR at setup of test_spec_is_layered_with_at_least_five_layers _______
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+______________ ERROR at setup of test_required_mark_types_present ______________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+________________ ERROR at setup of test_area_layer_has_y_and_y2 ________________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+______________ ERROR at setup of test_zero_degree_rule_annotation ______________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+_______ ERROR at setup of test_transform_calculate_for_mean_temperature ________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+______________ ERROR at setup of test_resolve_scale_y_independent ______________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+____________ ERROR at setup of test_nearest_x_hover_selection_param ____________
+
+    @pytest.fixture(scope="session")
+    def vega_spec() -> dict[str, Any]:
+        assert os.path.isfile(CHART_HTML), (
+            f"Expected the executor to produce {CHART_HTML} after running build_chart.py."
+        )
+        with open(CHART_HTML, "r", encoding="utf-8") as f:
+            html = f.read()
+        assert len(html) > 0, f"{CHART_HTML} is empty."
+>       return _extract_vega_lite_spec(html)
+
+tests/test_final_state.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+html = '<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8" />\n  <title>Seattle Weather Chart</title>\n  <script type="...("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);\n    })();\n  </script>\n</body>\n</html>\n'
+
+    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:
+        """Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file."""
+        # Most common Altair template: `var spec = { ... };`
+        m = re.search(r"var\s+spec\s*=\s*(\{.*?\})\s*;\s*var\s+embedOpt", html, re.DOTALL)
+        if m is None:
+            # Fallback: spec passed directly to vegaEmbed.
+            m = re.search(
+                r"vegaEmbed\(\s*[\"'][^\"']+[\"']\s*,\s*(\{.*?\})\s*[,)]",
+                html,
+                re.DOTALL,
+            )
+        if m is None:
+            # Fallback: <script type="application/json"> block.
+            m = re.search(
+                r"<script[^>]*type=[\"']application/json[\"'][^>]*>(\{.*?\})</script>",
+                html,
+                re.DOTALL,
+            )
+>       assert m is not None, (
+            "Could not find an embedded Vega-Lite JSON spec inside chart.html. "
+            "Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call."
+        )
+E       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.
+E       assert None is not None
+
+tests/test_final_state.py:37: AssertionError
+==================================== PASSES ====================================
+_______________________ test_browser_renders_all_layers ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=1200
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_browser_renders_all_layers
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+ERROR tests/test_final_state.py::test_spec_is_layered_with_at_least_five_layers
+ERROR tests/test_final_state.py::test_required_mark_types_present - Assertion...
+ERROR tests/test_final_state.py::test_area_layer_has_y_and_y2 - AssertionErro...
+ERROR tests/test_final_state.py::test_zero_degree_rule_annotation - Assertion...
+ERROR tests/test_final_state.py::test_transform_calculate_for_mean_temperature
+ERROR tests/test_final_state.py::test_resolve_scale_y_independent - Assertion...
+ERROR tests/test_final_state.py::test_nearest_x_hover_selection_param - Asser...
+=================== 3 passed, 7 errors in 231.80s (0:03:51) ====================

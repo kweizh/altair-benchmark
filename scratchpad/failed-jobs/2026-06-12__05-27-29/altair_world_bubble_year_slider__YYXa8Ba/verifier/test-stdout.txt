@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_layered_chart_has_geoshape_and_circle
+PASSED tests/test_final_state.py::test_projection_is_natural_earth_1
+PASSED tests/test_final_state.py::test_year_slider_param_present
+PASSED tests/test_final_state.py::test_transform_filter_references_year_param
+PASSED tests/test_final_state.py::test_size_encoding_has_explicit_scale_domain
+PASSED tests/test_final_state.py::test_html_contains_range_input
+PASSED tests/test_final_state.py::test_browser_renders_map_and_slider
+======================== 7 passed in 119.27s (0:01:59) =========================

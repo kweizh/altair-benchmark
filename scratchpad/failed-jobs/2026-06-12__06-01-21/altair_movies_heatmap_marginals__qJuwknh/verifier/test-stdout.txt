@@ -1,0 +1,92 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py .....FF..                                      [100%]
+
+=================================== FAILURES ===================================
+______________________ test_2d_interval_brush_on_heatmap _______________________
+
+spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...4853b0de6a785bc', 'select': {'encodings': ['x', 'y'], 'type': 'interval'}, 'views': ['view_f2499105062e19f5_0']}], ...}
+
+    def test_2d_interval_brush_on_heatmap(spec):
+        params = _find_params(spec)
+        interval_params = []
+        for p in params:
+            sel = p.get("select")
+            if isinstance(sel, dict) and sel.get("type") == "interval":
+                interval_params.append(p)
+        assert interval_params, (
+            "Spec must declare at least one interval-selection parameter (the 2D brush)."
+        )
+        xy_brushes = []
+        for p in interval_params:
+            sel = p.get("select")
+            encs = (sel or {}).get("encodings") or []
+            if "x" in encs and "y" in encs:
+                xy_brushes.append(p["name"])
+        assert xy_brushes, (
+            "An interval selection projected over BOTH 'x' and 'y' encodings is required "
+            f"(2D brush). Found interval params: {[p.get('name') for p in interval_params]}."
+        )
+    
+        _top, center, _right = _get_subplots(spec)
+        heatmap_param_names = []
+        for node in _iter_all_specs(center):
+            for p in node.get("params") or []:
+                heatmap_param_names.append(p.get("name"))
+>       assert any(n in xy_brushes for n in heatmap_param_names), (
+            "The 2D-brush interval selection must be attached to the heatmap subplot. "
+            f"Heatmap params: {heatmap_param_names}; 2D-brush params: {xy_brushes}."
+        )
+E       AssertionError: The 2D-brush interval selection must be attached to the heatmap subplot. Heatmap params: []; 2D-brush params: ['param_54853b0de6a785bc'].
+E       assert False
+E        +  where False = any(<generator object test_2d_interval_brush_on_heatmap.<locals>.<genexpr> at 0x7f72e44435e0>)
+
+tests/test_final_state.py:250: AssertionError
+________________ test_top_marginal_is_layered_with_brush_filter ________________
+
+spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...4853b0de6a785bc', 'select': {'encodings': ['x', 'y'], 'type': 'interval'}, 'views': ['view_f2499105062e19f5_0']}], ...}
+
+    def test_top_marginal_is_layered_with_brush_filter(spec):
+        top, _center, _right = _get_subplots(spec)
+        brush_names = _brush_names(spec)
+        assert brush_names, "Spec must include at least one interval-selection parameter."
+>       _check_layered_marginal(top, brush_names, "Top")
+
+tests/test_final_state.py:277: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+marginal = {'hconcat': [{'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/movies.json'}, 'layer': [{'enco...'encoding': {}, 'mark': {'text': '', 'type': 'text'}}], 'resolve': {'scale': {'x': 'independent', 'y': 'independent'}}}
+brush_names = ['param_54853b0de6a785bc'], axis = 'Top'
+
+    def _check_layered_marginal(marginal: dict, brush_names: list[str], axis: str):
+        layers = marginal.get("layer")
+>       assert isinstance(layers, list) and len(layers) >= 2, (
+            f"{axis} marginal must be a layered chart with at least 2 bar layers "
+            f"(gray total + colored filtered)."
+        )
+E       AssertionError: Top marginal must be a layered chart with at least 2 bar layers (gray total + colored filtered).
+E       assert (False)
+E        +  where False = isinstance(None, list)
+
+tests/test_final_state.py:258: AssertionError
+==================================== PASSES ====================================
+_____________________ test_browser_renders_three_subplots ______________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_static_server$ python3 -m http.server 8765 --bind 127.0.0.1
+process 'altair_static_server' started pid=687
+altair_static_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_spec_is_nonempty
+PASSED tests/test_final_state.py::test_compound_layout_top_above_center_and_right
+PASSED tests/test_final_state.py::test_heatmap_is_rect_with_binned_x_and_y
+PASSED tests/test_final_state.py::test_heatmap_color_uses_count_aggregate_with_viridis
+PASSED tests/test_final_state.py::test_right_marginal_is_layered_with_brush_filter
+PASSED tests/test_final_state.py::test_browser_renders_three_subplots
+FAILED tests/test_final_state.py::test_2d_interval_brush_on_heatmap - Asserti...
+FAILED tests/test_final_state.py::test_top_marginal_is_layered_with_brush_filter
+=================== 2 failed, 7 passed in 159.76s (0:02:39) ====================

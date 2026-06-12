@@ -1,0 +1,43 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The chart.html produced by the build script must render an interactive US state-level choropleth map together with a dropdown that switches the displayed metric among the three columns of the population_engineers_hurricanes dataset. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html. Wait for the Vega-Embed chart to finish rendering. Then verify two things: (1) the page shows a US-shaped map made of many SVG path elements (at least 40 non-empty <path> elements should be present inside the chart container, one per US state). (2) the page exposes exactly one <select> dropdown control whose three <option> elements, in document order, have text content equal to 'population', 'engineers', and 'hurricanes' (case-sensitive, exact match, no other options). Both conditions must hold for the verification to pass. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 247 characters   
+❯ Verify US state-level choropleth map and dropdown on http://localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser wait 2000 && agent-browser snapshot
+| 💫 Executing agent-browser get html "#chart-container"
+| 💫 Executing agent-browser get html "body"
+| 💫 Executing agent-browser snapshot | grep -c "graphics-symbol \"Value: .* State: .*\""
+| 💫 Executing agent-browser snapshot | grep -c "combobox"
+| 💫 Executing agent-browser get html "@e1"
+| 💫 Executing agent-browser snapshot | grep -c "combobox"
+| 💫 Executing agent-browser get html "body" | grep -c "<select"
+| 💫 Executing agent-browser get html "svg" | grep -o "<path[^>]*" | grep -v "d=\"\"" | wc -l
+| 💫 Executing agent-browser get html "svg" | grep -o "<path" | wc -l
+| 💫 Executing agent-browser get html "svg" | grep -o "<path[^>]*>" | head -n 20
+| 💫 Executing agent-browser get text "@e1"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser --auto-connect snapshot -c | grep -E "combobox|option"
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+✔ Verify US state-level choropleth map and dropdown on http://localhost:8765/chart.html (browser)
+💭 Thinking for 295 characters   
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The verification was successful. The page at http://localhost:8765/chart.html was accessed. The chart container contains 57 non-empty <path> elements (exceeding the required 40). There is exactly one <select> dropdown with the three required options ('population', 'engineers', 'hurricanes') in the correct order and with exact case-sensitive matches."
+}   
+  

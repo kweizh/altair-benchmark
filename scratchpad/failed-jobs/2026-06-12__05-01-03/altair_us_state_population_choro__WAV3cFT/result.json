@@ -1,0 +1,117 @@
+{
+    "id": "0353ba9b-c806-424f-be0d-7dfb9cd76697",
+    "task_name": "altair_us_state_population_choropleth",
+    "trial_name": "altair_us_state_population_choro__WAV3cFT",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__05-01-03/altair_us_state_population_choro__WAV3cFT",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_us_state_population_choropleth"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "305807e1491cb9f7df61a9e71561ab6050245b5c6edfdf56de695556a4544368",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_us_state_population_choropleth",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_us_state_population_choro__WAV3cFT",
+        "trials_dir": "jobs/2026-06-12__05-01-03",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "anthropic/claude-4-6-sonnet",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "c14a583c-971f-4733-b0a3-8b61df6b00d9"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "claude-4-6-sonnet",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 25184,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T05:15:45.017564Z",
+    "finished_at": "2026-06-12T05:19:49.541823Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T05:15:45.021077Z",
+        "finished_at": "2026-06-12T05:15:47.860059Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T05:15:47.860092Z",
+        "finished_at": "2026-06-12T05:16:02.279194Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T05:16:02.279318Z",
+        "finished_at": "2026-06-12T05:18:22.013992Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T05:18:23.491561Z",
+        "finished_at": "2026-06-12T05:19:36.880264Z"
+    },
+    "step_results": null
+}

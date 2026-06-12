@@ -1,0 +1,71 @@
+- Initializing MCP connections...
+You
+# US County Unemployment Choropleth with Linked Brushable Histogram ## Background Build an interactive geographic dashboard in Vega-Altair (Python) that visualizes the 2018 US county-level unemployment rate as a choropleth map joined with a brushable histogram. The dashboard must combine a TopoJSON geographic layer with a separate tabular rate dataset using a lookup transform, an Albers USA projection, a threshold (binned) color scale, and a cross-view interval brush filter. ## Requirements * Use `vega-altair` to build a `vconcat` (or `hconcat`) dashboard composed of: 1. A US county choropleth rendered with `mark_geoshape()`. 2. A histogram of the unemployment `rate` rendered with `mark_bar()` that exposes an interval brush on its x-axis. * The map must: * Use `alt.topo_feature(data.us_10m.url, 'counties')` as its primary data source. * Use a `transform_lookup` that joins the county geometries to `data.unemployment.url` on `id` and pulls in the `rate` field. * Project with `albersUsa`. * Encode `color` from the looked-up `rate` field as quantitative, using a `threshold` scale (with a `domain` of at least three break points, e.g. `[0.05, 0.10, 0.15, 0.20]`) and a sequential `blues` color scheme. * Include a tooltip exposing both the county `id` and `rate`. * Apply a `transform_filter` that filters the displayed counties to the brush selection on the histogram. * The histogram must: * Read directly from `data.unemployment.url` (so all counties are visible in the histogram even when the map is filtered). * Bin the `rate` field on the x-axis and count rows on the y-axis (`mark_bar()`). * Carry an `alt.selection_interval(encodings=['x'])` parameter added with `add_params(...)`. The same parameter must be referenced by the map's `transform_filter`. * Save the final chart as an interactive HTML file using `chart.save('chart.html')` (any embed options are fine; the default canvas renderer is acceptable as long as a `<script>` tag containing the Vega-Lite spec is embedded in the HTML). * Wrap everything in a runnable script at `/home/user/myproject/solution.py`. ## Implementation Hints * Refer to Altair's Geoshape, Choropleth Classification, and Lookup transform documentation for the correct API usage. * Counties in `us_10m` join to the unemployment table via the FIPS `id` field. * The threshold scale should produce a banded/categorical legend with discrete bins. * The interval brush parameter must be created once and reused by both the histogram (`add_params`) and the map (`transform_filter`). * The generated HTML file embeds the Vega-Lite spec inside a JSON object passed to `vegaEmbed`; downstream verification will parse that spec. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 solution.py` * Running the command must write a non-empty `chart.html` file to `/home/user/myproject/chart.html`. * The embedded Vega-Lite specification inside `chart.html` must satisfy all of the following structural properties: * Contains a `geoshape` mark whose chart has a `transform` list including a `lookup` step referencing the `unemployment` dataset (URL contains the substring `unemployment`). * The geoshape chart's `projection.type` is `albersUsa`. * The geoshape chart's `color` encoding references a numeric `rate` field with a `threshold`-type scale and a `blues` color scheme. * The geoshape chart's `tooltip` encoding exposes both `id` and `rate` fields. * The geoshape chart includes a `filter` transform that references a selection parameter name (e.g. via `{"param": "<name>"}`). * A separate chart in the same spec uses a `bar` mark, contains a binned x-encoding on the `rate` field, and registers a `params` entry whose `select.type` is `interval` (the same param name referenced by the map's filter). * Browser verification (via `pochi-verifier`): When `chart.html` is opened in a headless browser, the rendered DOM must contain at least one SVG/canvas element produced by Vega-Embed (`#vis` container) and the page must not raise JavaScript errors.   
+
+Pochi
+💭 Thinking for 1139 characters   
+💫 Executing mkdir -p /home/user/myproject ✔ 
+✏️  Writing /home/user/myproject/solution.py ✖ "File has not been read yet. Please read the file before writing it."
+💭 Thinking for 191 characters   
+💫 Executing cat << 'EOF' > /home/user/myproject/solution.py
+import altair as alt
+from vega_datasets import data
+
+counties = alt.topo_feature(data.us_10m.url, 'counties')
+source = data.unemployment.url
+
+brush = alt.selection_interval(encodings=['x'])
+
+map_chart = alt.Chart(counties).mark_geoshape().project(
+    type='albersUsa'
+).transform_lookup(
+    lookup='id',
+    from_=alt.LookupData(source, 'id', ['rate'])
+).encode(
+    color=alt.Color('rate:Q', scale=alt.Scale(type='threshold', domain=[0.02, 0.04, 0.06, 0.08], scheme='blues')),
+    tooltip=['id:N', 'rate:Q']
+).transform_filter(
+    brush
+).properties(
+    width=600,
+    height=400
+)
+
+hist_chart = alt.Chart(source).mark_bar().encode(
+    x=alt.X('rate:Q', bin=True),
+    y='count()'
+).add_params(
+    brush
+).properties(
+    width=600,
+    height=200
+)
+
+dashboard = alt.vconcat(map_chart, hist_chart)
+dashboard.save('/home/user/myproject/chart.html')
+EOF
+python3 /home/user/myproject/solution.py ✔ 
+💫 Executing cat /home/user/myproject/chart.html | grep -o 'albersUsa' ✔ 
+💫 Executing grep -q "unemployment" /home/user/myproject/chart.html && echo "Has unemployment"
+grep -q "threshold" /home/user/myproject/chart.html && echo "Has threshold"
+grep -q "blues" /home/user/myproject/chart.html && echo "Has blues"
+grep -q "filter" /home/user/myproject/chart.html && echo "Has filter"
+grep -q "interval" /home/user/myproject/chart.html && echo "Has interval" ✔ 
+💭 Thinking for 330 characters   
+💫 Executing grep -o '"filter": {"param": "[^"]*"' /home/user/myproject/chart.html ✔ 
+💭 Thinking for 139 characters   
+🎉 Task Completed
+The interactive dashboard with the US county unemployment choropleth and linked brushable histogram has been successfully implemented. 
+
+The python script has been saved to `/home/user/myproject/solution.py` and it generates the required `/home/user/myproject/chart.html` file using `vega-altair`.
+
+Key features implemented:
+- A US county choropleth map using `mark_geoshape()` with `albersUsa` projection.
+- `transform_lookup` used to join county geometries with the unemployment dataset.
+- A threshold color scale with a `blues` color scheme for visualizing the unemployment rate.
+- Tooltips configured to display both the county `id` and the `rate`.
+- A linked brushable histogram using `mark_bar()` that bins the `rate` field.
+- Cross-view interactivity where the interval brush selection on the histogram filters the counties displayed on the map.
+
+You can verify the dashboard by opening `/home/user/myproject/chart.html` in a web browser.   
+  

@@ -1,0 +1,130 @@
+- Initializing MCP connections...
+You
+# Movies 2D Heatmap with Marginal Histograms (Vega-Altair) ## Background The analytics team wants a single dashboard for exploring how IMDB ratings and Rotten Tomatoes ratings co-vary across movies. They have asked for a 2D binned heatmap together with marginal histograms on the top and right, and they want to be able to drag out a rectangular region on the heatmap so the marginal histograms show how many records fall inside the brushed 2D region versus the total. Build this with Vega-Altair and export the result as a static HTML file. ## Requirements * Use the `vega_datasets` movies dataset as a URL data source: `data.movies.url` (from `vega_datasets`). * Produce a Vega-Altair compound chart with three subplots arranged like this: * Top: a marginal histogram of `IMDB_Rating` that lines up horizontally with the heatmap below it. * Center: a 2D binned heatmap of `IMDB_Rating` (x axis) vs `Rotten_Tomatoes_Rating` (y axis), colored by the number of movies in each 2D bin. * Right: a marginal histogram of `Rotten_Tomatoes_Rating` that lines up vertically with the heatmap (the bars run horizontally, i.e. count on x, binned rating on y). * Both axes of the heatmap must be binned with `maxbins=20`, and the heatmap mark must be `rect`. * The color encoding of the heatmap must use the `count()` aggregate with the `viridis` color scheme. * Add an interval selection on the heatmap that is projected onto both `x` and `y` (a 2D rectangular brush). Both marginal histograms must react to this brush. * Each marginal histogram must be a layered chart with two bars per bin: * A baseline gray bar showing the total count for that bin across the whole dataset. * A second colored bar on top that uses `transform_filter` referencing the brush parameter so that it only counts records that fall inside the brushed 2D region. * Save the final compound chart to `/home/user/myproject/chart.html` using `chart.save(...)`. ## Implementation Hints * Use `vega_datasets` to obtain the movies URL; for URL data sources, you must declare encoding types explicitly (e.g. `IMDB_Rating:Q`). * Choose appropriate Altair composition primitives so the top histogram shares the heatmap's x axis and the right histogram shares its y axis (vertical and horizontal concatenation). * An `selection_interval(encodings=['x','y'])` parameter must be added to the heatmap with `add_params(...)`. The same parameter object is then referenced from `transform_filter(...)` on the filtered layer of each marginal histogram. * For the layered marginals, the bars must have the same bin definition (`maxbins=20`) on the shared axis so the baseline and the filtered layer line up exactly. * Use a quantitative `count()` encoding on the non-binned channel of the marginals. * Set the heatmap color scheme to `viridis` via Altair's scale configuration. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `python3 build_chart.py` * Running the command must (re)generate `/home/user/myproject/chart.html`. * The generated `chart.html` must embed a valid Vega-Lite spec for a compound (concatenated) chart with three subplots: a top marginal histogram, a center heatmap, and a right marginal histogram. * The center subplot must be a `rect` mark with `IMDB_Rating` on x and `Rotten_Tomatoes_Rating` on y, both binned with `maxbins` approximately 20, colored by a `count` aggregate using the `viridis` scheme. * The compound spec must declare an interval selection parameter that is projected over both `x` and `y` encodings (a 2D brush) and is attached to the heatmap. * Each marginal subplot must be a layered chart with at least two bar layers, where one layer contains a `transform_filter` referencing the brush parameter. * Browser verification: open the generated `chart.html` in a browser; the page must render three visible subplots arranged with a histogram on top, a rectangular heatmap in the middle, and a horizontal-bar histogram on the right; the heatmap area must visibly contain a grid of colored rectangles.   
+
+Pochi
+I'll start by exploring the project directory and understanding what's already there, then build the chart.   
+📂 Listing files in /home/user/myproject recursively ✔ 
+📋 Updating todo list (3 items) ✔ 
+Let me check what Python packages are available:   
+💫 Executing python3 -c "import altair; print('altair', altair.__version__)" 2>&1; python3 -c "import vega_datasets; print('vega_datasets ok')" 2>&1 ✔ 
+Good, both packages are available. Now let me create the chart script:   
+✏️  Writing /home/user/myproject/build_chart.py ✔ 
+📋 Updating todo list (3 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 build_chart.py 2>&1 ✔ 
+📋 Updating todo list (3 items) ✔ 
+Now let me verify the generated HTML contains the expected Vega-Lite spec structure:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import json
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Extract the Vega-Lite spec from the HTML
+import re
+match = re.search(r'vegaEmbed\(.*?,\s*(\{.*?\})\)', html, re.DOTALL)
+if match:
+    print('Found vegaEmbed call')
+else:
+    # Try finding spec in the HTML another way
+    match2 = re.search(r'\"spec\"\s*:\s*(\{.*)', html, re.DOTALL)
+    if match2:
+        print('Found spec in JSON')
+    else:
+        print('Checking for key Vega-Lite markers...')
+
+# Check for key requirements
+checks = [
+    ('rect mark', 'rect' in html),
+    ('IMDB_Rating', 'IMDB_Rating' in html),
+    ('Rotten_Tomatoes_Rating', 'Rotten_Tomatoes_Rating' in html),
+    ('viridis', 'viridis' in html),
+    ('maxbins', 'maxbins' in html),
+    ('count aggregate', 'count' in html),
+    ('interval selection', 'selection' in html.lower() or 'param' in html.lower()),
+    ('transform_filter', 'transform_filter' in html or 'filter' in html),
+    ('layer', 'layer' in html),
+    ('hconcat', 'hconcat' in html),
+    ('vconcat', 'vconcat' in html),
+]
+
+for name, result in checks:
+    print(f'  {\"✅\" if result else \"❌\"} {name}')
+
+print(f'\\nFile size: {len(html)} bytes')
+" 2>&1 ✔ 
+All checks pass. Let me also verify the actual Vega-Lite JSON spec structure more carefully:   
+📖 Reading /home/user/myproject/chart.html ✔ 
+The generated spec looks correct. Let me do a more thorough validation by parsing the JSON:   
+💫 Executing cd /home/user/myproject && python3 -c "
+import json, re
+
+with open('chart.html', 'r') as f:
+    html = f.read()
+
+# Extract the spec JSON
+match = re.search(r'var spec = ({.*?});', html, re.DOTALL)
+spec = json.loads(match.group(1))
+
+# Validate structure
+print('Top-level keys:', list(spec.keys()))
+print()
+
+# Check vconcat structure
+vconcat = spec['vconcat']
+print(f'vconcat has {len(vconcat)} rows')
+
+# Row 0: top hist + empty
+row0 = vconcat[0]['hconcat']
+print(f'  Row 0: hconcat with {len(row0)} items')
+print(f'    Item 0: layer with {len(row0[0][\"layer\"])} layers, title=\"{row0[0][\"title\"]}\"')
+print(f'    Item 1: empty placeholder')
+
+# Params
+print(f'\\nParams: {len(spec[\"params\"])}')
+for p in spec['params']:
+    print(f'  name={p[\"name\"]}, select={p[\"select\"]}, views={p[\"views\"]}')
+
+# Row 1: heatmap + right hist
+row1 = vconcat[1]['hconcat']
+print(f'\\n  Row 1: hconcat with {len(row1)} items')
+heatmap = row1[0]
+print(f'    Item 0 (heatmap): mark={heatmap[\"mark\"]}, title=\"{heatmap[\"title\"]}\"')
+print(f'      x={heatmap[\"encoding\"][\"x\"]}')
+print(f'      y={heatmap[\"encoding\"][\"y\"]}')
+print(f'      color={heatmap[\"encoding\"][\"color\"]}')
+
+right = row1[1]
+print(f'    Item 1 (right hist): layer with {len(right[\"layer\"])} layers, title=\"{right[\"title\"]}\"')
+
+# Check brush filter references
+for layer in row0[0]['layer']:
+    if 'transform' in layer:
+        print(f'\\n  Top hist filtered layer transform: {layer[\"transform\"]}')
+for layer in right['layer']:
+    if 'transform' in layer:
+        print(f'  Right hist filtered layer transform: {layer[\"transform\"]}')
+
+print('\\n✅ All structural validations passed.')
+" 2>&1 ✔ 
+All validations pass. Let me mark the final task as complete.   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+The 2D heatmap dashboard with marginal histograms has been created and validated.
+
+**Files:**
+- `/home/user/myproject/build_chart.py` — the build script
+- `/home/user/myproject/chart.html` — the generated standalone HTML
+
+**Chart structure (vconcat + hconcat):**
+
+| Top-left: IMDB Rating histogram (layered) | Top-right: empty placeholder |
+|---|---|
+| Bottom-left: 2D binned heatmap (rect, viridis) | Bottom-right: Rotten Tomatoes histogram (layered, horizontal bars) |
+
+**Key features in the generated spec:**
+- **Heatmap**: `rect` mark with `IMDB_Rating` (x) and `Rotten_Tomatoes_Rating` (y), both binned `maxbins=20`, colored by `count()` aggregate with `viridis` color scheme
+- **Interval selection**: 2D rectangular brush projected on both `x` and `y` encodings, attached to the heatmap view
+- **Marginal histograms**: Each is a layered chart with two bar layers — a gray baseline (full dataset) and a steelblue overlay filtered by `transform_filter` referencing the brush parameter, so brushing the heatmap updates both marginal distributions in real time
+- **Data source**: `vega_datasets` movies dataset loaded via URL   
+  

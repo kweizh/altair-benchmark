@@ -1,0 +1,134 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:29:56.196707+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 9,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781245661779,
+            "stop": 1781245796194
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1376,
+                "start": 1781245661826,
+                "stop": 1781245663202,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_json_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245663202,
+                "stop": 1781245663203,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_vconcat_with_two_views",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781245663203,
+                "stop": 1781245663205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_upper_view_is_layered_rule_and_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245663205,
+                "stop": 1781245663206,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_uses_low_and_high",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245663206,
+                "stop": 1781245663207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bar_layer_uses_open_and_close",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781245663208,
+                "stop": 1781245663208,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_uses_conditional_on_open_close",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781245663209,
+                "stop": 1781245663209,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_view_is_volume_bar",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781245663210,
+                "stop": 1781245663210,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_lower_view_has_interval_brush_on_x",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 24,
+                "start": 1781245663211,
+                "stop": 1781245663235,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti... 'low': 101.85, ...}, {'close': 102.31, 'date': '2024-01-09T00:00:00', 'high': 104.23, 'low': 101.42, ...}, ...]}, ...}\n\n    def test_lower_view_has_interval_brush_on_x(spec):\n        lower = spec[\"vconcat\"][1]\n        name, brush = _interval_param_in(lower)\n>       assert brush is not None, (\n            \"Lower view must declare an `interval` selection parameter under `params`. \"\n            f\"Got params={lower.get('params')!r}.\"\n        )\nE       AssertionError: Lower view must declare an `interval` selection parameter under `params`. Got params=None.\nE       assert None is not None\n\ntests/test_final_state.py:263: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_upper_x_scale_domain_references_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781245663235,
+                "stop": 1781245663244,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti... 'low': 101.85, ...}, {'close': 102.31, 'date': '2024-01-09T00:00:00', 'high': 104.23, 'low': 101.42, ...}, ...]}, ...}\n\n    def test_upper_x_scale_domain_references_brush(spec):\n        upper = spec[\"vconcat\"][0]\n        lower = spec[\"vconcat\"][1]\n        brush_name, _ = _interval_param_in(lower)\n>       assert brush_name, \"Could not find an interval brush name on the lower view.\"\nE       AssertionError: Could not find an interval brush name on the lower view.\nE       assert None\n\ntests/test_final_state.py:285: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_renders_candlestick_and_volume_in_browser",
+                "status": "passed",
+                "duration": 132948,
+                "start": 1781245663245,
+                "stop": 1781245796193,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

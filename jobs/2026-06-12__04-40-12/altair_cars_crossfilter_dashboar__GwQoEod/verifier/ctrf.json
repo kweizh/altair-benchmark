@@ -1,0 +1,83 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T04:50:33.213822+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 2,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781239710126,
+            "stop": 1781239833213
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_layout_is_A_pipe_B_amp_C",
+                "status": "passed",
+                "duration": 1256,
+                "start": 1781239710172,
+                "stop": 1781239711428,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_view_a_scatter_with_interval_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 25,
+                "start": 1781239711428,
+                "stop": 1781239711453,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}\n\n    def test_view_a_scatter_with_interval_brush(views):\n        \"\"\"View A must be a scatter of Horsepower vs MPG colored by Origin, with an x+y interval brush.\"\"\"\n        a = views[\"A\"]\n        assert _normalize_mark(a.get(\"mark\")) == \"point\", (\n            f\"View A must use mark_point; got mark={a.get('mark')!r}.\"\n        )\n        enc = a.get(\"encoding\") or {}\n        assert enc.get(\"x\", {}).get(\"field\") == \"Horsepower\", (\n            f\"View A encoding.x.field must be 'Horsepower'; got {enc.get('x')!r}.\"\n        )\n        assert enc.get(\"y\", {}).get(\"field\") == \"Miles_per_Gallon\", (\n            f\"View A encoding.y.field must be 'Miles_per_Gallon'; got {enc.get('y')!r}.\"\n        )\n        # color may be wrapped inside a condition; first check the direct field\n        color = enc.get(\"color\") or {}\n        color_field = color.get(\"field\")\n        if color_field is None and isinstance(color.get(\"condition\"), dict):\n            color_field = color[\"condition\"].get(\"field\")\n        assert color_field == \"Origin\", (\n            f\"View A encoding.color.field must be 'Origin'; got {enc.get('color')!r}.\"\n        )\n    \n        brush = _find_brush_param(a)\n>       assert brush is not None, (\n            \"View A must declare a selection_interval param whose `select.encodings` \"\n            \"covers both 'x' and 'y' (i.e. an x+y interval brush attached via add_params).\"\n        )\nE       AssertionError: View A must declare a selection_interval param whose `select.encodings` covers both 'x' and 'y' (i.e. an x+y interval brush attached via add_params).\nE       assert None is not None\n\ntests/test_final_state.py:189: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_view_b_bar_filtered_by_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781239711453,
+                "stop": 1781239711462,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}\n\n    def test_view_b_bar_filtered_by_brush(views):\n        \"\"\"View B must be a bar chart of count(*) by Origin, filtered by the brush from View A.\"\"\"\n        a, b = views[\"A\"], views[\"B\"]\n        assert _normalize_mark(b.get(\"mark\")) == \"bar\", (\n            f\"View B must use mark_bar; got mark={b.get('mark')!r}.\"\n        )\n        enc = b.get(\"encoding\") or {}\n        x_enc = enc.get(\"x\") or {}\n        y_enc = enc.get(\"y\") or {}\n        fields = {\"x\": x_enc.get(\"field\"), \"y\": y_enc.get(\"field\")}\n        aggregates = {\"x\": x_enc.get(\"aggregate\"), \"y\": y_enc.get(\"aggregate\")}\n    \n        origin_channels = [ch for ch, fld in fields.items() if fld == \"Origin\"]\n        assert len(origin_channels) == 1, (\n            f\"Exactly one of View B's x/y encodings must have field='Origin'; got {fields!r}.\"\n        )\n        other = \"x\" if origin_channels[0] == \"y\" else \"y\"\n        assert aggregates[other] == \"count\", (\n            f\"The non-Origin axis of View B must use aggregate='count'; got {aggregates!r}.\"\n        )\n    \n        brush = _find_brush_param(a)\n>       assert brush is not None, \"Cannot validate View B's filter: View A is missing the brush param.\"\nE       AssertionError: Cannot validate View B's filter: View A is missing the brush param.\nE       assert None is not None\n\ntests/test_final_state.py:217: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_view_c_binned_heatmap_filtered_by_brush",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 9,
+                "start": 1781239711463,
+                "stop": 1781239711472,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "views = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'x': {'field': 'Horsepower', 'type': 'quantitativ...', 'type': 'quantitative'}}, 'mark': {'type': 'rect'}, 'transform': [{'filter': {'param': 'param_54853b0de6a785bc'}}]}}\n\n    def test_view_c_binned_heatmap_filtered_by_brush(views):\n        \"\"\"View C must be a 2D binned mark_rect heatmap colored by count(), filtered by the brush.\"\"\"\n        a, c = views[\"A\"], views[\"C\"]\n        assert _normalize_mark(c.get(\"mark\")) == \"rect\", (\n            f\"View C must use mark_rect; got mark={c.get('mark')!r}.\"\n        )\n        enc = c.get(\"encoding\") or {}\n        x_enc = enc.get(\"x\") or {}\n        y_enc = enc.get(\"y\") or {}\n        color_enc = enc.get(\"color\") or {}\n    \n        assert x_enc.get(\"field\") == \"Weight_in_lbs\", (\n            f\"View C encoding.x.field must be 'Weight_in_lbs'; got {x_enc!r}.\"\n        )\n        assert y_enc.get(\"field\") == \"Acceleration\", (\n            f\"View C encoding.y.field must be 'Acceleration'; got {y_enc!r}.\"\n        )\n>       assert x_enc.get(\"bin\"), (\n            f\"View C encoding.x.bin must be truthy (binning enabled on x); got x={x_enc!r}.\"\n        )\nE       AssertionError: View C encoding.x.bin must be truthy (binning enabled on x); got x={'bin': {}, 'field': 'Weight_in_lbs', 'type': 'quantitative'}.\nE       assert {}\nE        +  where {} = <built-in method get of dict object at 0x7fbd1c0a5d80>('bin')\nE        +    where <built-in method get of dict object at 0x7fbd1c0a5d80> = {'bin': {}, 'field': 'Weight_in_lbs', 'type': 'quantitative'}.get\n\ntests/test_final_state.py:244: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_browser_cross_filter_behavior",
+                "status": "passed",
+                "duration": 121741,
+                "start": 1781239711472,
+                "stop": 1781239833213,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

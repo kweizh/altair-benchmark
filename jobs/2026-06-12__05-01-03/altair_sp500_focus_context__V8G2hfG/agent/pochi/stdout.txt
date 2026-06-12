@@ -1,0 +1,709 @@
+- Initializing MCP connections...
+You
+# S\&P 500 Focus + Context Dashboard with Altair ## Background Build a declarative, fully interactive "Focus + Context" stock dashboard with vega-altair on top of the S\&P 500 time series shipped with `vega_datasets` (`data.sp500.url`, columns `date` and `price`). The dashboard combines a large detail area chart with a small overview area chart whose interval brush controls the detail chart's x-axis domain, and it overlays an annotation showing the running maximum price within the brushed window. ## Requirements * Use the URL form of the dataset, i.e. `data.sp500.url` from `vega_datasets`. Do not download or pre-process the data in pandas. * Produce a single Altair chart that is the vertical concatenation (`&`) of two sub-charts of equal width: * An upper detail chart drawn as a filled area of `price` vs `date`. * A lower context chart drawn as the same filled area of `price` vs `date`, but with a much smaller height (around 60px) acting as a navigator. * Add an interval brush on the lower chart that is restricted to the `x` encoding only, and bind it to the upper chart so the upper chart's x-axis `domain` follows the brushed range. * Layer a horizontal `rule` annotation on top of the upper area chart that marks the running maximum price found inside the brushed window. The rule must be computed inside the spec (no pre-aggregation in Python) by combining a `transform_filter` on the brush param with either a `transform_window` or `transform_aggregate` for the maximum price. * Save the resulting chart as a self-contained HTML file at `/home/user/altair_project/chart.html`. * Write a small Python entry script at `/home/user/altair_project/build_chart.py` whose execution regenerates `chart.html` from scratch. ## Implementation Hints * The interval-brush + x-domain binding is the canonical "Focus + Context" pattern in Altair; remember that the brush should be created with `selection_interval(encodings=['x'])` and registered via `add_params` on the chart that hosts it. * The detail chart's x-scale `domain` can directly reference the brush parameter; review how `alt.X(...).scale(domain=...)` accepts a selection. * For the running-maximum annotation, think about how `transform_filter` on the brush narrows the dataset before a window or aggregate transform computes the max; the rule mark only needs a `y` encoding to span the full width. * Composition uses the `&` operator (vertical concatenation). The chart's data source is the same URL for both panels. * After building the chart, persist it via `chart.save('chart.html')`. ## Acceptance Criteria * Project path: /home/user/altair\_project * Command: `python3 build_chart.py` * Running the command must (re)generate `/home/user/altair_project/chart.html` containing a fully self-contained Vega-Lite spec for an Altair chart that satisfies all of the following structural properties (verified against the embedded JSON spec): * The top-level spec is a vertical concatenation (has a `vconcat` field with exactly two entries). * Both `vconcat` entries reference an area mark (either `"mark": "area"` or `"mark": {"type": "area", ...}`), possibly inside a layer. * The lower (second) `vconcat` entry declares a `selection_interval` parameter restricted to the x encoding, i.e. some parameter has `"select": {"type": "interval", "encodings": ["x"]}`. * The upper (first) `vconcat` entry's x encoding scale references the same brush parameter name via its `domain` (e.g. `"scale": {"domain": {"param": "<brush_name>"}}`). * The upper (first) `vconcat` entry contains a `rule` mark layered on top of the area, and that rule's surrounding spec includes either a `window` transform computing a `max` of `price` or an `aggregate` transform computing a `max` of `price`, together with a `filter` transform that references the brush parameter. * Browser verification: when the saved `chart.html` is rendered in a real browser via `pochi-verifier`, at least two `<path>` elements belonging to area mark groups must be present in the rendered SVG/canvas DOM and the lower panel must contain an interval selection rectangle element.   
+
+Pochi
+💭 Thinking for 1246 characters   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing mkdir -p /home/user/altair_project && python3 -c "import altair; print(altair.__version__)" && python3 -c "from vega_datasets import data; print(data.sp500.url)" ✔ 
+📋 Updating todo list (5 items) ✔ 
+Altair 6.2.1 detected. Now writing the build script with the exact spec structure the acceptance criteria require:   
+✏️  Writing /home/user/altair_project/build_chart.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/altair_project && python3 build_chart.py ✔ 
+📋 Updating todo list (3 items) ✔ 
+Now verify every structural acceptance criterion against the embedded JSON spec:   
+💫 Executing python3 - <<'EOF'
+import re, json, sys
+
+html = open("/home/user/altair_project/chart.html").read()
+# Extract the JSON spec embedded in the HTML
+m = re.search(r'const spec\s*=\s*(\{.*?\});\s*\n\s*const embedOpt', html, re.DOTALL)
+if not m:
+    # Try alternative pattern used by newer altair
+    m = re.search(r'vegaEmbed\(.*?,\s*(\{.*?\})\s*,\s*\{', html, re.DOTALL)
+if not m:
+    # Just grab first large JSON object
+    start = html.index('{"$schema"')
+    depth = 0
+    for i, c in enumerate(html[start:], start):
+        if c == '{': depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                spec = json.loads(html[start:i+1])
+                break
+else:
+    spec = json.loads(m.group(1))
+
+print("=== Top-level keys:", list(spec.keys()))
+assert "vconcat" in spec, "FAIL: no vconcat at top level"
+vc = spec["vconcat"]
+assert len(vc) == 2, f"FAIL: vconcat has {len(vc)} entries, expected 2"
+print("PASS: vconcat has exactly 2 entries")
+
+# Check both entries have area marks
+def find_marks(node, found=None):
+    if found is None: found = []
+    if isinstance(node, dict):
+        m = node.get("mark")
+        if isinstance(m, str): found.append(m)
+        elif isinstance(m, dict): found.append(m.get("type",""))
+        for v in node.values():
+            find_marks(v, found)
+    elif isinstance(node, list):
+        for item in node:
+            find_marks(item, found)
+    return found
+
+upper_marks = find_marks(vc[0])
+lower_marks = find_marks(vc[1])
+print("Upper marks:", upper_marks)
+print("Lower marks:", lower_marks)
+assert "area" in upper_marks, "FAIL: upper entry has no area mark"
+assert "area" in lower_marks, "FAIL: lower entry has no area mark"
+print("PASS: both vconcat entries contain area marks")
+
+# Check lower entry has selection_interval with encodings:['x']
+def find_selections(node, found=None):
+    if found is None: found = []
+    if isinstance(node, dict):
+        params = node.get("params", [])
+        for p in params:
+            sel = p.get("select", {})
+            if isinstance(sel, dict) and sel.get("type") == "interval":
+                found.append(sel)
+        for v in node.values():
+            find_selections(v, found)
+    elif isinstance(node, list):
+        for item in node:
+            find_selections(item, found)
+    return found
+
+lower_sels = find_selections(vc[1])
+print("Lower selections:", lower_sels)
+assert any(s.get("encodings") == ["x"] for s in lower_sels), \
+    "FAIL: lower entry has no interval selection restricted to x"
+print("PASS: lower entry has selection_interval with encodings=['x']")
+
+# Check upper entry x-scale domain references brush param
+def find_x_domains(node, found=None):
+    if found is None: found = []
+    if isinstance(node, dict):
+        enc = node.get("encoding", {})
+        x_enc = enc.get("x", {})
+        sc = x_enc.get("scale", {})
+        dom = sc.get("domain", {})
+        if isinstance(dom, dict) and "param" in dom:
+            found.append(dom["param"])
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                find_x_domains(v, found)
+    elif isinstance(node, list):
+        for item in node:
+            find_x_domains(item, found)
+    return found
+
+upper_domains = find_x_domains(vc[0])
+print("Upper x domain params:", upper_domains)
+assert len(upper_domains) > 0, "FAIL: upper entry x encoding has no brush domain reference"
+print("PASS: upper entry x encoding scale.domain references brush param")
+
+# Get brush param name from lower entry
+def get_param_names(node, found=None):
+    if found is None: found = []
+    if isinstance(node, dict):
+        for p in node.get("params", []):
+            if "name" in p:
+                found.append(p["name"])
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                get_param_names(v, found)
+    elif isinstance(node, list):
+        for item in node:
+            get_param_names(item, found)
+    return found
+
+lower_param_names = get_param_names(vc[1])
+print("Lower param names:", lower_param_names)
+brush_name = upper_domains[0]
+assert brush_name in lower_param_names, \
+    f"FAIL: brush name '{brush_name}' not found in lower params {lower_param_names}"
+print(f"PASS: brush name '{brush_name}' matches between upper domain and lower param")
+
+# Check upper entry has rule mark + transform_aggregate/window with max(price) + filter ref brush
+def find_rules_and_transforms(node, found=None):
+    if found is None: found = {"rules": [], "aggregates": [], "windows": [], "filters": []}
+    if isinstance(node, dict):
+        m = node.get("mark")
+        mark_type = m if isinstance(m, str) else (m.get("type","") if isinstance(m, dict) else "")
+        if mark_type == "rule":
+            found["rules"].append(node)
+        transforms = node.get("transform", [])
+        for t in transforms:
+            if "aggregate" in t:
+                for agg in t["aggregate"]:
+                    if agg.get("op") == "max" and "price" in agg.get("field",""):
+                        found["aggregates"].append(agg)
+            if "window" in t:
+                for win in t["window"]:
+                    if win.get("op") == "max" and "price" in win.get("field",""):
+                        found["windows"].append(win)
+            if "filter" in t:
+                flt = t["filter"]
+                flt_str = json.dumps(flt)
+                if brush_name in flt_str:
+                    found["filters"].append(flt)
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                find_rules_and_transforms(v, found)
+    elif isinstance(node, list):
+        for item in node:
+            find_rules_and_transforms(item, found)
+    return found
+
+upper_rt = find_rules_and_transforms(vc[0])
+print("Upper rules:", len(upper_rt["rules"]))
+print("Upper max aggregates:", upper_rt["aggregates"])
+print("Upper max windows:", upper_rt["windows"])
+print("Upper brush filters:", upper_rt["filters"])
+assert len(upper_rt["rules"]) > 0, "FAIL: upper entry has no rule mark"
+assert len(upper_rt["aggregates"]) > 0 or len(upper_rt["windows"]) > 0, \
+    "FAIL: upper entry has no aggregate/window transform computing max(price)"
+assert len(upper_rt["filters"]) > 0, \
+    "FAIL: upper entry has no transform_filter referencing the brush"
+print("PASS: upper entry contains rule + max transform + brush filter")
+
+print("\n=== ALL STRUCTURAL CHECKS PASSED ===")
+EOF ✖ "Command exited with code 1"
+💫 Executing grep -o 'spec = {' /home/user/altair_project/chart.html | head -5
+grep -o '"\\$schema"' /home/user/altair_project/chart.html | head -3
+python3 -c "
+html = open('/home/user/altair_project/chart.html').read()
+# Find all JSON-like objects with schema
+import re
+matches = [(m.start(), m.group()) for m in re.finditer(r'\"\\\$schema\"', html)]
+print('Schema occurrences at positions:', [m[0] for m in matches])
+print('Context around first:', repr(html[max(0,matches[0][0]-20):matches[0][0]+50]) if matches else 'none')
+" ✔ 
+💫 Executing python3 - <<'EOF'
+import re, json
+
+html = open("/home/user/altair_project/chart.html").read()
+
+# The spec is embedded as: var spec = {...}; or vegaEmbed('#vis', {...},
+# Find spec by locating the vegaEmbed call pattern
+m = re.search(r'vegaEmbed\s*\(\s*[\'"]#[^\'"]+[\'"]\s*,\s*(\{)', html)
+if m:
+    start = m.start(1)
+    depth = 0
+    for i, c in enumerate(html[start:], start):
+        if c == '{': depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                spec_str = html[start:i+1]
+                spec = json.loads(spec_str)
+                print("Parsed spec, top keys:", list(spec.keys()))
+                break
+else:
+    # Try var spec = {...}
+    m2 = re.search(r'var\s+spec\s*=\s*(\{)', html)
+    if m2:
+        start = m2.start(1)
+        depth = 0
+        for i, c in enumerate(html[start:], start):
+            if c == '{': depth += 1
+            elif c == '}':
+                depth -= 1
+                if depth == 0:
+                    spec = json.loads(html[start:i+1])
+                    print("Parsed spec (var), top keys:", list(spec.keys()))
+                    break
+    else:
+        print("Cannot find spec embedding pattern")
+        # Print lines around schema occurrence
+        idx = html.index('"$schema"')
+        print(repr(html[max(0,idx-200):idx+200]))
+EOF ✔ 
+💫 Executing python3 - <<'PYEOF'
+import re, json, sys
+
+html = open("/home/user/altair_project/chart.html").read()
+
+# Extract embedded spec
+m = re.search(r'var\s+spec\s*=\s*(\{)', html)
+start = m.start(1)
+depth = 0
+for i, c in enumerate(html[start:], start):
+    if c == '{': depth += 1
+    elif c == '}':
+        depth -= 1
+        if depth == 0:
+            spec = json.loads(html[start:i+1])
+            break
+
+print("=== Top-level keys:", list(spec.keys()))
+
+# ---- 1. vconcat ----
+assert "vconcat" in spec, "FAIL: no vconcat"
+vc = spec["vconcat"]
+assert len(vc) == 2, f"FAIL: {len(vc)} vconcat entries"
+print("PASS: vconcat has exactly 2 entries")
+
+# ---- helper ----
+def walk(node, fn):
+    """Walk every dict in the JSON tree, calling fn(node) on each dict."""
+    if isinstance(node, dict):
+        fn(node)
+        for v in node.values():
+            walk(v, fn)
+    elif isinstance(node, list):
+        for item in node:
+            walk(item, fn)
+
+# ---- 2. both entries have area mark ----
+for idx, entry in enumerate(vc):
+    marks = []
+    def collect_marks(n):
+        m = n.get("mark")
+        if isinstance(m, str): marks.append(m)
+        elif isinstance(m, dict): marks.append(m.get("type",""))
+    walk(entry, collect_marks)
+    print(f"  vconcat[{idx}] marks: {marks}")
+    assert "area" in marks, f"FAIL: vconcat[{idx}] has no area mark"
+print("PASS: both entries contain area mark")
+
+# ---- 3. lower entry has interval selection on x ----
+interval_sels = []
+def collect_sels(n):
+    for p in n.get("params", []):
+        sel = p.get("select", {})
+        if isinstance(sel, dict) and sel.get("type") == "interval":
+            interval_sels.append((p.get("name"), sel))
+walk(vc[1], collect_sels)
+print(f"  Lower selections: {interval_sels}")
+matched = [s for name, s in interval_sels if s.get("encodings") == ["x"]]
+assert matched, "FAIL: no interval selection with encodings=['x'] in lower entry"
+# capture brush name
+brush_name = next(name for name, s in interval_sels if s.get("encodings") == ["x"])
+print(f"PASS: lower entry has interval selection on x  (brush='{brush_name}')")
+
+# ---- 4. upper entry x encoding scale.domain references brush ----
+domain_params = []
+def collect_domains(n):
+    enc = n.get("encoding", {})
+    x_enc = enc.get("x", {})
+    scale = x_enc.get("scale", {})
+    dom = scale.get("domain", {})
+    if isinstance(dom, dict) and "param" in dom:
+        domain_params.append(dom["param"])
+walk(vc[0], collect_domains)
+print(f"  Upper x domain params: {domain_params}")
+assert brush_name in domain_params, \
+    f"FAIL: upper x domain does not reference brush '{brush_name}'"
+print(f"PASS: upper x scale.domain references brush '{brush_name}'")
+
+# ---- 5. upper entry: rule + (aggregate or window) max(price) + filter(brush) ----
+rules = []
+max_aggs = []
+max_wins = []
+brush_filters = []
+
+def collect_rule_transforms(n):
+    m = n.get("mark")
+    mark_type = m if isinstance(m, str) else (m.get("type","") if isinstance(m, dict) else "")
+    if mark_type == "rule":
+        rules.append(n)
+    for t in n.get("transform", []):
+        for agg in t.get("aggregate", []):
+            if agg.get("op") == "max" and "price" in agg.get("field",""):
+                max_aggs.append(agg)
+        for win in t.get("window", []):
+            if win.get("op") == "max" and "price" in win.get("field",""):
+                max_wins.append(win)
+        flt = t.get("filter")
+        if flt and brush_name in json.dumps(flt):
+            brush_filters.append(flt)
+
+walk(vc[0], collect_rule_transforms)
+print(f"  Rules: {len(rules)}, max-aggs: {max_aggs}, max-wins: {max_wins}, brush-filters: {len(brush_filters)}")
+assert rules,         "FAIL: upper entry has no rule mark"
+assert max_aggs or max_wins, "FAIL: no aggregate/window computing max(price) in upper entry"
+assert brush_filters, f"FAIL: no transform_filter referencing '{brush_name}' in upper entry"
+print("PASS: upper entry has rule + max transform + brush filter")
+
+print("\n=== ALL STRUCTURAL CHECKS PASSED ===")
+PYEOF ✖ "Command exited with code 1"
+The brush `params` are being hoisted to the top-level spec by Altair 6's concat normalization. Let me check where they land:   
+💫 Executing python3 - <<'EOF'
+import re, json
+
+html = open("/home/user/altair_project/chart.html").read()
+m = re.search(r'var\s+spec\s*=\s*(\{)', html)
+start = m.start(1)
+depth = 0
+for i, c in enumerate(html[start:], start):
+    if c == '{': depth += 1
+    elif c == '}':
+        depth -= 1
+        if depth == 0:
+            spec = json.loads(html[start:i+1])
+            break
+
+print("Top-level params:", json.dumps(spec.get("params", []), indent=2))
+print()
+print("vconcat[0] keys:", list(spec["vconcat"][0].keys()))
+print("vconcat[1] keys:", list(spec["vconcat"][1].keys()))
+print()
+print("vconcat[1] full:", json.dumps(spec["vconcat"][1], indent=2)[:2000])
+EOF ✔ 
+Altair 6 hoists `params` from `add_params` up to the top-level spec. The acceptance criterion requires the selection to be in the **lower vconcat entry's** params. I need to force the param to stay on the lower chart. The fix is to declare the param inline in the lower chart's encoding or use a different approach — in Altair 6, I can use `alt.Param` placed directly into the spec or use `inline_data` tricks. The cleanest fix is to use `alt.Chart.properties` with params, or construct the spec so the brush param isn't lifted. Let me inspect how to keep it in the sub-chart:   
+💫 Executing python3 - <<'EOF'
+# Explore Altair 6 param hoisting behavior
+import altair as alt
+from vega_datasets import data
+
+source = data.sp500.url
+
+# Try using a named parameter with bind approach 
+brush = alt.selection_interval(encodings=["x"], name="brush")
+
+base = alt.Chart(source)
+
+lower = (
+    base.mark_area(color="#4C78A8", opacity=0.45)
+    .encode(
+        x=alt.X("date:T", title=""),
+        y=alt.Y("price:Q", axis=None)
+    )
+    .properties(width=700, height=60)
+    .add_params(brush)
+)
+
+spec_dict = lower.to_dict()
+print("Lower chart params:", spec_dict.get("params"))
+print("Lower chart keys:", list(spec_dict.keys()))
+EOF ✔ 
+💫 Executing python3 - <<'EOF'
+# Test: does vconcat hoist the param to top-level?
+import altair as alt
+from vega_datasets import data
+source = data.sp500.url
+
+brush = alt.selection_interval(encodings=["x"], name="brush")
+
+area_detail = (
+    alt.Chart(source)
+    .mark_area()
+    .encode(
+        x=alt.X("date:T", scale=alt.Scale(domain=brush)),
+        y=alt.Y("price:Q"),
+    )
+    .properties(width=700, height=300)
+)
+
+rule_max = (
+    alt.Chart(source)
+    .transform_filter(brush)
+    .transform_aggregate(max_price="max(price)")
+    .mark_rule(color="red")
+    .encode(y=alt.Y("max_price:Q"))
+)
+
+upper = alt.layer(area_detail, rule_max)
+
+lower = (
+    alt.Chart(source)
+    .mark_area()
+    .encode(
+        x=alt.X("date:T"),
+        y=alt.Y("price:Q", axis=None),
+    )
+    .properties(width=700, height=60)
+    .add_params(brush)
+)
+
+combined = alt.vconcat(upper, lower)
+d = combined.to_dict()
+print("Top-level params:", d.get("params"))
+print("vconcat[1] params:", d["vconcat"][1].get("params"))
+EOF ✔ 
+💫 Executing python3 - <<'EOF'
+# Altair 6 hoists selection params to top-level with "views" to scope them.
+# We need to check if the acceptance-criteria verifier walks the full tree
+# OR only checks vconcat[1].params directly.
+# 
+# Looking at the criteria: "The lower (second) vconcat entry declares a
+# selection_interval parameter restricted to x encoding, i.e. some parameter
+# has "select": {"type": "interval", "encodings": ["x"]}"
+# 
+# If the checker walks the entire spec tree looking for the param in vconcat[1],
+# it should find it through top-level params IF they walk the vconcat[1] node
+# (unlikely - top-level params are at spec level not under vconcat[1]).
+# 
+# The cleanest solution: use a post-processing step to move the param from
+# top-level back into vconcat[1], OR use chart.to_dict(), manually move the
+# param, and use alt.Chart.from_dict() or save directly via vl-convert/json.
+#
+# Alternative: construct the JSON manually / use Chart.to_dict() + modify + save
+
+import altair as alt
+from vega_datasets import data
+import json
+
+source = data.sp500.url
+brush = alt.selection_interval(encodings=["x"], name="brush")
+
+area_detail = (
+    alt.Chart(source)
+    .mark_area(color="#4C78A8", opacity=0.75, line={"color": "#2B5C8A", "strokeWidth": 1.2})
+    .encode(
+        x=alt.X("date:T", scale=alt.Scale(domain=brush), title="Date",
+                axis=alt.Axis(format="%Y", labelAngle=-30)),
+        y=alt.Y("price:Q", title="Price (USD)"),
+    )
+    .properties(width=700, height=320)
+)
+
+rule_max = (
+    alt.Chart(source)
+    .transform_filter(brush)
+    .transform_aggregate(max_price="max(price)")
+    .mark_rule(color="#E45756", strokeWidth=2, strokeDash=[6, 3])
+    .encode(y=alt.Y("max_price:Q"))
+)
+
+upper = alt.layer(area_detail, rule_max).properties(title="S&P 500 Focus + Context")
+
+lower = (
+    alt.Chart(source)
+    .mark_area(color="#4C78A8", opacity=0.45)
+    .encode(
+        x=alt.X("date:T", title="", axis=alt.Axis(format="%Y", labelAngle=-30)),
+        y=alt.Y("price:Q", axis=None),
+    )
+    .properties(width=700, height=60)
+    .add_params(brush)
+)
+
+chart = (
+    alt.vconcat(upper, lower)
+    .resolve_scale(x="independent")
+)
+
+spec = chart.to_dict()
+print("Top-level params:", spec.get("params"))
+print("vconcat[1] params:", spec["vconcat"][1].get("params"))
+
+# Strategy: move hoisted param back into vconcat[1]
+# The hoisted param has a "views" key pointing to the lower chart's view name
+if "params" in spec:
+    hoisted = []
+    remaining = []
+    for p in spec["params"]:
+        sel = p.get("select", {})
+        if isinstance(sel, dict) and sel.get("type") == "interval":
+            # Remove 'views' key and move to vconcat[1]
+            p_clean = {k: v for k, v in p.items() if k != "views"}
+            hoisted.append(p_clean)
+        else:
+            remaining.append(p)
+    
+    if hoisted:
+        vc1_params = spec["vconcat"][1].get("params", [])
+        spec["vconcat"][1]["params"] = vc1_params + hoisted
+        if remaining:
+            spec["params"] = remaining
+        else:
+            del spec["params"]
+        print("After fix - top-level params:", spec.get("params"))
+        print("After fix - vconcat[1] params:", spec["vconcat"][1].get("params"))
+EOF ✔ 
+The fix works. The `views` key scopes the param to the named view — removing it and placing the param directly on `vconcat[1]` satisfies the acceptance criterion while keeping the spec functionally identical (the brush still scopes via `name` attribute on the view). Now I'll update `build_chart.py` with this post-processing step and a custom HTML save:   
+✏️  Writing /home/user/altair_project/build_chart.py ✔ 
+💫 Executing cd /home/user/altair_project && python3 build_chart.py ✔ 
+💫 Executing python3 - <<'PYEOF'
+import re, json
+
+html = open("/home/user/altair_project/chart.html").read()
+
+# Extract spec from var spec = {...}
+m = re.search(r'var\s+spec\s*=\s*(\{)', html)
+start = m.start(1)
+depth = 0
+for i, c in enumerate(html[start:], start):
+    if c == '{': depth += 1
+    elif c == '}':
+        depth -= 1
+        if depth == 0:
+            spec = json.loads(html[start:i+1])
+            break
+
+print("=== Top-level keys:", list(spec.keys()))
+
+vc = spec["vconcat"]
+assert len(vc) == 2
+print("PASS: vconcat has exactly 2 entries")
+
+def walk(node, fn):
+    if isinstance(node, dict):
+        fn(node)
+        for v in node.values():
+            walk(v, fn)
+    elif isinstance(node, list):
+        for item in node:
+            walk(item, fn)
+
+# Both entries have area mark
+for idx, entry in enumerate(vc):
+    marks = []
+    walk(entry, lambda n: marks.append(n.get("mark")) if isinstance(n.get("mark"), str)
+         else (marks.append(n["mark"]["type"]) if isinstance(n.get("mark"), dict) else None))
+    marks = [m for m in marks if m]
+    assert "area" in marks, f"FAIL vconcat[{idx}]"
+    print(f"PASS: vconcat[{idx}] has area mark  ({marks})")
+
+# Lower entry has interval selection restricted to x
+interval_sels = []
+def collect_sels(n):
+    for p in n.get("params", []):
+        sel = p.get("select", {})
+        if isinstance(sel, dict) and sel.get("type") == "interval":
+            interval_sels.append((p.get("name"), sel))
+walk(vc[1], collect_sels)
+print(f"  Lower selections: {interval_sels}")
+matched = [(name, s) for name, s in interval_sels if s.get("encodings") == ["x"]]
+assert matched, "FAIL: no interval selection with encodings=['x'] in lower entry"
+brush_name = matched[0][0]
+print(f"PASS: lower has interval selection on x  (brush='{brush_name}')")
+
+# Upper entry x encoding scale.domain references brush
+domain_params = []
+walk(vc[0], lambda n: domain_params.append(
+    n.get("encoding",{}).get("x",{}).get("scale",{}).get("domain",{}).get("param")
+) if isinstance(n.get("encoding",{}).get("x",{}).get("scale",{}).get("domain",{}), dict) else None)
+domain_params = [p for p in domain_params if p]
+print(f"  Upper x domain params: {domain_params}")
+assert brush_name in domain_params, "FAIL: upper x domain does not ref brush"
+print(f"PASS: upper x scale.domain references '{brush_name}'")
+
+# Upper entry: rule + aggregate/window max(price) + filter(brush)
+rules, max_aggs, max_wins, brush_filters = [], [], [], []
+def collect_rtf(n):
+    m = n.get("mark")
+    mt = m if isinstance(m,str) else (m.get("type","") if isinstance(m,dict) else "")
+    if mt == "rule": rules.append(n)
+    for t in n.get("transform", []):
+        for agg in t.get("aggregate", []):
+            if agg.get("op") == "max" and "price" in agg.get("field",""):
+                max_aggs.append(agg)
+        for win in t.get("window", []):
+            if win.get("op") == "max" and "price" in win.get("field",""):
+                max_wins.append(win)
+        flt = t.get("filter")
+        if flt and brush_name in json.dumps(flt):
+            brush_filters.append(flt)
+walk(vc[0], collect_rtf)
+print(f"  Rules:{len(rules)}  max-aggs:{max_aggs}  max-wins:{max_wins}  brush-filters:{len(brush_filters)}")
+assert rules,                    "FAIL: no rule mark in upper"
+assert max_aggs or max_wins,     "FAIL: no max aggregate/window in upper"
+assert brush_filters,            "FAIL: no transform_filter referencing brush in upper"
+print("PASS: upper has rule + max transform + brush filter")
+
+print("\n=== ALL STRUCTURAL CHECKS PASSED ===")
+PYEOF ✔ 
+All 5 structural checks pass. Now run the browser verification:   
+📋 Updating todo list (2 items) ✔ 
+💫 Executing which pochi-verifier 2>/dev/null || echo "not found" ✔ 
+💫 Executing find / -name "pochi-verifier" 2>/dev/null | head -5
+# Also check for agent-browser CLI
+which agent-browser 2>/dev/null || echo "agent-browser not found" ✔ 
+❯ Verify rendered SVG elements in chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (1 items)
+| 📋 Updating todo list (2 items)
+| 📋 Updating todo list (3 items)
+| 📋 Updating todo list (4 items)
+| 📋 Updating todo list (5 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing npm install -g agent-browser@0.24.0 2>&1 | tail -5
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (1 items)
+| 📋 Updating todo list (2 items)
+| 📋 Updating todo list (4 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser set viewport 1280 720
+| 💫 Executing agent-browser open "file:///home/user/altair_project/chart.html"
+| 💫 Executing agent-browser wait 4000
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (1 items)
+| 📋 Updating todo list (3 items)
+| 📋 Updating todo list (4 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser get html "svg"
+| 💫 Executing agent-browser screenshot /tmp/chart_screenshot.png
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (1 items)
+| 📋 Updating todo list (2 items)
+| 📋 Updating todo list (3 items)
+| 📋 Updating todo list (4 items)
+| 📋 Updating todo list (5 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (1 items)
+| 📋 Updating todo list (2 items)
+| 📋 Updating todo list (4 items)
+| 📋 Updating todo list (5 items)
+| 📋 Updating todo list (6 items)
+✔ Verify rendered SVG elements in chart.html (browser)
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+The S&P 500 Focus + Context Dashboard is complete and fully verified.
+
+## Files created
+
+| Path | Purpose |
+|------|---------|
+| `/home/user/altair_project/build_chart.py` | Entry script — run with `python3 build_chart.py` to regenerate `chart.html` |
+| `/home/user/altair_project/chart.html` | Self-contained Vega-Lite HTML dashboard |
+
+## Architecture
+
+```
+vconcat
+├── upper  (layer)
+│   ├── mark_area  — detail view; x-scale domain bound to brush
+│   └── mark_rule  — running-max line
+│         transform_filter(brush)      → only rows in brushed window
+│         transform_aggregate(max_price="max(price)")
+│         encode y = max_price
+└── lower  (single chart)
+    └── mark_area  — 60 px navigator
+        add_params(selection_interval(encodings=["x"], name="brush"))
+```
+
+## All structural acceptance criteria — PASSED
+
+| # | Criterion | Result |
+|---|-----------|--------|
+| 1 | Top-level spec has `vconcat` with exactly 2 entries | ✅ |
+| 2 | Both `vconcat` entries reference an `area` mark | ✅ |
+| 3 | Lower entry declares `{"select": {"type": "interval", "encodings": ["x"]}}` | ✅ |
+| 4 | Upper entry x encoding `scale.domain` references brush param | ✅ |
+| 5 | Upper entry has `rule` mark + `aggregate max(price)` + `filter` on brush | ✅ |
+
+## Browser verification — PASSED
+
+- ≥ 2 `<path>` elements in area mark groups: **2 found** (upper detail + lower navigator)
+- Lower panel interval brush rectangles: **`brush_brush_bg` and `brush_brush` elements confirmed**
+- Red dashed running-maximum rule rendered at price `995.97` (full-range default)
+- No rendering errors
+
+**Note on Altair 6 param hoisting:** Altair 6 hoists `add_params()` selections to the top-level spec with a `views` scoping key. The script post-processes the spec dict to move the interval param back into `vconcat[1]` (stripping `views`) so structural validators find it in the expected location. The chart behaviour is unchanged.   
+  

@@ -1,0 +1,117 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py .....FFF                                       [100%]
+
+=================================== FAILURES ===================================
+____________________ test_map_filter_references_brush_param ____________________
+
+map_and_histogram = ({'data': {'format': {'feature': 'counties', 'type': 'topojson'}, 'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v...': 'quantitative'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'bar'}, ...})
+
+    def test_map_filter_references_brush_param(map_and_histogram):
+        map_chart, hist_chart = map_and_histogram
+        transforms = map_chart.get("transform", [])
+        filter_param_names: list[str] = []
+        for entry in transforms:
+            if not isinstance(entry, dict):
+                continue
+            flt = entry.get("filter")
+            if isinstance(flt, dict) and "param" in flt:
+                filter_param_names.append(str(flt["param"]))
+            elif isinstance(flt, str):
+                # Some compilers may emit a string predicate; record it for fallback matching.
+                filter_param_names.append(flt)
+        assert filter_param_names, (
+            "Map chart must include a transform_filter that references a selection parameter."
+        )
+    
+        hist_params = hist_chart.get("params", [])
+>       assert isinstance(hist_params, list) and hist_params, (
+            "Histogram chart must declare an interval selection param via add_params."
+        )
+E       AssertionError: Histogram chart must declare an interval selection param via add_params.
+E       assert (True and [])
+E        +  where True = isinstance([], list)
+
+tests/test_final_state.py:242: AssertionError
+_______________ test_histogram_has_interval_brush_on_binned_rate _______________
+
+map_and_histogram = ({'data': {'format': {'feature': 'counties', 'type': 'topojson'}, 'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v...': 'quantitative'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'bar'}, ...})
+
+    def test_histogram_has_interval_brush_on_binned_rate(map_and_histogram):
+        _, hist_chart = map_and_histogram
+        encoding = hist_chart.get("encoding", {})
+        x_enc = encoding.get("x", {})
+        assert isinstance(x_enc, dict), "Histogram must have an x-encoding object."
+        assert x_enc.get("field") == "rate", (
+            f"Histogram x-encoding must bind to the 'rate' field, got {x_enc.get('field')!r}."
+        )
+        bin_spec = x_enc.get("bin")
+        assert bin_spec, (
+            f"Histogram x-encoding must set bin to true or a bin spec, got {bin_spec!r}."
+        )
+    
+        y_enc = encoding.get("y", {})
+        assert isinstance(y_enc, dict), "Histogram must have a y-encoding object."
+        assert y_enc.get("aggregate") == "count" or y_enc.get("field") == "*" and y_enc.get(
+            "aggregate"
+        ) == "count", (
+            f"Histogram y-encoding must use a count aggregate, got {y_enc!r}."
+        )
+    
+        params = hist_chart.get("params", [])
+        interval_params = [
+            p for p in params
+            if isinstance(p, dict)
+            and isinstance(p.get("select"), dict)
+            and p["select"].get("type") == "interval"
+        ]
+>       assert interval_params, (
+            f"Histogram must register an interval selection param, got params={params!r}."
+        )
+E       AssertionError: Histogram must register an interval selection param, got params=[].
+E       assert []
+
+tests/test_final_state.py:281: AssertionError
+_____________________________ test_browser_render ______________________________
+
+    def test_browser_render():
+        reason = (
+            "Altair must render the choropleth+histogram dashboard cleanly in a browser. "
+            "Vega-Embed should produce a #vis container populated with SVG or canvas elements, "
+            "and the page should not raise any JavaScript errors."
+        )
+        truth = (
+            f"Navigate to file://{CHART_HTML}. Wait for Vega-Embed to finish rendering. "
+            "Verify that a div with id 'vis' exists and contains at least one descendant SVG or "
+            "canvas element produced by Vega-Embed (e.g. an svg.marks node or a canvas element). "
+            "Verify that no JavaScript console errors were emitted while loading or rendering."
+        )
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_render",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test failed because although the div with id 'vis' exists, it does not contain a descendant SVG or canvas element. Instead, it contains an error message div injected by Vega-Embed: "JavaScript Error: Undefined data set name: 'source_1'". Additionally, a JavaScript console error was detected: "Uncaught (in promise) Error: Undefined data set name: 'source_1'". This indicates that Vega-Embed failed to render the chart due to a specification error.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:305: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_map_uses_lookup_transform_referencing_unemployment
+PASSED tests/test_final_state.py::test_map_projection_is_albers_usa
+PASSED tests/test_final_state.py::test_map_color_threshold_blues
+PASSED tests/test_final_state.py::test_map_tooltip_has_id_and_rate
+FAILED tests/test_final_state.py::test_map_filter_references_brush_param - As...
+FAILED tests/test_final_state.py::test_histogram_has_interval_brush_on_binned_rate
+FAILED tests/test_final_state.py::test_browser_render - AssertionError: Brows...
+==================== 3 failed, 5 passed in 95.35s (0:01:35) ====================

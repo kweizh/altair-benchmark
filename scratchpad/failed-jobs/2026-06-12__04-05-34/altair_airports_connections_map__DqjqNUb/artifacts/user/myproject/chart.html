@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json", "format": {"feature": "states", "type": "topojson"}}, "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/flights-airport.csv"}, "mark": {"type": "rule", "color": "orange", "opacity": 0.8, "strokeWidth": 1.5}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "latitude2": {"field": "latitude2"}, "longitude": {"field": "longitude", "type": "quantitative"}, "longitude2": {"field": "longitude2"}}, "transform": [{"lookup": "origin", "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}, {"lookup": "destination", "as": ["latitude2", "longitude2"], "from": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "key": "iata", "fields": ["latitude", "longitude"]}}, {"filter": {"param": "select_origin", "empty": false}}]}, {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"}, "mark": {"type": "circle", "color": "steelblue", "opacity": 0.8, "size": 15}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}, "tooltip": [{"field": "origin", "type": "nominal"}, {"field": "name", "type": "nominal"}, {"field": "city", "type": "nominal"}, {"field": "state", "type": "nominal"}]}, "name": "view_1", "transform": [{"calculate": "datum.iata", "as": "origin"}]}], "height": 500, "params": [{"name": "select_origin", "select": {"type": "point", "fields": ["origin"], "on": "click"}, "views": ["view_1"]}], "projection": {"type": "albersUsa"}, "width": 800, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

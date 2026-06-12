@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/barley.json"}, "facet": {"field": "year", "title": "Year", "type": "ordinal"}, "spec": {"layer": [{"mark": {"type": "bar"}, "encoding": {"color": {"field": "variety", "scale": {"scheme": "tableau10"}, "title": "Variety", "type": "nominal"}, "x": {"field": "site", "sort": {"field": "yield", "op": "mean", "order": "descending"}, "title": "Site", "type": "nominal"}, "xOffset": {"field": "variety", "title": "Variety", "type": "nominal"}, "y": {"aggregate": "mean", "field": "yield", "title": "Mean Yield", "type": "quantitative"}}}, {"mark": {"type": "tick", "color": "black", "size": 25, "thickness": 3}, "encoding": {"x": {"field": "site", "sort": {"field": "yield", "op": "mean", "order": "descending"}, "type": "nominal"}, "y": {"field": "mean_yield", "type": "quantitative"}}, "transform": [{"aggregate": [{"op": "mean", "field": "yield", "as": "mean_yield"}], "groupby": ["site", "year"]}]}]}, "title": {"text": "Barley Yield by Site and Variety", "subtitle": "Grouped bar chart showing mean yield per site/variety, with black ticks representing the per-site mean yield"}, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

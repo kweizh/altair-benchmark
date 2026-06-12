@@ -1,0 +1,116 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ...FF.F                                        [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_interval_selection_over_x_and_y _____________________
+
+vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti... (mm)', 'Body Mass (g)'], 'row': ['Beak Length (mm)', 'Beak Depth (mm)', 'Flipper Length (mm)', 'Body Mass (g)']}, ...}
+
+    def test_interval_selection_over_x_and_y(vega_spec: dict[str, Any]):
+        spec = _inner_spec(vega_spec)
+>       param = _find_interval_param(spec)
+
+tests/test_final_state.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+spec = {'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/penguins.json'}, 'encoding': {'color': {'con...: {'repeat': 'row'}, 'scale': {'zero': False}, 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'point'}, ...}
+
+    def _find_interval_param(spec: dict[str, Any]) -> dict[str, Any]:
+        params = spec.get("params")
+>       assert isinstance(params, list) and params, (
+            "Expected the repeated cell spec to declare at least one selection parameter via 'params'."
+        )
+E       AssertionError: Expected the repeated cell spec to declare at least one selection parameter via 'params'.
+E       assert (False)
+E        +  where False = isinstance(None, list)
+
+tests/test_final_state.py:145: AssertionError
+___________________ test_color_encoding_uses_brush_condition ___________________
+
+vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti... (mm)', 'Body Mass (g)'], 'row': ['Beak Length (mm)', 'Beak Depth (mm)', 'Flipper Length (mm)', 'Body Mass (g)']}, ...}
+
+    def test_color_encoding_uses_brush_condition(vega_spec: dict[str, Any]):
+        spec = _inner_spec(vega_spec)
+        encoding = spec.get("encoding")
+        assert isinstance(encoding, dict), "Expected an 'encoding' block in the repeated cell spec."
+        color = encoding.get("color")
+        assert isinstance(color, dict), (
+            f"Expected encoding.color to be an object using a conditional encoding, got {color!r}."
+        )
+        condition = color.get("condition")
+        assert condition is not None, (
+            "Expected encoding.color to include a 'condition' clause referencing the brush parameter."
+        )
+        # condition can be a single dict or a list of dicts; we just need one that references a param.
+        candidates = condition if isinstance(condition, list) else [condition]
+>       interval_param_name = _find_interval_param(spec).get("name")
+
+tests/test_final_state.py:192: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+spec = {'data': {'url': 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/penguins.json'}, 'encoding': {'color': {'con...: {'repeat': 'row'}, 'scale': {'zero': False}, 'type': 'quantitative'}}, 'height': 150, 'mark': {'type': 'point'}, ...}
+
+    def _find_interval_param(spec: dict[str, Any]) -> dict[str, Any]:
+        params = spec.get("params")
+>       assert isinstance(params, list) and params, (
+            "Expected the repeated cell spec to declare at least one selection parameter via 'params'."
+        )
+E       AssertionError: Expected the repeated cell spec to declare at least one selection parameter via 'params'.
+E       assert (False)
+E        +  where False = isinstance(None, list)
+
+tests/test_final_state.py:145: AssertionError
+_____________________ test_browser_renders_grid_and_brush ______________________
+
+http_server = 'http://localhost:8765/chart.html'
+
+    def test_browser_renders_grid_and_brush(http_server: str):
+        verifier = PochiVerifier()
+        reason = (
+            "The generated chart is a Scatter PLOt Matrix on the Penguins dataset built with "
+            "alt.repeat over four quantitative features, with a single linked interval brush. "
+            "When rendered in a browser, the page must show a grid of scatter cells and a working "
+            "interval-selection brush that links highlighting across the cells."
+        )
+        truth = (
+            f"Navigate to {http_server} and wait for the Vega-Altair chart to finish rendering. "
+            "Verify that the page contains a grid of at least 9 distinct scatter sub-plots arranged "
+            "as a repeated matrix (rows x columns produced by the Altair repeat operator). "
+            "Drag a rectangle inside any one of the cells using the mouse. After dragging, verify that "
+            "an interval-selection brush rectangle is visible in that cell, AND that points falling "
+            "outside the brushed rectangle in every other cell turn light gray while points inside the "
+            "brush remain colored by Species. Release the mouse and confirm the brush rectangle persists. "
+            "If any of these conditions fail, the verification must fail."
+        )
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_renders_grid_and_brush",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The page at http://localhost:8765/chart.html failed to render the Vega-Altair chart. A JavaScript error "Unrecognized signal name: 'param_54853b0de6a785bc'" occurred, which prevented the grid of scatter plots and the interval-selection brush from appearing. Since the required visual elements and interactive behaviors could not be verified, the test case failed.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:286: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_http$ /usr/bin/python3 -m http.server 8765
+process 'altair_chart_http' started pid=789
+altair_chart_http process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists_and_nonempty
+PASSED tests/test_final_state.py::test_repeat_block_has_row_and_column
+PASSED tests/test_final_state.py::test_mark_is_point
+PASSED tests/test_final_state.py::test_xy_scales_zero_false
+FAILED tests/test_final_state.py::test_interval_selection_over_x_and_y - Asse...
+FAILED tests/test_final_state.py::test_color_encoding_uses_brush_condition - ...
+FAILED tests/test_final_state.py::test_browser_renders_grid_and_brush - Asser...
+=================== 3 failed, 4 passed in 185.99s (0:03:05) ====================

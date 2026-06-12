@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:09:25.347256+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 10,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781244431929,
+            "stop": 1781244565347
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_solution_runs_successfully",
+                "status": "passed",
+                "duration": 649,
+                "start": 1781244431975,
+                "stop": 1781244432624,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_nonempty",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781244432625,
+                "stop": 1781244432625,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_area_layer_with_monotone_interpolate",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781244432626,
+                "stop": 1781244432628,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_area_layer_center_stacked_sum_count",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432628,
+                "stop": 1781244432629,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_area_layer_x_yearmonth_date",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432629,
+                "stop": 1781244432630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_area_layer_color_series_category20b",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432630,
+                "stop": 1781244432631,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_nearest_pointerover_selection_point",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432631,
+                "stop": 1781244432632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rule_layer_bound_to_selection",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432633,
+                "stop": 1781244432634,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_text_layer_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432634,
+                "stop": 1781244432635,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_window_rank_groupby_date",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244432635,
+                "stop": 1781244432636,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_streamgraph_renders_in_browser",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 132710,
+                "start": 1781244432636,
+                "stop": 1781244565346,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "serve_chart = 'http://localhost:8765/chart.html'\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7fd53b65ffe0>\n\n    def test_streamgraph_renders_in_browser(serve_chart, browser_verifier):\n        chart_url = serve_chart\n        reason = (\n            \"The HTML should render an interactive Altair streamgraph of US \"\n            \"unemployment counts across industries. Industry bands must be \"\n            \"vertically stacked around a central baseline (center stack, \"\n            \"streamgraph shape) and colored by industry. Moving the pointer \"\n            \"horizontally must reveal a vertical ruler at the nearest month and \"\n            \"a text annotation showing the dominant industry for that month.\"\n        )\n        truth = f\"\"\"\n    1. Open a browser tab and navigate to {chart_url}.\n    2. Wait for the chart to render. Confirm a streamgraph appears: multiple\n       coloured industry bands stacked symmetrically around a horizontal centerline\n       (i.e., the bands extend both above and below a central baseline, not from a\n       y=0 baseline). The X axis spans roughly 2000-2010 (yearmonth ticks).\n    3. Move the mouse pointer horizontally across the chart area at mid-height.\n       Confirm that a vertical ruler line appears at the position of the pointer\n       and tracks the nearest month as the pointer moves.\n    4. While hovering, confirm that a text label (the top industry name for that\n       month, such as \"Government\", \"Manufacturing\", \"Trade Transportation Utilities\",\n       etc.) is shown near the ruler, and that the label updates as you move the\n       pointer to different months.\n    \"\"\"\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_streamgraph_renders_in_browser\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the chart at http://localhost:8765/chart.html did not render. The browser agent identified a syntax error in the JavaScript code on the page: a template placeholder `{{mode: \"vega-lite\"}}` was present in the `vegaEmbed` call, which is invalid JavaScript. Consequently, no SVG or Canvas elements were generated, and the streamgraph, axis, and interactive elements (ruler and labels) could not be verified.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:407: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

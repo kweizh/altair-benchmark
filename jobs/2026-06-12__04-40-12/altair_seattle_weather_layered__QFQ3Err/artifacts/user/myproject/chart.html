@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "bar", "color": "#6699ff", "opacity": 0.5}, "encoding": {"x": {"field": "date", "type": "temporal"}, "y": {"field": "precipitation", "title": "Precipitation (mm)", "type": "quantitative"}}, "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}, {"layer": [{"mark": {"type": "area", "color": "#ffcc99", "opacity": 0.5}, "encoding": {"x": {"field": "date", "title": "Date", "type": "temporal"}, "y": {"field": "temp_max", "title": "Temperature (\u00b0C)", "type": "quantitative"}, "y2": {"field": "temp_min"}}, "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}, {"mark": {"type": "line", "color": "red"}, "encoding": {"x": {"field": "date", "type": "temporal"}, "y": {"field": "temp_mean", "type": "quantitative"}}, "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}, {"mark": {"type": "rule", "color": "black", "strokeDash": [4, 4]}, "encoding": {"y": {"datum": 0}}}, {"mark": {"type": "point", "size": 0}, "encoding": {"x": {"field": "date", "type": "temporal"}, "y": {"field": "temp_mean", "type": "quantitative"}}, "name": "view_c5097558de349d29_3", "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}, {"mark": {"type": "rule", "color": "gray"}, "encoding": {"opacity": {"condition": {"param": "param_4a98c29607107dd6", "value": 1, "empty": false}, "value": 0}, "x": {"field": "date", "type": "temporal"}}, "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -15}, "encoding": {"text": {"condition": {"param": "param_4a98c29607107dd6", "empty": false, "field": "tooltip_text", "type": "nominal"}, "value": ""}, "x": {"field": "date", "type": "temporal"}, "y": {"field": "temp_mean", "type": "quantitative"}}, "transform": [{"calculate": "(datum.temp_max + datum.temp_min) / 2", "as": "temp_mean"}, {"calculate": "datum.weather + ' on ' + datum.date + ' | Mean Temp: ' + datum.temp_mean + ' | Precip: ' + datum.precipitation", "as": "tooltip_text"}]}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"}, "height": 400, "params": [{"name": "param_4a98c29607107dd6", "select": {"type": "point", "encodings": ["x"], "nearest": true, "on": "pointerover"}, "views": ["view_c5097558de349d29_3"]}], "resolve": {"scale": {"y": "independent"}}, "title": "Seattle Weather: Temperature Range, Mean, and Precipitation", "width": 800, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

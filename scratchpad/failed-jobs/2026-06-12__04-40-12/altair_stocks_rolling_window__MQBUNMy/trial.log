@@ -1,0 +1,89 @@
+Skipping image OS validation for hb__altair_stocks_rolling_window: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mqbunmy > /logs/artifacts/run-id && echo altair_stocks_rolling_window__MQBUNMy > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-Company Stock Chart with Rolling Window, Per-Symbol Reference Lines, and Dropdown Filter
+
+## Background
+You are building an interactive multi-company stock visualization with Vega-Altair. The chart will combine raw price lines, smoothed rolling-mean lines, per-symbol all-time-mean reference rules, a dropdown widget that filters down to a single symbol, and pan/zoom interactivity on the x-axis.
+
+The data source is the well-known `data.stocks.url` URL dataset (long-form columns `date`, `symbol`, `price`). Use the URL directly (do not pre-aggregate in pandas) so that all reshaping happens inside the Vega-Lite spec.
+
+## Requirements
+- Build a single Altair script that produces a layered chart and saves it to disk as an HTML file.
+- The chart must be composed of the following layers, all sharing the same x-axis (`date:T`):
+    1. A thin raw price line per symbol (low opacity), with `price:Q` on y and color by `symbol:N`.
+    2. A bold rolling-mean line per symbol, where the rolling mean is computed inside the spec with a window transform that averages `price` over a 30-trading-day centered window (15 days before and 15 days after each point), grouped by symbol.
+    3. A horizontal dashed reference rule per symbol at the symbol's all-time mean price. The all-time mean must be computed inside the spec with a join-aggregate transform grouped by symbol.
+- Add a dropdown widget bound to a parameter that filters the chart to a single symbol. The dropdown options must be exactly the five tickers in the stocks dataset: `MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`.
+- Enable pan/zoom on the x-axis (the standard Altair shortcut for this also adds an interval-bound-to-scales selection to the chart).
+- Save the final chart to `/home/user/myproject/chart.html`.
+
+## Implementation Hints
+- Use `data.stocks.url` from `vega_datasets` (or the equivalent string URL) as the chart source so the transforms run in the Vega-Lite engine.
+- Look at the `transform_window` documentation for the `frame`, `groupby`, and aggregate-function arguments needed to compute a centered rolling mean.
+- Look at the `transform_joinaggregate` documentation for the pattern that attaches a per-group aggregate back onto every row.
+- Bind a parameter to a select widget and reference that parameter inside a `transform_filter` predicate.
+- Use the shortcut method on the layered chart that adds pan/zoom on scales.
+- Save the chart using Altair's built-in HTML export.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/build_chart.py`
+- Running the command must (re)generate `/home/user/myproject/chart.html` without errors.
+- The exported HTML file must contain an embedded Vega-Lite specification (the standard Altair HTML export embeds the spec as a JSON literal) that, when parsed, satisfies:
+    - It is a layered chart (top-level `layer` array) with at least three layers.
+    - One layer uses a `transform` containing a `window` operation that computes `mean` of `price`, grouped by `symbol`, with a frame whose absolute extents are 15 (i.e. window size 30).
+    - One layer uses a `transform` containing a `joinaggregate` that computes `mean` of `price`, grouped by `symbol`, and the resulting field is referenced by a rule mark whose stroke is dashed.
+    - The spec contains a `params` entry whose `bind` is a `select` input with options `['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']`.
+    - The spec contains a `transform` with a `filter` that references that parameter (so the dropdown filters which symbol is displayed).
+    - The spec contains an interval selection bound to `scales` (the artifact produced by enabling pan/zoom on the chart).
+- The rendered HTML, when opened in a browser, must show at least two SVG/Canvas line marks, at least one dashed rule mark, and a `<select>` element for the dropdown.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

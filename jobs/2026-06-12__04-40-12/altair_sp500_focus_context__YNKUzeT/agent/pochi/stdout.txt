@@ -1,0 +1,28 @@
+- Initializing MCP connections...
+You
+# S\&P 500 Focus + Context Dashboard with Altair ## Background Build a declarative, fully interactive "Focus + Context" stock dashboard with vega-altair on top of the S\&P 500 time series shipped with `vega_datasets` (`data.sp500.url`, columns `date` and `price`). The dashboard combines a large detail area chart with a small overview area chart whose interval brush controls the detail chart's x-axis domain, and it overlays an annotation showing the running maximum price within the brushed window. ## Requirements * Use the URL form of the dataset, i.e. `data.sp500.url` from `vega_datasets`. Do not download or pre-process the data in pandas. * Produce a single Altair chart that is the vertical concatenation (`&`) of two sub-charts of equal width: * An upper detail chart drawn as a filled area of `price` vs `date`. * A lower context chart drawn as the same filled area of `price` vs `date`, but with a much smaller height (around 60px) acting as a navigator. * Add an interval brush on the lower chart that is restricted to the `x` encoding only, and bind it to the upper chart so the upper chart's x-axis `domain` follows the brushed range. * Layer a horizontal `rule` annotation on top of the upper area chart that marks the running maximum price found inside the brushed window. The rule must be computed inside the spec (no pre-aggregation in Python) by combining a `transform_filter` on the brush param with either a `transform_window` or `transform_aggregate` for the maximum price. * Save the resulting chart as a self-contained HTML file at `/home/user/altair_project/chart.html`. * Write a small Python entry script at `/home/user/altair_project/build_chart.py` whose execution regenerates `chart.html` from scratch. ## Implementation Hints * The interval-brush + x-domain binding is the canonical "Focus + Context" pattern in Altair; remember that the brush should be created with `selection_interval(encodings=['x'])` and registered via `add_params` on the chart that hosts it. * The detail chart's x-scale `domain` can directly reference the brush parameter; review how `alt.X(...).scale(domain=...)` accepts a selection. * For the running-maximum annotation, think about how `transform_filter` on the brush narrows the dataset before a window or aggregate transform computes the max; the rule mark only needs a `y` encoding to span the full width. * Composition uses the `&` operator (vertical concatenation). The chart's data source is the same URL for both panels. * After building the chart, persist it via `chart.save('chart.html')`. ## Acceptance Criteria * Project path: /home/user/altair\_project * Command: `python3 build_chart.py` * Running the command must (re)generate `/home/user/altair_project/chart.html` containing a fully self-contained Vega-Lite spec for an Altair chart that satisfies all of the following structural properties (verified against the embedded JSON spec): * The top-level spec is a vertical concatenation (has a `vconcat` field with exactly two entries). * Both `vconcat` entries reference an area mark (either `"mark": "area"` or `"mark": {"type": "area", ...}`), possibly inside a layer. * The lower (second) `vconcat` entry declares a `selection_interval` parameter restricted to the x encoding, i.e. some parameter has `"select": {"type": "interval", "encodings": ["x"]}`. * The upper (first) `vconcat` entry's x encoding scale references the same brush parameter name via its `domain` (e.g. `"scale": {"domain": {"param": "<brush_name>"}}`). * The upper (first) `vconcat` entry contains a `rule` mark layered on top of the area, and that rule's surrounding spec includes either a `window` transform computing a `max` of `price` or an `aggregate` transform computing a `max` of `price`, together with a `filter` transform that references the brush parameter. * Browser verification: when the saved `chart.html` is rendered in a real browser via `pochi-verifier`, at least two `<path>` elements belonging to area mark groups must be present in the rendered SVG/canvas DOM and the lower panel must contain an interval selection rectangle element.   
+
+Pochi
+💭 Thinking for 1080 characters   
+💫 Executing mkdir -p /home/user/altair_project ✔ 
+💭 Thinking for 191 characters   
+✏️  Writing /home/user/altair_project/build_chart.py ✔ 
+💭 Thinking for 144 characters   
+💫 Executing python3 /home/user/altair_project/build_chart.py ✔ 
+💭 Thinking for 181 characters   
+💫 Executing ls -l /home/user/altair_project/chart.html ✔ 
+💭 Thinking for 356 characters   
+🎉 Task Completed
+I have created the Python script `/home/user/altair_project/build_chart.py` which builds a Focus + Context stock dashboard using `vega-altair` and the S&P 500 dataset from `vega_datasets`. 
+
+The chart features:
+1. A lower context area chart with an interval brush selection restricted to the x-axis.
+2. An upper detail area chart whose x-axis domain is bound to the interval brush, creating the Focus + Context effect.
+3. A horizontal rule layered on top of the detail chart that indicates the maximum price within the brushed window, computed directly within the Vega-Lite specification using a `transform_filter` and a `transform_aggregate`.
+4. The output is correctly exported as a self-contained HTML file to `/home/user/altair_project/chart.html`.
+
+You can (re)generate the chart by running:
+```bash
+python3 /home/user/altair_project/build_chart.py
+```   
+  

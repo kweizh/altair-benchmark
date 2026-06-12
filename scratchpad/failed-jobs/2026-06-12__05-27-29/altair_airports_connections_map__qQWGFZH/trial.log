@@ -1,0 +1,97 @@
+Skipping image OS validation for hb__altair_airports_connections_map: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-qqwgfzh > /logs/artifacts/run-id && echo altair_airports_connections_map__qQWGFZH > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Interactive US Airports Connections Map with Vega-Altair
+
+## Background
+You are building a static, self-contained interactive HTML visualization for a transportation analytics team. The visualization should render a US map where each airport is shown as a circle. Clicking an airport should reveal the flight routes that originate from that airport as line segments connecting the origin to each destination airport.
+
+This task uses [Vega-Altair](https://altair-viz.github.io/) declarative grammar on top of Vega-Lite to produce a single layered chart written to an HTML file that can be opened in a browser without any server.
+
+## Requirements
+- Produce a Python script `chart.py` that builds the chart and saves it as `chart.html` in the project directory.
+- The chart **MUST** be a layered Altair chart composed of three layers:
+  1. A base US states map (geographic background).
+  2. Circles for every airport at its latitude/longitude.
+  3. Flight routes drawn as straight rule segments between an origin airport and a destination airport.
+- The map **MUST** use the `albersUsa` projection.
+- The route layer **MUST** be driven by an interactive selection that is triggered by clicking an airport circle. Routes must only appear for the selected origin airport; when nothing is selected, no routes should be drawn.
+- All datasets **MUST** be referenced by URL from `vega_datasets` (do not pre-download or rewrite data).
+
+## Datasets
+Use the URLs exposed by `vega_datasets.data`:
+- `data.us_10m.url` -- US TopoJSON, use the `states` feature for the background map.
+- `data.airports.url` -- airport metadata (`iata`, `name`, `state`, `latitude`, `longitude`, ...).
+- `data.flights_airport.url` -- flight pairs with columns `origin`, `destination`, `count`.
+
+## Implementation Hints
+- Use `alt.topo_feature(...)` to derive the states feature collection from the US topology.
+- Use `mark_geoshape` for the background, `mark_circle` for the airports, and `mark_rule` for the connection lines.
+- For the rule layer you will need both endpoints, so two separate `transform_lookup` calls are required: one to look up the origin coordinates (joined on the `origin` field) and one to look up the destination coordinates (joined on the `destination` field). Remember to alias the second lookup output so the destination coordinates land on distinct field names that can be encoded as `latitude2` / `longitude2`.
+- Use `alt.selection_point` configured with `fields=['origin']`, `on='click'`, and `empty=False` so that no routes are drawn until the user clicks an airport circle.
+- Attach the selection to the airport circle layer with `add_params(...)` and gate the rule layer on the selection using `transform_filter` or a conditional opacity binding.
+- Combine the three layers with the `+` operator (or `alt.layer`).
+- Save the chart with `chart.save('chart.html')`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 chart.py`
+- Running the command MUST produce `/home/user/myproject/chart.html`.
+- The generated `chart.html` MUST embed a Vega-Lite specification that satisfies all of:
+  - Contains a `geoshape` mark layer rendered from the US states TopoJSON feature.
+  - Contains a `circle` mark layer with `latitude` and `longitude` channel encodings sourced from the airports dataset URL.
+  - Contains a `rule` mark layer with `latitude`, `longitude`, `latitude2`, and `longitude2` channel encodings sourced from the flights dataset URL.
+  - Performs exactly two `lookup` transforms on the rule layer, one keyed by `origin` and one keyed by `destination`.
+  - Defines a point selection parameter whose `fields` list equals `['origin']` and whose `on` event includes `click`.
+  - The rule layer is gated by that selection, either via a `filter` transform that references the selection or via a conditional opacity encoding tied to the selection.
+  - The map projection is `albersUsa`.
+- Browser verification: Open `chart.html` in a browser; the page must render geographic paths for US states, circle marks for airports, and rule marks must only appear after clicking an airport circle.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

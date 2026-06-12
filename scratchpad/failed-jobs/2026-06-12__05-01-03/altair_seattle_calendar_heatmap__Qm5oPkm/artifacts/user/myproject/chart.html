@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}, "axis": {"labelFontSize": 11, "titleFontSize": 12}, "header": {"labelFontSize": 13}, "title": {"anchor": "middle", "fontSize": 18}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"}, "facet": {"column": {"field": "date", "header": {"labelOrient": "bottom", "titleOrient": "bottom"}, "timeUnit": "year", "title": "Year", "type": "ordinal"}}, "spec": {"mark": {"type": "rect"}, "encoding": {"color": {"aggregate": "sum", "field": "precipitation", "scale": {"scheme": "greens"}, "title": "Total Precipitation (mm)", "type": "quantitative"}, "opacity": {"condition": [{"test": "(year(toDate(datum['date'])) === selected_year)", "value": 1.0}], "value": 0.2}, "tooltip": [{"field": "date", "title": "Date", "type": "temporal"}, {"aggregate": "sum", "field": "precipitation", "title": "Total Precipitation (mm)", "type": "quantitative"}], "x": {"axis": {"labelAngle": 0}, "field": "date", "timeUnit": "date", "title": "Day of Month", "type": "ordinal"}, "y": {"axis": {"labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]"}, "field": "date", "timeUnit": "month", "title": "Month", "type": "ordinal"}}, "height": 220, "width": 420}, "params": [{"name": "selected_year", "bind": {"input": "select", "options": [2012, 2013, 2014, 2015], "name": "Year: "}, "value": 2012}], "title": "Seattle Daily Precipitation (Calendar Heatmap)", "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

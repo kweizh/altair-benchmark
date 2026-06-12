@@ -1,0 +1,86 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:26:07.761650+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 3,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781245229852,
+            "stop": 1781245567761
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1384,
+                "start": 1781245229908,
+                "stop": 1781245231292,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layout_is_vconcat_of_hconcat_and_view",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245231292,
+                "stop": 1781245231293,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_view_a_scatter",
+                "status": "failed",
+                "duration": 25,
+                "start": 1781245231293,
+                "stop": 1781245231318,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...wer': 140.0, ...}, {'Acceleration': 10.0, 'Cylinders': 8, 'Displacement': 429.0, 'Horsepower': 198.0, ...}, ...]}, ...}\nviews = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'legend_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_37458eb536da1c2c_1'}}\n\n    @pytest.fixture(scope=\"session\")\n    def legend_param_name(built_spec: dict, views: dict) -> str:\n        \"\"\"Locate the unique legend-bound `Origin` selection parameter name.\"\"\"\n        all_params = _collect_params(built_spec, views[\"A\"], views[\"B\"], views[\"C\"])\n        assert all_params, (\n            \"No `params` declared anywhere in the spec; expected a \"\n            \"`selection_point(fields=['Origin'], bind='legend')` parameter.\"\n        )\n        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]\n>       assert matching, (\n            \"Did not find a point-selection parameter with fields containing 'Origin' \"\n            \"and bind='legend'. The dashboard must declare exactly one shared \"\n            \"legend-bound selection over `Origin`.\"\n        )\nE       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.\nE       assert []\n\ntests/test_final_state.py:258: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_view_b_stacked_bar",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781245231318,
+                "stop": 1781245231329,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...wer': 140.0, ...}, {'Acceleration': 10.0, 'Cylinders': 8, 'Displacement': 429.0, 'Horsepower': 198.0, ...}, ...]}, ...}\nviews = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'legend_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_37458eb536da1c2c_1'}}\n\n    @pytest.fixture(scope=\"session\")\n    def legend_param_name(built_spec: dict, views: dict) -> str:\n        \"\"\"Locate the unique legend-bound `Origin` selection parameter name.\"\"\"\n        all_params = _collect_params(built_spec, views[\"A\"], views[\"B\"], views[\"C\"])\n        assert all_params, (\n            \"No `params` declared anywhere in the spec; expected a \"\n            \"`selection_point(fields=['Origin'], bind='legend')` parameter.\"\n        )\n        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]\n>       assert matching, (\n            \"Did not find a point-selection parameter with fields containing 'Origin' \"\n            \"and bind='legend'. The dashboard must declare exactly one shared \"\n            \"legend-bound selection over `Origin`.\"\n        )\nE       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.\nE       assert []\n\ntests/test_final_state.py:258: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_view_c_binned_histogram",
+                "status": "failed",
+                "duration": 11,
+                "start": 1781245231329,
+                "stop": 1781245231340,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...wer': 140.0, ...}, {'Acceleration': 10.0, 'Cylinders': 8, 'Displacement': 429.0, 'Horsepower': 198.0, ...}, ...]}, ...}\nviews = {'A': {'encoding': {'color': {'field': 'Origin', 'type': 'nominal'}, 'opacity': {'condition': {'param': 'legend_select...e'}, 'y': {'aggregate': 'count', 'type': 'quantitative'}}, 'mark': {'type': 'bar'}, 'name': 'view_37458eb536da1c2c_1'}}\n\n    @pytest.fixture(scope=\"session\")\n    def legend_param_name(built_spec: dict, views: dict) -> str:\n        \"\"\"Locate the unique legend-bound `Origin` selection parameter name.\"\"\"\n        all_params = _collect_params(built_spec, views[\"A\"], views[\"B\"], views[\"C\"])\n        assert all_params, (\n            \"No `params` declared anywhere in the spec; expected a \"\n            \"`selection_point(fields=['Origin'], bind='legend')` parameter.\"\n        )\n        matching = [p for p in all_params if _find_legend_origin_param([p]) is not None]\n>       assert matching, (\n            \"Did not find a point-selection parameter with fields containing 'Origin' \"\n            \"and bind='legend'. The dashboard must declare exactly one shared \"\n            \"legend-bound selection over `Origin`.\"\n        )\nE       AssertionError: Did not find a point-selection parameter with fields containing 'Origin' and bind='legend'. The dashboard must declare exactly one shared legend-bound selection over `Origin`.\nE       assert []\n\ntests/test_final_state.py:258: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_legend_interaction",
+                "status": "passed",
+                "duration": 336420,
+                "start": 1781245231340,
+                "stop": 1781245567760,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

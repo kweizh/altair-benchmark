@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Seattle Weather Chart</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script type="application/json" id="spec">
+{
+  "config": {
+    "view": {
+      "continuousWidth": 300,
+      "continuousHeight": 300
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"
+      },
+      "mark": {
+        "type": "area",
+        "color": "peachpuff",
+        "opacity": 0.6
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "title": "Date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "temp_min",
+          "title": "Temperature (\u00b0C)",
+          "type": "quantitative"
+        },
+        "y2": {
+          "field": "temp_max"
+        }
+      },
+      "name": "view_8d0b8a3ccc597385_0",
+      "transform": [
+        {
+          "calculate": "(datum.temp_min + datum.temp_max) / 2",
+          "as": "mean_temp"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"
+      },
+      "mark": {
+        "type": "line",
+        "color": "darkorange",
+        "strokeWidth": 1.8
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "mean_temp",
+          "type": "quantitative"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "(datum.temp_min + datum.temp_max) / 2",
+          "as": "mean_temp"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"
+      },
+      "mark": {
+        "type": "bar",
+        "color": "steelblue",
+        "opacity": 0.35
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "precipitation",
+          "title": "Precipitation (mm)",
+          "type": "quantitative"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "(datum.temp_min + datum.temp_max) / 2",
+          "as": "mean_temp"
+        }
+      ]
+    },
+    {
+      "data": {
+        "name": "data-42990c68f268a11fa16682fcd3437a6f"
+      },
+      "mark": {
+        "type": "rule",
+        "color": "crimson",
+        "strokeDash": [
+          4,
+          4
+        ],
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "y": {
+          "field": "zero",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"
+      },
+      "mark": {
+        "type": "rule",
+        "color": "gray",
+        "opacity": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        }
+      },
+      "name": "view_1fbc1b1410104beb_4",
+      "transform": [
+        {
+          "calculate": "(datum.temp_min + datum.temp_max) / 2",
+          "as": "mean_temp"
+        },
+        {
+          "filter": {
+            "param": "hover",
+            "empty": false
+          }
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/seattle-weather.csv"
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "color": "black",
+        "dx": 6,
+        "dy": -8,
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "opacity": {
+          "condition": {
+            "param": "hover",
+            "value": 1,
+            "empty": false
+          },
+          "value": 0
+        },
+        "text": {
+          "condition": {
+            "param": "hover",
+            "empty": false,
+            "field": "mean_temp",
+            "format": ".1f",
+            "type": "quantitative"
+          },
+          "value": ""
+        },
+        "tooltip": [
+          {
+            "field": "date",
+            "format": "%b %d, %Y",
+            "title": "Date",
+            "type": "temporal"
+          },
+          {
+            "field": "mean_temp",
+            "format": ".1f",
+            "title": "Mean Temp (\u00b0C)",
+            "type": "quantitative"
+          },
+          {
+            "field": "precipitation",
+            "format": ".1f",
+            "title": "Precipitation (mm)",
+            "type": "quantitative"
+          }
+        ],
+        "x": {
+          "field": "date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "mean_temp",
+          "type": "quantitative"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "(datum.temp_min + datum.temp_max) / 2",
+          "as": "mean_temp"
+        }
+      ]
+    }
+  ],
+  "height": 380,
+  "params": [
+    {
+      "name": "hover",
+      "select": {
+        "type": "point",
+        "encodings": [
+          "x"
+        ],
+        "nearest": true,
+        "on": "pointerover",
+        "empty": false
+      },
+      "views": [
+        "view_1fbc1b1410104beb_4"
+      ]
+    },
+    {
+      "name": "param_1e9efca18e7a2868",
+      "select": {
+        "type": "interval",
+        "encodings": [
+          "x",
+          "y"
+        ]
+      },
+      "bind": "scales",
+      "views": [
+        "view_8d0b8a3ccc597385_0"
+      ]
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "title": "Seattle Weather: Temperature Range & Precipitation (2012\u20132015)",
+  "width": 850,
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "datasets": {
+    "data-42990c68f268a11fa16682fcd3437a6f": [
+      {
+        "zero": 0
+      }
+    ]
+  }
+}
+  </script>
+  <script>
+    (function() {
+      var spec = JSON.parse(document.getElementById("spec").textContent);
+      vegaEmbed("#vis", spec, {mode: "vega-lite", renderer: "svg"}).catch(console.error);
+    })();
+  </script>
+</body>
+</html>

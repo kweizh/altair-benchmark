@@ -1,0 +1,38 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The page must render an Altair cross-filtering dashboard built on the cars dataset with three linked sub-views laid out as (left | right) over bottom: a scatter of Horsepower vs Miles_per_Gallon colored by Origin (top-left), a bar chart grouped by Origin (top-right), and a 2D binned heatmap of Weight_in_lbs vs Acceleration colored by count (bottom). Dragging an interval brush in the scatter view must cross-filter both the bar chart and the heatmap so they reflect only the brushed cars. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html and wait for the Vega-Embed runtime to finish rendering. Confirm that three sub-plots are visible on the page, arranged with two plots side-by-side on top and one plot beneath them. The top-left view is a scatter plot of dots with axes labelled Horsepower (x) and Miles_per_Gallon (y) and dot color varying by Origin. The top-right view is a horizontal bar chart with a categorical axis showing Origin categories. The bottom view is a coloured rectangular grid (binned heatmap) whose axes are labelled with Weight_in_lbs and Acceleration. Then drag a rectangular brush across a sub-region of the scatter view; verify that the bar chart and the heatmap update so that only data inside the brushed region remains visible (cross-filtering behavior). ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 556 characters   
+❯ Verify Altair cross-filtering dashboard at http://localhost:8765/chart.html (browser)
+| 💫 Executing agent-browser --version
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html && agent-browser wait 2000
+| 💫 Executing agent-browser snapshot
+| 💫 Executing agent-browser get html "body"
+| 💫 Executing agent-browser screenshot chart_before.png
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing agent-browser --help
+| 💫 Executing agent-browser get box "canvas"
+| 💫 Executing agent-browser get box .marks
+| 💫 Executing agent-browser eval "JSON.stringify(document.querySelector('.marks').getBoundingClientRect())"
+| 💫 Executing agent-browser mouse move 158 158 && agent-browser mouse down left && agent-browser mouse move 258 258 && agent-browser mouse up left && agent-browser wait 1000 && agent-browser screenshot chart_after.png
+| 💫 Executing agent-browser diff screenshot --baseline chart_before.png
+| 💫 Executing agent-browser get text "body"
+| 💫 Executing agent-browser snapshot -d 5
+| 💫 Executing agent-browser errors
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser close
+✔ Verify Altair cross-filtering dashboard at http://localhost:8765/chart.html (browser)
+💭 Thinking for 217 characters   
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "Successfully verified all requirements for the chart at http://localhost:8765/chart.html.\n\n1. Navigation and Rendering: The page loaded correctly and rendered the Vega-Lite visualization.\n2. Layout Verification: Confirmed three sub-plots arranged with two side-by-side on top and one below (top-left, top-right, and bottom).\n3. Chart Details Verification:\n    - Top-left: Verified as a scatter plot with Horsepower (x) and Miles_per_Gallon (y), colored by Origin.\n    - Top-right: Verified as a horizontal bar chart showing Origin categories.\n    - Bottom: Verified as a binned heatmap with Weight_in_lbs (x) and Acceleration (y).\n4. Interaction Verification: Performed a rectangular brush selection on the top-left scatter plot and verified that the bar chart and heatmap updated (cross-filtered) to reflect only the selected data."
+}   
+  

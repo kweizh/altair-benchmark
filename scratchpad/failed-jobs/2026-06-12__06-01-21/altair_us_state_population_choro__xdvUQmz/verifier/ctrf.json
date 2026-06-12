@@ -1,0 +1,130 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:24:50.433152+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 1,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781245338747,
+            "stop": 1781245490432
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781245338801,
+                "stop": 1781245338802,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_embedded_spec_is_vega_lite",
+                "status": "failed",
+                "duration": 33,
+                "start": 1781245338803,
+                "stop": 1781245338836,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_spec_contains_geoshape_mark",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781245338836,
+                "stop": 1781245338852,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_spec_declares_albers_usa_projection",
+                "status": "failed",
+                "duration": 15,
+                "start": 1781245338852,
+                "stop": 1781245338867,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_spec_has_lookup_transform_on_id_for_population_dataset",
+                "status": "failed",
+                "duration": 15,
+                "start": 1781245338868,
+                "stop": 1781245338883,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_spec_has_binding_select_param_with_three_metric_options",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781245338883,
+                "stop": 1781245338899,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_spec_resolves_dynamic_metric",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781245338899,
+                "stop": 1781245338915,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_is_quantitative",
+                "status": "failed",
+                "duration": 16,
+                "start": 1781245338916,
+                "stop": 1781245338932,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_has_state_name_and_metric_value",
+                "status": "failed",
+                "duration": 15,
+                "start": 1781245338933,
+                "stop": 1781245338948,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "html_text = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    @pytest.fixture(scope=\"session\")\n    def vega_spec(html_text: str) -> dict[str, Any]:\n>       return _extract_vega_lite_spec(html_text)\n\ntests/test_final_state.py:185: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        # Altair's HTML embeds a call like `vegaEmbed(\"#vis\", {...}, {...})`.\n        match = re.search(r\"vegaEmbed\\s*\\(\\s*['\\\"][^'\\\"]+['\\\"]\\s*,\\s*\", html)\n        assert match is not None, (\n            \"Could not find a `vegaEmbed(\\\"#...\\\", <spec>, ...)` call in the HTML. \"\n            \"The chart must be saved via Altair's HTML save path.\"\n        )\n        spec_start = match.end()\n>       assert spec_start < len(html) and html[spec_start] == \"{\", (\n            \"Expected the second argument to `vegaEmbed` to be a JSON object literal.\"\n        )\nE       AssertionError: Expected the second argument to `vegaEmbed` to be a JSON object literal.\nE       assert (2165 < 2275 and 's' == '{'\nE        +  where 2275 = len('<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <style>\\n    #vis.vega-embed {\\n      width: 100%;\\n    ..., spec, embedOpt)\\n        .catch(error => showError(el, error));\\n    })(vegaEmbed);\\n\\n  </script>\\n</body>\\n</html>')\nE         - {\nE         + s)\n\ntests/test_final_state.py:73: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_map_and_dropdown",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 151483,
+                "start": 1781245338949,
+                "stop": 1781245490432,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "serve_chart = 'http://localhost:8765/chart.html'\n\n    def test_browser_renders_map_and_dropdown(serve_chart):\n        verifier = PochiVerifier()\n        reason = (\n            \"The chart.html produced by the build script must render an interactive US \"\n            \"state-level choropleth map together with a dropdown that switches the displayed \"\n            \"metric among the three columns of the population_engineers_hurricanes dataset.\"\n        )\n        truth = (\n            f\"Navigate to {serve_chart}. Wait for the Vega-Embed chart to finish rendering. \"\n            \"Then verify two things: \"\n            \"(1) the page shows a US-shaped map made of many SVG path elements (at least 40 \"\n            \"non-empty <path> elements should be present inside the chart container, one per \"\n            \"US state). \"\n            \"(2) the page exposes exactly one <select> dropdown control whose three <option> \"\n            \"elements, in document order, have text content equal to 'population', 'engineers', \"\n            \"and 'hurricanes' (case-sensitive, exact match, no other options). \"\n            \"Both conditions must hold for the verification to pass.\"\n        )\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_renders_map_and_dropdown\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the US-shaped map did not render correctly. Although the page loaded and the <select> dropdown was present with the correct options ('population', 'engineers', and 'hurricanes'), the chart container only contained 4 <path> elements instead of the required minimum of 40. Additionally, the map legend displayed 'NaN to NaN', indicating a failure in data loading or processing.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:435: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+# Multi-Company Stock Chart with Rolling Window, Per-Symbol Reference Lines, and Dropdown Filter
+
+## Background
+You are building an interactive multi-company stock visualization with Vega-Altair. The chart will combine raw price lines, smoothed rolling-mean lines, per-symbol all-time-mean reference rules, a dropdown widget that filters down to a single symbol, and pan/zoom interactivity on the x-axis.
+
+The data source is the well-known `data.stocks.url` URL dataset (long-form columns `date`, `symbol`, `price`). Use the URL directly (do not pre-aggregate in pandas) so that all reshaping happens inside the Vega-Lite spec.
+
+## Requirements
+- Build a single Altair script that produces a layered chart and saves it to disk as an HTML file.
+- The chart must be composed of the following layers, all sharing the same x-axis (`date:T`):
+    1. A thin raw price line per symbol (low opacity), with `price:Q` on y and color by `symbol:N`.
+    2. A bold rolling-mean line per symbol, where the rolling mean is computed inside the spec with a window transform that averages `price` over a 30-trading-day centered window (15 days before and 15 days after each point), grouped by symbol.
+    3. A horizontal dashed reference rule per symbol at the symbol's all-time mean price. The all-time mean must be computed inside the spec with a join-aggregate transform grouped by symbol.
+- Add a dropdown widget bound to a parameter that filters the chart to a single symbol. The dropdown options must be exactly the five tickers in the stocks dataset: `MSFT`, `AMZN`, `IBM`, `GOOG`, `AAPL`.
+- Enable pan/zoom on the x-axis (the standard Altair shortcut for this also adds an interval-bound-to-scales selection to the chart).
+- Save the final chart to `/home/user/myproject/chart.html`.
+
+## Implementation Hints
+- Use `data.stocks.url` from `vega_datasets` (or the equivalent string URL) as the chart source so the transforms run in the Vega-Lite engine.
+- Look at the `transform_window` documentation for the `frame`, `groupby`, and aggregate-function arguments needed to compute a centered rolling mean.
+- Look at the `transform_joinaggregate` documentation for the pattern that attaches a per-group aggregate back onto every row.
+- Bind a parameter to a select widget and reference that parameter inside a `transform_filter` predicate.
+- Use the shortcut method on the layered chart that adds pan/zoom on scales.
+- Save the chart using Altair's built-in HTML export.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: `python3 /home/user/myproject/build_chart.py`
+- Running the command must (re)generate `/home/user/myproject/chart.html` without errors.
+- The exported HTML file must contain an embedded Vega-Lite specification (the standard Altair HTML export embeds the spec as a JSON literal) that, when parsed, satisfies:
+    - It is a layered chart (top-level `layer` array) with at least three layers.
+    - One layer uses a `transform` containing a `window` operation that computes `mean` of `price`, grouped by `symbol`, with a frame whose absolute extents are 15 (i.e. window size 30).
+    - One layer uses a `transform` containing a `joinaggregate` that computes `mean` of `price`, grouped by `symbol`, and the resulting field is referenced by a rule mark whose stroke is dashed.
+    - The spec contains a `params` entry whose `bind` is a `select` input with options `['MSFT', 'AMZN', 'IBM', 'GOOG', 'AAPL']`.
+    - The spec contains a `transform` with a `filter` that references that parameter (so the dropdown filters which symbol is displayed).
+    - The spec contains an interval selection bound to `scales` (the artifact produced by enabling pan/zoom on the chart).
+- The rendered HTML, when opened in a browser, must show at least two SVG/Canvas line marks, at least one dashed rule mark, and a `<select>` element for the dropdown.
+

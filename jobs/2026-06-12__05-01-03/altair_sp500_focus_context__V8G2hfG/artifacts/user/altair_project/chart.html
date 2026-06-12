@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>S&amp;P 500 Focus + Context</title>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+  body { font-family: sans-serif; display: flex; justify-content: center;
+         padding: 2rem; background: #fafafa; }
+  #vis { width: 740px; }
+</style>
+</head>
+<body>
+<div id="vis"></div>
+<script>
+  var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300, "strokeWidth": 0}, "axis": {"grid": false}}, "vconcat": [{"layer": [{"mark": {"type": "area", "color": "#4C78A8", "line": {"color": "#2B5C8A", "strokeWidth": 1.2}, "opacity": 0.75}, "encoding": {"x": {"axis": {"format": "%Y", "labelAngle": -30}, "field": "date", "scale": {"domain": {"param": "brush"}}, "title": "Date", "type": "temporal"}, "y": {"field": "price", "title": "Price (USD)", "type": "quantitative"}}}, {"mark": {"type": "rule", "color": "#E45756", "strokeDash": [6, 3], "strokeWidth": 2}, "encoding": {"tooltip": [{"field": "max_price", "format": ".2f", "title": "Running max", "type": "quantitative"}], "y": {"field": "max_price", "title": "", "type": "quantitative"}}, "transform": [{"filter": {"param": "brush"}}, {"aggregate": [{"op": "max", "field": "price", "as": "max_price"}]}]}], "height": 320, "title": {"text": "S&P 500  \u2013  Focus + Context", "anchor": "start", "fontSize": 16, "subtitle": "Drag on the navigator below to zoom the detail view", "subtitleFontSize": 12}, "width": 700}, {"mark": {"type": "area", "color": "#4C78A8", "opacity": 0.45}, "encoding": {"x": {"axis": {"format": "%Y", "labelAngle": -30}, "field": "date", "title": "", "type": "temporal"}, "y": {"axis": null, "field": "price", "type": "quantitative"}}, "height": 60, "name": "view_14c8e5d35b11a9fd_1", "width": 700, "params": [{"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/sp500.csv"}, "resolve": {"scale": {"x": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+  vegaEmbed('#vis', spec, {renderer: 'svg', actions: true}).catch(console.error);
+</script>
+</body>
+</html>

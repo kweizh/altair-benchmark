@@ -1,0 +1,131 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T06:14:45.563574+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 10,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781244773510,
+            "stop": 1781244885563
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_html_artifact_exists",
+                "status": "passed",
+                "duration": 1300,
+                "start": 1781244773569,
+                "stop": 1781244774869,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_artifact_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781244774870,
+                "stop": 1781244774872,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_population_dataset_url",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 31,
+                "start": 1781244774872,
+                "stop": 1781244774903,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...type': 'quantitative'}, 'y': {'axis': {'title': 'Age'}, 'field': 'age', 'sort': 'descending', 'type': 'ordinal'}}, ...}\n\n    def test_population_dataset_url(spec: dict):\n        urls = _all_data_urls(spec)\n>       assert DATASET_URL in urls, (\n            f\"Spec must reference the dataset URL {DATASET_URL!r}. Found data URLs: {urls!r}.\"\n        )\nE       AssertionError: Spec must reference the dataset URL 'https://vega.github.io/vega-datasets/data/population.json'. Found data URLs: ['https://cdn.jsdelivr.net/npm/vega-datasets@v3.2.1/data/population.json'].\nE       assert 'https://vega.github.io/vega-datasets/data/population.json' in ['https://cdn.jsdelivr.net/npm/vega-datasets@v3.2.1/data/population.json']\n\ntests/test_final_state.py:141: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_calculate_transform_signs_people_by_sex",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774904,
+                "stop": 1781244774905,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_filter_transform_references_year_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774906,
+                "stop": 1781244774907,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774907,
+                "stop": 1781244774908,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_uses_signed_field_with_abs_label_expr",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774908,
+                "stop": 1781244774909,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_age_ordinal_reversed",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774910,
+                "stop": 1781244774911,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_custom_scale_and_legend",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774911,
+                "stop": 1781244774912,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_year_dropdown_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781244774912,
+                "stop": 1781244774913,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_pyramid_with_dropdown_and_signed_bars",
+                "status": "passed",
+                "duration": 110649,
+                "start": 1781244774913,
+                "stop": 1781244885562,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

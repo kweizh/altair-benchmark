@@ -1,0 +1,68 @@
+{
+    "id": "09f5071c-c7ab-49e9-9deb-fd92dda80543",
+    "started_at": "2026-06-12T06:01:25.245264",
+    "updated_at": "2026-06-12T06:33:41.236778",
+    "finished_at": "2026-06-12T06:33:41.236778",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 4,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__deepseek-4-pro__pending-tasks": {
+                "n_trials": 17,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.2
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "altair_co2_anomaly_band__p8FUnwP",
+                            "altair_unemployment_streamgraph__QLkx4Cj",
+                            "altair_unemployment_choropleth__GdVKvaB",
+                            "altair_sp500_focus_context__gCbH7i6",
+                            "altair_barley_grouped_sort__2LDRUys",
+                            "altair_population_age_pyramid__q2eJCzx",
+                            "altair_airports_connections_map__8TqwH2b",
+                            "altair_penguins_splom_brush__dSAkAPQ",
+                            "altair_cars_crossfilter_dashboar__vTkNzxG",
+                            "altair_cars_legend_interaction__PaE33MU",
+                            "altair_movies_heatmap_marginals__qJuwknh",
+                            "altair_us_state_population_choro__xdvUQmz",
+                            "altair_stocks_candlestick__vnN3jeg"
+                        ],
+                        "1.0": [
+                            "altair_stocks_rolling_window__ssPK3NF",
+                            "altair_penguins_facet_legend_tog__ZNDEaRH",
+                            "altair_world_bubble_year_slider__gLBPAwK",
+                            "altair_iris_regression_band__abNNqge"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "InitialStateError": [
+                        "altair_movies_dropdown_year_slid__AHXJpLx"
+                    ],
+                    "VerifierTimeoutError": [
+                        "altair_seattle_calendar_heatmap__9VH6cXE",
+                        "altair_seattle_weather_layered__k324n82"
+                    ],
+                    "AgentTimeoutError": [
+                        "altair_world_bubble_year_slider__gLBPAwK"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 456737,
+        "cost_usd": null
+    }
+}

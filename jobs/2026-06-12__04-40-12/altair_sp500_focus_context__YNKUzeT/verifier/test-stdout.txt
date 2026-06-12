@@ -1,0 +1,68 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 7 items
+
+tests/test_final_state.py ...FFF.                                        [100%]
+
+=================================== FAILURES ===================================
+___________________ test_lower_panel_hosts_x_interval_brush ____________________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...ram_c97a99acfc68b794', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_5f790be443c68175_1']}], ...}
+
+    def test_lower_panel_hosts_x_interval_brush(built_spec):
+        lower = built_spec["vconcat"][1]
+        brush_name = _find_brush_param_name(lower)
+>       assert brush_name is not None, (
+            "Lower (context) panel must declare a selection_interval parameter "
+            "restricted to encodings=['x'] via add_params."
+        )
+E       AssertionError: Lower (context) panel must declare a selection_interval parameter restricted to encodings=['x'] via add_params.
+E       assert None is not None
+
+tests/test_final_state.py:260: AssertionError
+___________________ test_upper_panel_x_domain_bound_to_brush ___________________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...ram_c97a99acfc68b794', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_5f790be443c68175_1']}], ...}
+
+    def test_upper_panel_x_domain_bound_to_brush(built_spec):
+        upper = built_spec["vconcat"][0]
+        lower = built_spec["vconcat"][1]
+        brush_name = _find_brush_param_name(lower)
+>       assert brush_name is not None, (
+            "Cannot validate x-domain binding because the lower panel has no "
+            "selection_interval(encodings=['x']) brush parameter."
+        )
+E       AssertionError: Cannot validate x-domain binding because the lower panel has no selection_interval(encodings=['x']) brush parameter.
+E       assert None is not None
+
+tests/test_final_state.py:270: AssertionError
+__________ test_upper_panel_has_rule_with_max_price_and_brush_filter ___________
+
+built_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti...ram_c97a99acfc68b794', 'select': {'encodings': ['x'], 'type': 'interval'}, 'views': ['view_5f790be443c68175_1']}], ...}
+
+    def test_upper_panel_has_rule_with_max_price_and_brush_filter(built_spec):
+        upper = built_spec["vconcat"][0]
+        lower = built_spec["vconcat"][1]
+        brush_name = _find_brush_param_name(lower)
+>       assert brush_name is not None, "No brush parameter found for filter check."
+E       AssertionError: No brush parameter found for filter check.
+E       assert None is not None
+
+tests/test_final_state.py:285: AssertionError
+==================================== PASSES ====================================
+________________ test_browser_renders_two_area_panels_and_brush ________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_server$ python3 -m http.server 8765
+process 'altair_chart_server' started pid=516
+altair_chart_server process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_top_level_is_vconcat_of_two
+PASSED tests/test_final_state.py::test_both_panels_contain_area_marks
+PASSED tests/test_final_state.py::test_browser_renders_two_area_panels_and_brush
+FAILED tests/test_final_state.py::test_lower_panel_hosts_x_interval_brush - A...
+FAILED tests/test_final_state.py::test_upper_panel_x_domain_bound_to_brush - ...
+FAILED tests/test_final_state.py::test_upper_panel_has_rule_with_max_price_and_brush_filter
+=================== 3 failed, 4 passed in 100.20s (0:01:40) ====================
