@@ -1,5 +1,267 @@
 1:"$Sreact.fragment"
-2:I[75049,["/altair-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/altair-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"ZTdqG2a-RLfhhFMLlNNcU","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/altair-benchmark/_next/static/chunks/9ec07a782a6ffd84.js","async":true}],["$","script","script-1",{"src":"/altair-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:"$Sreact.suspense"
+3:I[42654,["/altair-benchmark/_next/static/chunks/babff0e7418ab052.js","/altair-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/altair-benchmark/_next/static/chunks/9ec07a782a6ffd84.js","/altair-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+d:I[75049,["/altair-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/altair-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+4:Tedf,# Barley Yield: Grouped Bar Chart with Sorted Sites and Mean Overlay
+
+## Background
+You are using Vega-Altair to explore the classic `data.barley` dataset (from `vega_datasets` / `altair.datasets`). Each row records the `yield` of one `variety` of barley grown at one `site` in one `year`. You will build a faceted, grouped bar chart that compares varieties across sites and overlay the per-site average yield on top of each facet.
+
+## Requirements
+- Build a single composite Altair chart that uses the `data.barley` dataset.
+- For the main mark, use grouped bars showing `mean(yield)` per `(site, variety)`, grouped at each site using the `xOffset` channel.
+- Sites on the x-axis must be ordered by aggregated yield, descending (the site with the highest overall mean yield first).
+- Color encodes `variety` with the `tableau10` color scheme.
+- The chart is faceted by `year` so there is one panel per year present in the dataset.
+- Overlay a `mark_tick` (per facet) at the per-site mean yield across all varieties for that year, computed inside the spec with an aggregate transform (not pre-aggregated in pandas).
+- The chart carries a title with both a main `text` line and a `subtitle` line.
+- Save the final visualization as a self-contained interactive HTML file. The page must contain grouped bar marks across at least 2 year facets and tick (or rule) marks for the per-site means.
+
+## Implementation Hints
+- Load `data.barley` from `altair.datasets` (or `vega_datasets`) — do not download the file manually.
+- Use the method-based encoding syntax (`alt.X(...).sort(field=..., op=..., order=...)`) to control x-axis ordering by an aggregated field.
+- Build the grouped bar chart and the per-site mean overlay as separate `alt.Chart` layers over the same data, combine them with `alt.layer(...)` (or the `+` operator), and then call `.facet(...)` on the combined layer with `year:O`.
+- For the overlay, derive the per-site mean inside the spec using `transform_aggregate` with a `mean(yield)` aggregation grouped by `site` (and `year`, since the layer is faceted on `year`).
+- Pass a title as an object with both `text` and `subtitle` so both lines render in the HTML output.
+- Persist the chart using Altair's HTML export so the result is a standalone page that can be opened in a browser.
+
+## Acceptance Criteria
+- Project path: `/home/user/altair_task`
+- Command: `python3 /home/user/altair_task/build_chart.py`
+- Running the command writes the rendered chart to `/home/user/altair_task/output/chart.html` (an Altair-exported HTML page that embeds a Vega-Lite JSON spec).
+- The embedded Vega-Lite spec must:
+  - Use the `barley` dataset (the `url` or named data reference resolves to a `barley` source).
+  - Be a faceted spec on field `year` (ordinal).
+  - Contain a layer whose mark is `bar` with:
+    - `x` encoding on field `site` (nominal) sorted by `{ field: 'yield', op: 'mean', order: 'descending' }`.
+    - `y` encoding on field `yield` (quantitative) with `aggregate: 'mean'`.
+    - `xOffset` encoding on field `variety` (nominal).
+    - `color` encoding on field `variety` (nominal) using scheme `tableau10`.
+  - Contain a sibling layer whose mark is `tick` (or `rule`) and that layer uses an `aggregate` transform with `op: 'mean'` on field `yield` grouped by `site` (and `year`).
+  - Have a `title` that is an object with both a non-empty `text` and a non-empty `subtitle`.
+- Browser verification (opening `chart.html` in a browser):
+  - The page renders an SVG/Canvas Vega-Lite visualization.
+  - At least two facet panels labeled by year are visible.
+  - Each facet contains multiple narrow grouped bars per site (i.e. multiple bar marks per x-category, not a single stacked bar).
+  - A short horizontal tick (or rule) mark appears on each site indicating the per-site mean yield.
+
+5:Tfa4,# Cross-Filtering Dashboard on the Cars Dataset with Vega-Altair
+
+## Background
+Vega-Altair is a declarative statistical visualization library for Python that compiles to Vega-Lite. In this task you will build a cross-filtering interactive dashboard for the classic `cars` dataset (available as `vega_datasets.data.cars`). The dashboard has three linked views composed with Altair's view-composition operators, and an interval brush in the scatter view that drives `transform_filter` in the other two views.
+
+## Requirements
+Produce a single Python entry-point at `/home/user/myproject/solution.py` that, when executed, builds the chart and writes a Vega-embed HTML file to `/home/user/myproject/chart.html`.
+
+The rendered chart must contain exactly three sub-views, composed in the layout `(A | B) & C`:
+
+- **View A — Scatter (`mark_point`)**
+  - x: `Horsepower` (quantitative)
+  - y: `Miles_per_Gallon` (quantitative)
+  - color: `Origin` (nominal)
+  - An interval brush selection over BOTH the x and y encoding channels, attached to this view via `add_params(...)`.
+- **View B — Horizontal bar chart (`mark_bar`)**
+  - y: `Origin` (nominal)
+  - x: `count()` aggregate (quantitative)
+  - Must be filtered by the brush defined in View A using `transform_filter(brush)`.
+- **View C — Binned 2D heatmap (`mark_rect`)**
+  - x: `Weight_in_lbs`, binned
+  - y: `Acceleration`, binned
+  - color: `count()` aggregate (quantitative)
+  - Must be filtered by the brush defined in View A using `transform_filter(brush)`.
+
+Compose the three views as `(A | B) & C` using Altair's `|` and `&` operators (so the top-level Vega-Lite spec is a `vconcat` whose first row is an `hconcat` of A and B, and whose second row is C).
+
+## Implementation Hints
+- Use `vega_datasets.data.cars` (or `data.cars.url`) as the input data.
+- Define one `selection_interval` (Altair 5+ API) and attach it with `add_params(...)` on View A; reuse the same selection inside `transform_filter(...)` on Views B and C so brushing in A cross-filters B and C.
+- For View C, use Altair's binning API on both encoding channels (e.g. `alt.X('Weight_in_lbs').bin()` and `alt.Y('Acceleration').bin()`).
+- Save the chart with `chart.save('/home/user/myproject/chart.html')` so that the resulting HTML embeds the full Vega-Lite spec.
+- Avoid hard-coding visual styling such as widths, fonts, color palettes, or titles — the verifier intentionally ignores these.
+
+## Acceptance Criteria
+Project path: /home/user/myproject
+Command: python solution.py
+Artifact: /home/user/myproject/chart.html
+
+The verifier extracts the embedded Vega-Lite JSON spec from `chart.html` and checks:
+
+- The top-level spec uses `vconcat` containing exactly 2 entries; the first entry uses `hconcat` containing exactly 2 entries. (Layout = `(A | B) & C`.)
+- View A (first entry inside `hconcat`):
+  - mark is `point`.
+  - encoding `x.field == 'Horsepower'`, `y.field == 'Miles_per_Gallon'`, `color.field == 'Origin'`.
+  - declares at least one parameter whose `select.type == 'interval'` and whose `select.encodings` contains both `'x'` and `'y'`.
+- View B (second entry inside `hconcat`):
+  - mark is `bar`.
+  - one of its x/y encodings has `field == 'Origin'`; the opposite axis has `aggregate == 'count'`.
+  - its `transform` list contains a filter whose `filter.param` matches the brush parameter name declared in View A.
+- View C (second entry of the top-level `vconcat`):
+  - mark is `rect`.
+  - both `x` and `y` encodings have a truthy `bin` property; `x.field == 'Weight_in_lbs'` and `y.field == 'Acceleration'`.
+  - color encoding has `aggregate == 'count'`.
+  - its `transform` list contains a filter whose `filter.param` matches the brush parameter name declared in View A.
+
+In addition, a browser verification step opens `chart.html` through a local HTTP server, waits for the Vega-embed runtime to render, and confirms that three sub-views are visible and that dragging in the scatter view updates both the bar chart and the heatmap (cross-filter behavior).
+
+6:T1450,# Back-to-Back Population Age Pyramid with Vega-Altair
+
+## Background
+You are building an interactive demographic explorer using Vega-Altair. The goal is to visualize the US population distribution as a back-to-back age pyramid for a single year, with a dropdown widget that lets the viewer switch between different census years from the canonical `data.population.url` dataset.
+
+The dataset (`https://vega.github.io/vega-datasets/data/population.json`) has the columns:
+- `year`: integer census year (1850, 1860, ..., 2000).
+- `age`: integer age bucket (0, 5, 10, ..., 90).
+- `sex`: 1 for male, 2 for female.
+- `people`: number of people in that bucket.
+
+## Requirements
+- Build a Python script that generates a single Altair chart spec (no faceting, no horizontal concatenation) producing a classic back-to-back age pyramid:
+  - Males extend to the left as negative bars, females extend to the right as positive bars.
+  - The y axis lists `age` buckets with the oldest age at the top of the chart and the youngest at the bottom.
+  - The x axis uses absolute-value labels even though the underlying data is signed (e.g., labels read `10M` on both sides, not `-10M` on the left).
+  - Color encodes `sex` with a custom mapping: `1 -> Male` (e.g., steelblue) and `2 -> Female` (e.g., salmon). The legend must show the words "Male" and "Female", not the raw integers.
+- The chart must include a `binding_select` dropdown bound to a single `alt.param`. The dropdown's options must be the distinct `year` values present in the dataset, and the chart must be filtered to a single year at a time. The initial selected year must be `1980`.
+- The signed value used for the x axis must be computed inside the Vega-Lite spec via a `transform_calculate` step that produces a new field equal to `-people` when `sex == 1` (male) and `people` when `sex == 2` (female). Do **not** pre-compute this field in pandas; it has to live in the spec.
+- Save the chart to `/home/user/myproject/pyramid.html` using Altair's `Chart.save(...)` API.
+- Also write the underlying Vega-Lite spec (as returned by `Chart.to_dict()`) to `/home/user/myproject/pyramid_spec.json` so the verifier can inspect it.
+
+## Implementation Hints
+- The data source must be the URL string `data.population.url` from `altair.datasets` (not a pre-loaded Pandas DataFrame), so encoding type shorthands (`:Q`, `:O`, `:N`) are required.
+- Use `transform_calculate` with a Vega expression that branches on `datum.sex` to build the signed field.
+- Use `transform_filter` together with the year parameter so the dropdown actually controls the displayed year.
+- For the x axis labels, look at the Vega-Lite axis options `format` and `labelExpr` (the latter receives `datum.value`).
+- For the y axis ordering, use Altair's `sort` option on `alt.Y` to flip the natural ascending order of an ordinal axis.
+- For the color legend wording, look at the `labelExpr` option of `alt.Color(...).legend(...)`.
+- The script must be runnable as `python build_pyramid.py` from `/home/user/myproject` and must succeed without network access at *render* time (Altair only embeds the URL into the spec; no fetching is required to produce the HTML).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python build_pyramid.py
+- After running the command:
+  - `/home/user/myproject/pyramid.html` must exist and be a self-contained HTML file produced by Altair (it must contain a `<script>` block with an embedded Vega-Lite spec).
+  - `/home/user/myproject/pyramid_spec.json` must exist and contain the Vega-Lite spec as JSON.
+- Vega-Lite spec requirements (checked against `pyramid_spec.json`):
+  - The spec's `data` block references `https://vega.github.io/vega-datasets/data/population.json`.
+  - There is a `transform_calculate` (a `calculate` transform) that produces a new field whose expression negates `people` when `sex == 1`.
+  - There is a `transform_filter` that filters by the year parameter.
+  - The mark is `bar`.
+  - The `x` encoding is `quantitative`, uses the signed field, and its `axis` includes both `format` and `labelExpr` (with `labelExpr` referencing `abs(`).
+  - The `y` encoding is `ordinal` over the `age` field, with a `sort` directive that places the largest age values at the top (one of `"descending"`, `"-age"`, or equivalent).
+  - The `color` encoding is `nominal` over `sex`, with an explicit `scale` whose `domain` is `[1, 2]` and `range` is a two-element list of color names/codes, and a `legend` whose `labelExpr` maps `1 -> "Male"` and `2 -> "Female"`.
+  - The spec contains exactly one parameter bound to a `binding_select`. Its options must include `1980`, and the parameter's initial `value` (or the selection's `init`) must be `1980`.
+- Browser verification:
+  - Open `pyramid.html` in a headless browser. After the Vega-Lite spec finishes rendering, the resulting DOM must contain:
+    - At least one `<select>` element (the year dropdown injected by the `binding_select` widget).
+    - At least one bar (SVG `path` or `rect` for the bar mark) whose horizontal extent is to the **left** of the x=0 baseline (a negative-extent bar for males) and at least one to the **right** (a positive-extent bar for females).
+
+7:Tdf7,# Layered Seattle Weather Chart with Vega-Altair
+
+## Background
+Build a richly layered Vega-Altair visualization of the Seattle weather dataset that combines a temperature range area, a mean temperature line, a precipitation bar series on an independent secondary axis, an annotation rule, and a hover-driven tooltip layer. The chart must be exported to a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.seattle_weather.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Compose a single layered chart with at least 5 layers:
+  1. A pale-orange `mark_area` showing the daily temperature range (`temp_min` -> `temp_max`) over date.
+  2. A `mark_line` showing the daily mean temperature, derived inside the spec via `transform_calculate` from the average of `temp_min` and `temp_max`.
+  3. A `mark_bar` showing daily `precipitation` on a secondary y axis, resolved with an independent y scale so it does not share the temperature scale.
+  4. A dashed `mark_rule` annotation at y = 0 degrees C, spanning the full x range, with `strokeDash=[4, 4]`.
+  5. A nearest-x hover interaction (via `selection_point` with `nearest=True`, `encodings=['x']`, `on='pointerover'`, `empty=False`) that drives a vertical `mark_rule` and a `mark_text` tooltip displaying the date, mean temperature, and precipitation for the hovered date.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a shared base `alt.Chart(data.seattle_weather.url)` and create per-layer marks/encodings off it; remember that URL-based data requires explicit type shorthands (e.g. `date:T`, `temp_min:Q`).
+- For the area layer, use `y` and `y2` to encode the range between `temp_min` and `temp_max`.
+- Use `transform_calculate` to define the mean temperature field used by both the line and the tooltip text.
+- Use `resolve_scale(y='independent')` on the layered chart so precipitation bars do not share the temperature scale.
+- Use `selection_point(on='pointerover', nearest=True, encodings=['x'], empty=False)` and attach it via `add_params` to the layer(s) that drive the hover state; use `alt.when(...).then(...).otherwise(...)` (or `alt.condition`) to gate the tooltip text/rule opacity on the selection.
+- The dashed annotation rule must be drawn across the full x extent at the data value y = 0; remember that `alt.datum(0)` lets you encode a constant data value.
+- The HTML must contain rendered chart marks (the Vega-Lite spec embedded in a `<script type="application/json">` block and rendered via `vegaEmbed`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a layered chart with at least 5 layers.
+  - Include layer marks of types `area` (with both `y` and `y2` encodings), `line`, `bar`, `rule` (at least one rule with `y=0`), and `text`.
+  - Define at least one `transform` of type `calculate` that computes a mean temperature field from `temp_min` and `temp_max`.
+  - Set `resolve.scale.y` to `"independent"`.
+  - Define exactly one point selection parameter with `nearest: true` and an `on` event containing `pointerover` (or `mouseover`) and `empty: false`.
+- Browser verification: Loading `chart.html` in a browser must render the chart (no script errors); the rendered HTML/SVG must include visible `area`, `line`, `bar`, `rule`, and `text` marks.
+
+8:T1018,# S&P 500 Focus + Context Dashboard with Altair
+
+## Background
+Build a declarative, fully interactive "Focus + Context" stock dashboard with vega-altair on top of the S&P 500 time series shipped with `vega_datasets` (`data.sp500.url`, columns `date` and `price`). The dashboard combines a large detail area chart with a small overview area chart whose interval brush controls the detail chart's x-axis domain, and it overlays an annotation showing the running maximum price within the brushed window.
+
+## Requirements
+- Use the URL form of the dataset, i.e. `data.sp500.url` from `vega_datasets`. Do not download or pre-process the data in pandas.
+- Produce a single Altair chart that is the vertical concatenation (`&`) of two sub-charts of equal width:
+  - An upper detail chart drawn as a filled area of `price` vs `date`.
+  - A lower context chart drawn as the same filled area of `price` vs `date`, but with a much smaller height (around 60px) acting as a navigator.
+- Add an interval brush on the lower chart that is restricted to the `x` encoding only, and bind it to the upper chart so the upper chart's x-axis `domain` follows the brushed range.
+- Layer a horizontal `rule` annotation on top of the upper area chart that marks the running maximum price found inside the brushed window. The rule must be computed inside the spec (no pre-aggregation in Python) by combining a `transform_filter` on the brush param with either a `transform_window` or `transform_aggregate` for the maximum price.
+- Save the resulting chart as a self-contained HTML file at `/home/user/altair_project/chart.html`.
+- Write a small Python entry script at `/home/user/altair_project/build_chart.py` whose execution regenerates `chart.html` from scratch.
+
+## Implementation Hints
+- The interval-brush + x-domain binding is the canonical "Focus + Context" pattern in Altair; remember that the brush should be created with `selection_interval(encodings=['x'])` and registered via `add_params` on the chart that hosts it.
+- The detail chart's x-scale `domain` can directly reference the brush parameter; review how `alt.X(...).scale(domain=...)` accepts a selection.
+- For the running-maximum annotation, think about how `transform_filter` on the brush narrows the dataset before a window or aggregate transform computes the max; the rule mark only needs a `y` encoding to span the full width.
+- Composition uses the `&` operator (vertical concatenation). The chart's data source is the same URL for both panels.
+- After building the chart, persist it via `chart.save('chart.html')`.
+
+## Acceptance Criteria
+- Project path: /home/user/altair_project
+- Command: `python3 build_chart.py`
+- Running the command must (re)generate `/home/user/altair_project/chart.html` containing a fully self-contained Vega-Lite spec for an Altair chart that satisfies all of the following structural properties (verified against the embedded JSON spec):
+  - The top-level spec is a vertical concatenation (has a `vconcat` field with exactly two entries).
+  - Both `vconcat` entries reference an area mark (either `"mark": "area"` or `"mark": {"type": "area", ...}`), possibly inside a layer.
+  - The lower (second) `vconcat` entry declares a `selection_interval` parameter restricted to the x encoding, i.e. some parameter has `"select": {"type": "interval", "encodings": ["x"]}`.
+  - The upper (first) `vconcat` entry's x encoding scale references the same brush parameter name via its `domain` (e.g. `"scale": {"domain": {"param": "<brush_name>"}}`).
+  - The upper (first) `vconcat` entry contains a `rule` mark layered on top of the area, and that rule's surrounding spec includes either a `window` transform computing a `max` of `price` or an `aggregate` transform computing a `max` of `price`, together with a `filter` transform that references the brush parameter.
+- Browser verification: when the saved `chart.html` is rendered in a real browser via `pochi-verifier`, at least two `<path>` elements belonging to area mark groups must be present in the rendered SVG/canvas DOM and the lower panel must contain an interval selection rectangle element.
+
+9:Te95,# Interactive Candlestick + Volume Chart with Vega-Altair
+
+## Background
+You are visualizing daily stock activity for a single ticker. A synthetic OHLCV dataset is already provided in the project directory as `ohlcv.csv` (columns: `date`, `open`, `high`, `low`, `close`, `volume`). Your task is to build an interactive, financially conventional candlestick visualization paired with a volume overview, all expressed declaratively with Vega-Altair.
+
+## Requirements
+- Read the OHLCV dataset from `ohlcv.csv`.
+- Produce a vertically composed (vconcat) chart consisting of two views that share the `date` axis:
+  - **Upper view (candlestick)**: a layered chart combining a high–low wick and an open–close body for each trading day. The body fill must be encoded by a per-row predicate comparing `open` and `close` so that up days (close ≥ open) and down days (close < open) get distinct colors.
+  - **Lower view (volume)**: a bar chart of `volume` over `date`.
+- The lower view must host an interval brush that is constrained to the `x` (date) encoding only. The upper view's x-axis domain must be bound to that brush so that brushing on the lower chart zooms / pans the candlestick chart.
+- Save the chart as both a self-contained HTML file and a Vega-Lite JSON spec file.
+
+## Implementation Hints
+- Use a single Altair `Chart` base for the candlestick view and overlay a `mark_rule` (low–high wick) with a `mark_bar` (open–close body) via layering. The wick uses `y` / `y2` of `low` / `high`; the body uses `y` / `y2` of `open` / `close`.
+- Encode the bullish/bearish coloring with a conditional value definition driven by a predicate on `datum.open` and `datum.close` (e.g. `alt.condition` or `alt.when`), choosing a green for up days and a red for down days.
+- Define an `alt.selection_interval(encodings=['x'])` parameter, attach it to the lower volume chart with `add_params`, and reference it from the upper chart's x scale `domain` so brushing controls the focus.
+- Compose the two charts with vertical concatenation (`&` / `alt.vconcat`).
+- Persist the chart via `chart.save('chart.html')` and `chart.save('chart.json')` (or equivalent) so both artifacts exist on disk.
+
+## Acceptance Criteria
+- Project path: /home/user/altair_stocks_candlestick
+- Command: python3 build_chart.py
+- The command, when executed inside the project directory, must read `ohlcv.csv` and (over)write the following two files in the same directory:
+  - `chart.html` — a standalone HTML file embedding the Vega-Lite spec via vega-embed.
+  - `chart.json` — the Vega-Lite JSON specification of the composed chart.
+- The Vega-Lite spec in `chart.json` must satisfy:
+  - The top level is a `vconcat` specification with exactly two child views (upper then lower).
+  - The upper view is a `layer` containing a `rule` mark and a `bar` mark.
+    - The `rule` layer encodes `y` from `low` and `y2` from `high`.
+    - The `bar` layer encodes `y` from `open` and `y2` from `close`.
+    - At least one of these two layers uses a `color` encoding whose `condition` references both `open` and `close` (e.g. `datum.open <= datum.close`).
+  - The lower view uses a `bar` mark with `y` encoded from `volume` and `x` encoded from `date` (temporal).
+  - There is an interval selection parameter (`select.type == 'interval'`) whose `encodings` is exactly `['x']`. The selection is attached to the lower view (it appears in the lower view's `params`).
+  - The upper view's x channel scale `domain` references the interval selection parameter by name.
+- Browser verification: When `chart.html` is loaded in a headless browser, the rendered SVG/Canvas must show both a candlestick layer (vertical wick + body) in the upper region and bars in the lower region.
+
+0:{"buildId":"qwc09KZ7v9-HoIM4642Xv","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$2",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L3",null,{"tasksData":[{"taskName":"altair_barley_grouped_sort","instruction":"$4","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_barley_grouped_sort__UjtmPKk","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":270.618,"latency_breakdown":{"env_setup":2.888,"agent_setup":12.932,"agent_exec":127.742,"verifier":113.307},"taskName":"altair_barley_grouped_sort","jobId":"UjtmPKk","exec_duration":127.742},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_barley_grouped_sort__ShCJ8wq","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":204.813,"latency_breakdown":{"env_setup":5.101,"agent_setup":18.2,"agent_exec":68.31,"verifier":99.335},"taskName":"altair_barley_grouped_sort","jobId":"ShCJ8wq","exec_duration":68.31},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_barley_grouped_sort__LF9zrgh","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":288.547,"latency_breakdown":{"env_setup":4.546,"agent_setup":17.849,"agent_exec":136.211,"verifier":116.778},"taskName":"altair_barley_grouped_sort","jobId":"LF9zrgh","exec_duration":136.211},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_barley_grouped_sort__2LDRUys","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":289.061,"latency_breakdown":{"env_setup":2.612,"agent_setup":13.578,"agent_exec":132.136,"verifier":127.333},"taskName":"altair_barley_grouped_sort","jobId":"2LDRUys","exec_duration":132.136},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_barley_grouped_sort__pCzpY7U","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":256.259,"latency_breakdown":{"env_setup":2.607,"agent_setup":14.035,"agent_exec":139.178,"verifier":86.861},"taskName":"altair_barley_grouped_sort","jobId":"pCzpY7U","exec_duration":139.178}]},{"taskName":"altair_cars_crossfilter_dashboard","instruction":"$5","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_cars_crossfilter_dashboar__CzQaRY6","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":264.325,"latency_breakdown":{"env_setup":3.092,"agent_setup":14.15,"agent_exec":76.225,"verifier":157.522},"taskName":"altair_cars_crossfilter_dashboar","jobId":"CzQaRY6","exec_duration":76.225},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_cars_crossfilter_dashboar__GwQoEod","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":214.815,"latency_breakdown":{"env_setup":2.421,"agent_setup":12.626,"agent_exec":62.389,"verifier":123.911},"taskName":"altair_cars_crossfilter_dashboar","jobId":"GwQoEod","exec_duration":62.389},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_cars_crossfilter_dashboar__bDsNiue","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":272.617,"latency_breakdown":{"env_setup":2.494,"agent_setup":13.325,"agent_exec":142.537,"verifier":101.148},"taskName":"altair_cars_crossfilter_dashboar","jobId":"bDsNiue","exec_duration":142.537},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_cars_crossfilter_dashboar__vTkNzxG","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":280.063,"latency_breakdown":{"env_setup":2.591,"agent_setup":14.028,"agent_exec":90.675,"verifier":158.166},"taskName":"altair_cars_crossfilter_dashboar","jobId":"vTkNzxG","exec_duration":90.675},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_cars_crossfilter_dashboar__NFifvrR","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":317.426,"latency_breakdown":{"env_setup":2.746,"agent_setup":13.928,"agent_exec":152.436,"verifier":135.093},"taskName":"altair_cars_crossfilter_dashboar","jobId":"NFifvrR","exec_duration":152.436}]},{"taskName":"altair_population_age_pyramid","instruction":"$6","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_population_age_pyramid__VMJkS9o","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":492.175,"latency_breakdown":{"env_setup":3.108,"agent_setup":15.533,"agent_exec":382.578,"verifier":77.46},"taskName":"altair_population_age_pyramid","jobId":"VMJkS9o","exec_duration":382.578},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_population_age_pyramid__beF34MW","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":188.198,"latency_breakdown":{"env_setup":2.64,"agent_setup":14.11,"agent_exec":78.593,"verifier":79.055},"taskName":"altair_population_age_pyramid","jobId":"beF34MW","exec_duration":78.593},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_population_age_pyramid__tYjKSzb","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":233.458,"latency_breakdown":{"env_setup":3.152,"agent_setup":14.828,"agent_exec":116.183,"verifier":86.037},"taskName":"altair_population_age_pyramid","jobId":"tYjKSzb","exec_duration":116.183},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_population_age_pyramid__q2eJCzx","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":320.564,"latency_breakdown":{"env_setup":2.617,"agent_setup":13.74,"agent_exec":177.897,"verifier":112.871},"taskName":"altair_population_age_pyramid","jobId":"q2eJCzx","exec_duration":177.897},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_population_age_pyramid__rgGD7rQ","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":616.371,"latency_breakdown":{"env_setup":2.672,"agent_setup":13.637,"agent_exec":513.899,"verifier":72.852},"taskName":"altair_population_age_pyramid","jobId":"rgGD7rQ","exec_duration":513.899}]},{"taskName":"altair_seattle_weather_layered","instruction":"$7","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_seattle_weather_layered__Xkoq9s7","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":523.74,"latency_breakdown":{"env_setup":2.57,"agent_setup":13.054,"agent_exec":252.91,"verifier":242.097},"taskName":"altair_seattle_weather_layered","jobId":"Xkoq9s7","exec_duration":252.91},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_seattle_weather_layered__QFQ3Err","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":412.689,"latency_breakdown":{"env_setup":4.084,"agent_setup":25.872,"agent_exec":92.709,"verifier":276.958},"taskName":"altair_seattle_weather_layered","jobId":"QFQ3Err","exec_duration":92.709},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_seattle_weather_layered__uLgzar6","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":541.613,"latency_breakdown":{"env_setup":2.842,"agent_setup":14.523,"agent_exec":278.649,"verifier":232.618},"taskName":"altair_seattle_weather_layered","jobId":"uLgzar6","exec_duration":278.649},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_seattle_weather_layered__k324n82","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":861.772,"latency_breakdown":{"env_setup":2.821,"agent_setup":13.441,"agent_exec":232.274,"verifier":600.055},"taskName":"altair_seattle_weather_layered","jobId":"k324n82","exec_duration":232.274},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_seattle_weather_layered__WMCdfG5","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":760.099,"latency_breakdown":{"env_setup":2.542,"agent_setup":12.929,"agent_exec":542.911,"verifier":188.42},"taskName":"altair_seattle_weather_layered","jobId":"WMCdfG5","exec_duration":542.911}]},{"taskName":"altair_sp500_focus_context","instruction":"$8","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_sp500_focus_context__yWe8RVd","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":374.394,"latency_breakdown":{"env_setup":3.019,"agent_setup":13.637,"agent_exec":239.579,"verifier":104.593},"taskName":"altair_sp500_focus_context","jobId":"yWe8RVd","exec_duration":239.579},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_sp500_focus_context__YNKUzeT","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":180.912,"latency_breakdown":{"env_setup":4.976,"agent_setup":18.716,"agent_exec":42.551,"verifier":101.045},"taskName":"altair_sp500_focus_context","jobId":"YNKUzeT","exec_duration":42.551},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_sp500_focus_context__V8G2hfG","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":420.87,"latency_breakdown":{"env_setup":3.998,"agent_setup":23.364,"agent_exec":377.275,"verifier":2.345},"taskName":"altair_sp500_focus_context","jobId":"V8G2hfG","exec_duration":377.275},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_sp500_focus_context__gCbH7i6","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":308.631,"latency_breakdown":{"env_setup":2.699,"agent_setup":13.547,"agent_exec":144.268,"verifier":134.592},"taskName":"altair_sp500_focus_context","jobId":"gCbH7i6","exec_duration":144.268},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_sp500_focus_context__D6mhAqU","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":357.75,"latency_breakdown":{"env_setup":2.785,"agent_setup":13.846,"agent_exec":227.82,"verifier":100.331},"taskName":"altair_sp500_focus_context","jobId":"D6mhAqU","exec_duration":227.82}]},{"taskName":"altair_stocks_candlestick","instruction":"$9","trials":[{"job_name":"2026-06-12__04-05-34","trial_name":"altair_stocks_candlestick__dg5jmkR","model":"gemini-3.5-flash","rawModel":"google/gemini-3.5-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":570.405,"latency_breakdown":{"env_setup":166.808,"agent_setup":13.013,"agent_exec":184.842,"verifier":192.72},"taskName":"altair_stocks_candlestick","jobId":"dg5jmkR","exec_duration":184.842},{"job_name":"2026-06-12__04-40-12","trial_name":"altair_stocks_candlestick__3UNkFrw","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":262.987,"latency_breakdown":{"env_setup":2.605,"agent_setup":13.481,"agent_exec":57.626,"verifier":176.223},"taskName":"altair_stocks_candlestick","jobId":"3UNkFrw","exec_duration":57.626},{"job_name":"2026-06-12__05-01-03","trial_name":"altair_stocks_candlestick__763dvy7","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":458.453,"latency_breakdown":{"env_setup":2.587,"agent_setup":13.142,"agent_exec":260.608,"verifier":169.095},"taskName":"altair_stocks_candlestick","jobId":"763dvy7","exec_duration":260.608},{"job_name":"2026-06-12__06-01-21","trial_name":"altair_stocks_candlestick__vnN3jeg","model":"deepseek-4-pro","rawModel":"deepseek/deepseek-4-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":306.732,"latency_breakdown":{"env_setup":2.528,"agent_setup":13.685,"agent_exec":140.787,"verifier":135.337},"taskName":"altair_stocks_candlestick","jobId":"vnN3jeg","exec_duration":140.787},{"job_name":"2026-06-12__05-27-29","trial_name":"altair_stocks_candlestick__QC4k6Wb","model":"glm-5.1","rawModel":"zai/glm-5.1","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":468.15,"latency_breakdown":{"env_setup":2.487,"agent_setup":13.176,"agent_exec":176.486,"verifier":263.023},"taskName":"altair_stocks_candlestick","jobId":"QC4k6Wb","exec_duration":176.486}]}]}]}]]}],["$La","$Lb"],"$Lc"]}],"loading":null,"isPartial":false}
+a:["$","script","script-0",{"src":"/altair-benchmark/_next/static/chunks/9ec07a782a6ffd84.js","async":true}]
+b:["$","script","script-1",{"src":"/altair-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true}]
+c:["$","$Ld",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@e"}]}]
+e:null
