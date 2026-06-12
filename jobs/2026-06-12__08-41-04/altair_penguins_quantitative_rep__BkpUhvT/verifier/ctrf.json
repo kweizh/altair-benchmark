@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:49:24.533575+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781254026473,
+            "stop": 1781254164533
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026516,
+                "stop": 1781254026517,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_has_repeat_row_and_column",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781254026517,
+                "stop": 1781254026519,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_is_point",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026519,
+                "stop": 1781254026520,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_x_encoding",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026520,
+                "stop": 1781254026521,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_y_encoding",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026521,
+                "stop": 1781254026522,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_color_encoding",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026522,
+                "stop": 1781254026523,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_width_and_height",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781254026524,
+                "stop": 1781254026526,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repeated_subspec_scale_zero_false",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254026526,
+                "stop": 1781254026527,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_splom_grid",
+                "status": "passed",
+                "duration": 136719,
+                "start": 1781254026528,
+                "stop": 1781254163247,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1285,
+                "start": 1781254163247,
+                "stop": 1781254164532,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

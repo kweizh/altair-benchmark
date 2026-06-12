@@ -1,0 +1,113 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:49:39.004912+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 8,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781254034801,
+            "stop": 1781254179004
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254034905,
+                "stop": 1781254034906,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_view_layout",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254034907,
+                "stop": 1781254034908,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_interval_brush_param_declared",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254034908,
+                "stop": 1781254034909,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scatter_view",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781254034909,
+                "stop": 1781254034911,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bar_view",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 40,
+                "start": 1781254034911,
+                "stop": 1781254034951,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "views = {'bar': {'encoding': {'tooltip': [{'field': 'Major_Genre', 'title': 'Genre', 'type': 'nominal'}, {'field': 'genre_coun...': 350, 'mark': {'filled': True, 'opacity': 0.6, 'size': 40, 'type': 'point'}, 'name': 'view_0f879be2aa3d49c9_0', ...}}\nbrush_name = 'brush'\n\n    def test_bar_view(views, brush_name):\n        bar = views[\"bar\"]\n        assert _mark_type(bar) == \"bar\", (\n            f\"Bar view mark must be `bar`, got {_mark_type(bar)!r}.\"\n        )\n        encoding = bar.get(\"encoding\") or {}\n        count_axis, field_axis = _count_axis_and_field_axis(encoding)\n>       assert count_axis and field_axis, (\n            \"Bar view must have exactly one positional encoding with aggregate 'count'. \"\n            f\"Got encoding x={encoding.get('x')!r}, y={encoding.get('y')!r}.\"\n        )\nE       AssertionError: Bar view must have exactly one positional encoding with aggregate 'count'. Got encoding x={'field': 'genre_count', 'title': 'Count', 'type': 'quantitative'}, y={'field': 'Major_Genre', 'sort': {'field': 'genre_count', 'order': 'descending'}, 'title': 'Genre', 'type': 'nominal'}.\nE       assert ('')\n\ntests/test_final_state.py:275: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_histogram_view",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781254034952,
+                "stop": 1781254034954,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_null_filters_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781254034954,
+                "stop": 1781254034956,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_crossfilter_brush",
+                "status": "passed",
+                "duration": 142544,
+                "start": 1781254034956,
+                "stop": 1781254177500,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1502,
+                "start": 1781254177501,
+                "stop": 1781254179003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

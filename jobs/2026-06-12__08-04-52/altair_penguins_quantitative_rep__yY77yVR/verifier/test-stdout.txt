@@ -1,0 +1,60 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py ........F.                                     [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_browser_renders_splom_grid ________________________
+
+chart_preview_server = 'http://localhost:8765/chart.html'
+
+    def test_browser_renders_splom_grid(chart_preview_server):
+        reason = (
+            "The Altair-generated chart.html must render a 2x2 scatter plot matrix (SPLOM) of the "
+            "Palmer Penguins dataset built with `repeat`. The four panels correspond to "
+            "Beak Length (mm) and Beak Depth (mm) on the x-axis (columns) crossed with "
+            "Body Mass (g) and Flipper Length (mm) on the y-axis (rows). Points must be colored "
+            "by Species (three distinct colors) and a single shared color legend must be visible."
+        )
+        truth = (
+            f"Navigate to {chart_preview_server} in a browser. Wait for the Vega-Lite chart to finish "
+            "rendering. Verify that the page has no JavaScript console errors and that the rendered "
+            "chart contains a 2x2 grid of four scatter plots. Verify that the points in every panel "
+            "are colored by Species using three distinct colors (one per species: Adelie, Chinstrap, "
+            "Gentoo). Verify that exactly one shared color legend titled `Species` is rendered "
+            "(typically to the right of or below the grid), not one legend per panel."
+        )
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_renders_splom_grid",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The verification failed because the Vega-Lite chart was unable to load its data. The JavaScript console showed a 404 Not Found error for the data URL 'https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/penguins.json'. As a result, the 2x2 grid of scatter plots was empty (axes showed 'NaN to NaN'), no points were rendered to verify coloring by Species, and the 'Species' legend was empty.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:220: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=1057
+altair_chart_preview process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_spec_has_repeat_row_and_column
+PASSED tests/test_final_state.py::test_repeated_subspec_is_point
+PASSED tests/test_final_state.py::test_repeated_subspec_x_encoding
+PASSED tests/test_final_state.py::test_repeated_subspec_y_encoding
+PASSED tests/test_final_state.py::test_repeated_subspec_color_encoding
+PASSED tests/test_final_state.py::test_repeated_subspec_width_and_height
+PASSED tests/test_final_state.py::test_repeated_subspec_scale_zero_false
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+FAILED tests/test_final_state.py::test_browser_renders_splom_grid - Assertion...
+==================== 1 failed, 9 passed in 96.70s (0:01:36) ====================

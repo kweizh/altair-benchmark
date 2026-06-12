@@ -1,0 +1,122 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:23:24.495206+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781252508252,
+            "stop": 1781252604494
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252508319,
+                "stop": 1781252508321,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_mark_is_bar",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252508321,
+                "stop": 1781252508323,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_calculate_derives_efficiency",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508323,
+                "stop": 1781252508324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_filter_drops_low_efficiency",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508324,
+                "stop": 1781252508325,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_calculate_before_filter_in_transform",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508325,
+                "stop": 1781252508326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_is_ordinal_cylinders_ascending",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252508327,
+                "stop": 1781252508327,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_mean_efficiency_with_axis_title",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252508328,
+                "stop": 1781252508328,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_is_ordinal_cylinders_category10",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252508329,
+                "stop": 1781252508329,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_cylinder_bars",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 94570,
+                "start": 1781252508330,
+                "stop": 1781252602900,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_preview_server = 'http://localhost:8765/chart.html'\n\n    def test_browser_renders_cylinder_bars(chart_preview_server):\n        reason = (\n            \"The Altair-generated chart.html must render a bar chart that summarizes the \"\n            \"cars dataset by `Cylinders`, using a calculate+filter pipeline that derives \"\n            \"`Efficiency = Miles_per_Gallon / Weight_in_lbs` and drops rows with \"\n            \"`Efficiency <= 0.01`. The chart must show one bar per surviving cylinder \"\n            \"count, colored by Vega's `category10` scheme, with a y-axis titled \"\n            \"`Mean Efficiency (mpg/lb)` (or another string containing `Mean Efficiency`).\"\n        )\n        truth = (\n            f\"Navigate to {chart_preview_server} in a browser. \"\n            \"Wait for the Vega-Lite chart to finish rendering. \"\n            \"Verify that the page has no JavaScript console errors. \"\n            \"Verify that the rendered chart visibly contains exactly 5 vertical bars, \"\n            \"one per distinct cylinder count from the cars dataset (3, 4, 5, 6, and 8 \"\n            \"cylinders), each drawn in a different color from the `category10` palette. \"\n            \"Verify that the x-axis is labelled `Cylinders` with the bars ordered \"\n            \"ascending from left to right, and that the y-axis title visibly contains \"\n            \"the substring `Mean Efficiency`.\"\n        )\n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_renders_cylinder_bars\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because the rendered chart does not meet the requirement of containing exactly 5 vertical bars. The browser agent verified that the chart only displays 3 bars (for cylinders 4, 5, and 6), while the test case specifically required 5 bars (for cylinders 3, 4, 5, 6, and 8). The missing bars for cylinders 3 and 8 indicate that those data points were either missing from the dataset or excluded by the 'Efficiency > 0.01' filter, which contradicts the expected outcome of the test case.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:293: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1593,
+                "start": 1781252602900,
+                "stop": 1781252604493,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

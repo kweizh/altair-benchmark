@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 9 items
+
+tests/test_final_state.py ....F....                                      [100%]
+
+=================================== FAILURES ===================================
+________________________________ test_bar_view _________________________________
+
+views = {'bar': {'encoding': {'tooltip': [{'field': 'Major_Genre', 'title': 'Genre', 'type': 'nominal'}, {'field': 'genre_coun...': 350, 'mark': {'filled': True, 'opacity': 0.6, 'size': 40, 'type': 'point'}, 'name': 'view_0f879be2aa3d49c9_0', ...}}
+brush_name = 'brush'
+
+    def test_bar_view(views, brush_name):
+        bar = views["bar"]
+        assert _mark_type(bar) == "bar", (
+            f"Bar view mark must be `bar`, got {_mark_type(bar)!r}."
+        )
+        encoding = bar.get("encoding") or {}
+        count_axis, field_axis = _count_axis_and_field_axis(encoding)
+>       assert count_axis and field_axis, (
+            "Bar view must have exactly one positional encoding with aggregate 'count'. "
+            f"Got encoding x={encoding.get('x')!r}, y={encoding.get('y')!r}."
+        )
+E       AssertionError: Bar view must have exactly one positional encoding with aggregate 'count'. Got encoding x={'field': 'genre_count', 'title': 'Count', 'type': 'quantitative'}, y={'field': 'Major_Genre', 'sort': {'field': 'genre_count', 'order': 'descending'}, 'title': 'Genre', 'type': 'nominal'}.
+E       assert ('')
+
+tests/test_final_state.py:275: AssertionError
+==================================== PASSES ====================================
+________________________ test_browser_crossfilter_brush ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=780
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_three_view_layout
+PASSED tests/test_final_state.py::test_interval_brush_param_declared
+PASSED tests/test_final_state.py::test_scatter_view
+PASSED tests/test_final_state.py::test_histogram_view
+PASSED tests/test_final_state.py::test_null_filters_present
+PASSED tests/test_final_state.py::test_browser_crossfilter_brush
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+FAILED tests/test_final_state.py::test_bar_view - AssertionError: Bar view mu...
+=================== 1 failed, 8 passed in 144.20s (0:02:24) ====================

@@ -1,0 +1,98 @@
+Skipping image OS validation for hb__altair_stocks_focus_context_brush_range: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-pd2dtye > /logs/artifacts/run-id && echo altair_stocks_focus_context_brus__pd2dtye > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Focus + Context S&P 500 Brush Range with Vega-Altair
+
+## Background
+Build a classic overview + detail (focus + context) Vega-Altair visualization of the S&P 500 dataset. A small overview area chart at the bottom hosts an interval brush over the time axis, and a larger detail area chart at the top dynamically rescales its x-axis to the brushed time window. The chart must be exported to a static HTML file that fully renders in a browser, including the interactive linked brushing behavior.
+
+## Requirements
+- Use `data.sp500.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Define a single Vega-Altair selection: an interval brush limited to the x (time) axis (`encodings=['x']`).
+- Compose a vertically concatenated chart with exactly two views, with the detail (focus) view on top and the overview (context) view on the bottom.
+- Upper detail view:
+  - `mark_area`.
+  - Encodes x as `date:T` whose x-scale `domain` is bound to the interval brush selection.
+  - Encodes y as `price:Q`.
+  - Width `600`, height `250`.
+- Lower overview view:
+  - Same `mark_area` over the same data (`date:T` -> `price:Q`).
+  - Width `600`, height `70`.
+  - The interval brush selection is attached to **this** view (it is the chart hosting the draggable brush).
+- Save the resulting compound chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a shared base `alt.Chart(data.sp500.url).mark_area().encode(...)` whose encodings can be reused across the two views; remember that URL-based data requires explicit type shorthands (e.g. `date:T`, `price:Q`).
+- Use `alt.selection_interval(encodings=['x'])` to create the brush.
+- For the upper view, override the x channel so that its scale `domain` references the brush selection (this is what makes the focus view rescale to the brushed region).
+- For the lower view, attach the brush via `add_params(...)` so that the user can drag the interval on the context chart.
+- Combine the two views vertically using `alt.vconcat` (or the `&` operator) with the focus chart on top and the context chart on the bottom.
+- Use `chart.save('chart.html')` to write a self-contained HTML file that embeds the Vega-Lite spec and renders it with `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a vertically concatenated chart with exactly two sub-views (a `vconcat` array of length 2), with the detail (focus) view first and the overview (context) view second.
+  - Declare an interval selection parameter (a top-level `params` entry, or a view-level `params` entry) whose `select.type` is `"interval"` and whose `select.encodings` equals `["x"]`.
+  - The first (upper) sub-view:
+    - Has `mark` of type `"area"`.
+    - Encodes x with field `date` of type `temporal` whose scale `domain` references the interval brush parameter (i.e. an object of the form `{"param": "<brush-name>"}` or `{"selection": "<brush-name>"}`).
+    - Encodes y with field `price` of type `quantitative`.
+    - Has `width == 600` and `height == 250`.
+  - The second (lower) sub-view:
+    - Has `mark` of type `"area"`.
+    - Encodes x with field `date` of type `temporal` and y with field `price` of type `quantitative`.
+    - Has `width == 600` and `height == 70`.
+    - Has a `params` array containing the interval brush selection (the brush is attached to this view).
+- Browser verification: Loading `chart.html` in a browser must render two stacked area charts (a large detail chart on top and a slim context chart on the bottom), with no JavaScript console errors. Dragging an interval on the lower context chart must visibly narrow the x-axis domain of the upper detail chart to the dragged region.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

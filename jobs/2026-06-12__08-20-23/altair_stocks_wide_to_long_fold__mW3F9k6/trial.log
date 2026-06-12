@@ -1,0 +1,92 @@
+Skipping image OS validation for hb__altair_stocks_wide_to_long_fold_line: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-mw3f9k6 > /logs/artifacts/run-id && echo altair_stocks_wide_to_long_fold__mW3F9k6 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model zai/glm-5.1 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Wide-to-Long Stocks Multi-Line Chart with Vega-Altair `transform_fold`
+
+## Background
+A common analytics task is to plot several time series whose values live in separate columns (wide form) as a single multi-line chart. Vega-Altair exposes the `transform_fold` transform that reshapes wide-form data into long form directly inside the chart specification, so you do not have to pre-melt the DataFrame in pandas.
+
+In this task you will build a small wide-form pandas DataFrame of monthly stock prices for three companies and use `transform_fold` to reshape it to long form inside the spec, then render it as a multi-line chart and save the result as a self-contained HTML file.
+
+## Requirements
+- Construct the source data **inside `build_chart.py`** as a wide-form `pandas.DataFrame` with exactly these four columns and at least 12 rows (one row per monthly observation):
+  - `Date` (a date / datetime-like value, e.g. monthly timestamps).
+  - `AAPL` (numeric price).
+  - `AMZN` (numeric price).
+  - `GOOG` (numeric price).
+  Do **not** load this data from `vega_datasets` or any external file – the point of the task is to demonstrate `transform_fold` on wide-form data you provide.
+- Build a single Vega-Altair chart that:
+  - Uses the wide-form DataFrame as the chart data source.
+  - Applies `transform_fold` to fold the three price columns into long form, using `as_=['company', 'price']` so the long-form fields are named `company` and `price`.
+  - Renders a line mark (`mark_line`) with one line per company.
+  - Encodes `Date` on the x axis as a temporal field.
+  - Encodes the folded `price` on the y axis as a quantitative field.
+  - Encodes the folded `company` on color as a nominal field, producing a legend that lists `AAPL`, `AMZN`, and `GOOG`.
+- Save the chart to `/home/user/myproject/chart.html` via `chart.save(...)` as a self-contained HTML file that loads Vega-Lite/Vega-Embed and renders the chart in a browser.
+
+## Implementation Hints
+- You can construct the DataFrame with any reasonable monthly date range (e.g. `pandas.date_range(..., freq='MS')`) and any plausible monthly price values – exact values do not matter, only the schema and number of rows.
+- Pass the wide DataFrame directly to `alt.Chart(...)`; let `transform_fold` reshape it inside the spec rather than pre-melting with pandas.
+- Remember that after folding, the new long-form fields are the ones you name in `as_`; encode the y/color channels against those names, not against the original wide column names.
+- Make sure the chart is saved as a real HTML file (not a JSON spec) so it can be opened directly in a browser.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Use `mark` of type `line` (a string `"line"` or an object `{"type": "line", ...}`).
+  - Include a `transform` entry of the form `{"fold": [...], "as": [...]}` where the `fold` array equals `["AAPL", "AMZN", "GOOG"]` (in that order) and the `as` array equals `["company", "price"]`.
+  - Encode `x` with `field == "Date"` and `type == "temporal"`.
+  - Encode `y` with `field == "price"` and `type == "quantitative"`.
+  - Encode `color` with `field == "company"` and `type == "nominal"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The rendered chart must show exactly three colored lines, and the color legend must list the three series `AAPL`, `AMZN`, and `GOOG`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

@@ -1,0 +1,64 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py ........F.                                     [100%]
+
+=================================== FAILURES ===================================
+______________________ test_browser_renders_cylinder_bars ______________________
+
+chart_preview_server = 'http://localhost:8765/chart.html'
+
+    def test_browser_renders_cylinder_bars(chart_preview_server):
+        reason = (
+            "The Altair-generated chart.html must render a bar chart that summarizes the "
+            "cars dataset by `Cylinders`, using a calculate+filter pipeline that derives "
+            "`Efficiency = Miles_per_Gallon / Weight_in_lbs` and drops rows with "
+            "`Efficiency <= 0.01`. The chart must show one bar per surviving cylinder "
+            "count, colored by Vega's `category10` scheme, with a y-axis titled "
+            "`Mean Efficiency (mpg/lb)` (or another string containing `Mean Efficiency`)."
+        )
+        truth = (
+            f"Navigate to {chart_preview_server} in a browser. "
+            "Wait for the Vega-Lite chart to finish rendering. "
+            "Verify that the page has no JavaScript console errors. "
+            "Verify that the rendered chart visibly contains exactly 5 vertical bars, "
+            "one per distinct cylinder count from the cars dataset (3, 4, 5, 6, and 8 "
+            "cylinders), each drawn in a different color from the `category10` palette. "
+            "Verify that the x-axis is labelled `Cylinders` with the bars ordered "
+            "ascending from left to right, and that the y-axis title visibly contains "
+            "the substring `Mean Efficiency`."
+        )
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_renders_cylinder_bars",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test failed because the rendered chart visibly contains only 3 vertical bars (for 4, 5, and 6 cylinders) instead of the required 5 vertical bars (3, 4, 5, 6, and 8 cylinders). The browser agent confirmed that while the chart rendered without JS errors and had the correct axis labels and color palette, the cylinder counts 3 and 8 were missing from the visualization, likely due to the filter 'Efficiency > 0.01' excluding those data points.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:293: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=705
+altair_chart_preview process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_top_level_mark_is_bar
+PASSED tests/test_final_state.py::test_transform_calculate_derives_efficiency
+PASSED tests/test_final_state.py::test_transform_filter_drops_low_efficiency
+PASSED tests/test_final_state.py::test_calculate_before_filter_in_transform
+PASSED tests/test_final_state.py::test_x_encoding_is_ordinal_cylinders_ascending
+PASSED tests/test_final_state.py::test_y_encoding_is_mean_efficiency_with_axis_title
+PASSED tests/test_final_state.py::test_color_encoding_is_ordinal_cylinders_category10
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+FAILED tests/test_final_state.py::test_browser_renders_cylinder_bars - Assert...
+==================== 1 failed, 9 passed in 81.23s (0:01:21) ====================

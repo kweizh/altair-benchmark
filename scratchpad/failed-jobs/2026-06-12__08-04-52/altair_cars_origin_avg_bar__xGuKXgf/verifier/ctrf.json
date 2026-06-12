@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:11:16.901708+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251769529,
+            "stop": 1781251876901
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251769577,
+                "stop": 1781251769578,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_single_bar_chart",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251769579,
+                "stop": 1781251769580,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_encoding_x_origin_nominal",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251769580,
+                "stop": 1781251769581,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_encoding_y_aggregates_mean_mpg",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781251769581,
+                "stop": 1781251769583,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_sort_descending_by_mean_mpg",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251769583,
+                "stop": 1781251769584,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_has_mean_and_count",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251769585,
+                "stop": 1781251769586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_three_descending_bars",
+                "status": "passed",
+                "duration": 104917,
+                "start": 1781251769586,
+                "stop": 1781251874503,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 2393,
+                "start": 1781251874505,
+                "stop": 1781251876898,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "id": "a66966e9-5dfd-42df-bbc4-c2e34f69ab40",
+    "task_name": "altair_population_grouped_stacked_area",
+    "trial_name": "altair_population_grouped_stacke__5wapR79",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__08-04-52/altair_population_grouped_stacke__5wapR79",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_population_grouped_stacked_area"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "faecf955a6943130b1f1bc614c4b01d606c67944d0a794ee8e5a1fb29ddea0e7",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_population_grouped_stacked_area",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_population_grouped_stacke__5wapR79",
+        "trials_dir": "jobs/2026-06-12__08-04-52",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3.1-pro",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "e063960c-bac4-4673-a415-1169201a0a14"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "gemini-3.1-pro",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 16479,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T08:16:32.627127Z",
+    "finished_at": "2026-06-12T08:18:59.311919Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T08:16:32.630343Z",
+        "finished_at": "2026-06-12T08:16:35.489437Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T08:16:35.489471Z",
+        "finished_at": "2026-06-12T08:16:49.100421Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T08:16:49.100520Z",
+        "finished_at": "2026-06-12T08:17:41.946926Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T08:17:43.293835Z",
+        "finished_at": "2026-06-12T08:18:47.704555Z"
+    },
+    "step_results": null
+}

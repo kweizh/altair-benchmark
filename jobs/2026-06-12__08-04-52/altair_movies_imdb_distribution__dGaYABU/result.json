@@ -1,0 +1,117 @@
+{
+    "id": "1a0b0bdc-79db-4647-b1ca-ecb89d7e4e29",
+    "task_name": "altair_movies_imdb_distribution_bar",
+    "trial_name": "altair_movies_imdb_distribution__dGaYABU",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__08-04-52/altair_movies_imdb_distribution__dGaYABU",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_movies_imdb_distribution_bar"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "b01b5d6983fb314f80571d40d0cd7c2898e06a58f9e0edaec4b71116eead6726",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_movies_imdb_distribution_bar",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_movies_imdb_distribution__dGaYABU",
+        "trials_dir": "jobs/2026-06-12__08-04-52",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3.1-pro",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "e063960c-bac4-4673-a415-1169201a0a14"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "gemini-3.1-pro",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 13082,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T08:16:27.763347Z",
+    "finished_at": "2026-06-12T08:18:57.623823Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T08:16:27.765723Z",
+        "finished_at": "2026-06-12T08:16:30.374404Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T08:16:30.374438Z",
+        "finished_at": "2026-06-12T08:16:44.347073Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T08:16:44.347194Z",
+        "finished_at": "2026-06-12T08:17:27.566822Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T08:17:28.998936Z",
+        "finished_at": "2026-06-12T08:18:45.538791Z"
+    },
+    "step_results": null
+}

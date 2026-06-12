@@ -1,0 +1,110 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:37:31.447082+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781253347642,
+            "stop": 1781253451446
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781253347684,
+                "stop": 1781253347685,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_geoshape",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781253347686,
+                "stop": 1781253347687,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_data_is_us_10m_states_topo_feature",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781253347688,
+                "stop": 1781253347688,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_lookup_for_engineers",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781253347689,
+                "stop": 1781253347689,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_engineers_on_blues_scheme",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781253347690,
+                "stop": 1781253347691,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_includes_state_and_engineers",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781253347691,
+                "stop": 1781253347692,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_projection_and_dimensions",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781253347692,
+                "stop": 1781253347693,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_us_states_choropleth",
+                "status": "passed",
+                "duration": 102127,
+                "start": 1781253347693,
+                "stop": 1781253449820,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1625,
+                "start": 1781253449821,
+                "stop": 1781253451446,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

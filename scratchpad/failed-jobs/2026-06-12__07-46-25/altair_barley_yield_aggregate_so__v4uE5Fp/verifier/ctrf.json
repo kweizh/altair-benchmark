@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:04:39.431551+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251379958,
+            "stop": 1781251479431
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251380002,
+                "stop": 1781251380003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251380004,
+                "stop": 1781251380005,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_site_with_aggregate_sort",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251380005,
+                "stop": 1781251380006,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_mean_yield_quantitative",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781251380007,
+                "stop": 1781251380007,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_year_nominal",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781251380008,
+                "stop": 1781251380008,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_yoffset_encoding_year_nominal",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781251380009,
+                "stop": 1781251380009,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_grouped_bars",
+                "status": "passed",
+                "duration": 98159,
+                "start": 1781251380010,
+                "stop": 1781251478169,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1261,
+                "start": 1781251478169,
+                "stop": 1781251479430,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:56:52.553388+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781254521985,
+            "stop": 1781254612553
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254522030,
+                "stop": 1781254522031,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_not_layered",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254522032,
+                "stop": 1781254522033,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_circle",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781254522034,
+                "stop": 1781254522034,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_horsepower_binned",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781254522035,
+                "stop": 1781254522035,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_mpg_binned",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781254522036,
+                "stop": 1781254522036,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_size_encoding_count_aggregate",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781254522037,
+                "stop": 1781254522037,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_mean_acceleration_viridis",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254522038,
+                "stop": 1781254522039,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_properties_width_height_title",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781254522039,
+                "stop": 1781254522040,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_bubble_density",
+                "status": "passed",
+                "duration": 89271,
+                "start": 1781254522040,
+                "stop": 1781254611311,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1240,
+                "start": 1781254611312,
+                "stop": 1781254612552,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

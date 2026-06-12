@@ -1,0 +1,7 @@
+{
+  "library_name": "vega-altair",
+  "task_name": "altair_stocks_wide_to_long_fold_line",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "/Users/kw/code/zealt/altair-benchmark/plan.md",
+  "output_dir": "/Users/kw/code/zealt/altair-benchmark/scratchpad/pending-tasks/"
+}

@@ -1,0 +1,63 @@
+{
+    "id": "bcc5e054-dcb0-4a68-b5ef-c6a2bd5b065a",
+    "started_at": "2026-06-12T08:20:26.001586",
+    "updated_at": "2026-06-12T08:41:02.795294",
+    "finished_at": "2026-06-12T08:41:02.795294",
+    "n_total_trials": 20,
+    "stats": {
+        "n_completed_trials": 20,
+        "n_errored_trials": 1,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__glm-5.1__pending-tasks": {
+                "n_trials": 19,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.7
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "altair_stocks_layered_line_rule__bWwMp5S",
+                            "altair_world_topojson_layered_ce__m7kbkd8",
+                            "altair_seattle_weather_count_bar__chrtEgT",
+                            "altair_cars_origin_avg_bar__uvg9DDM",
+                            "altair_stocks_wide_to_long_fold__mW3F9k6",
+                            "altair_slider_param_threshold_co__nD8955s",
+                            "altair_penguins_species_scatter__cZmZe8K",
+                            "altair_iris_petal_histogram_spec__k6EqhB8",
+                            "altair_iris_species_dropdown_fil__df5MD8R",
+                            "altair_us_topojson_states_chorop__SxAe4n4",
+                            "altair_movies_imdb_distribution__TtQAXdB",
+                            "altair_population_grouped_stacke__jkiZeUU",
+                            "altair_barley_yield_aggregate_so__tQZM2Fn",
+                            "altair_cars_horsepower_mpg_densi__4BB4gxe"
+                        ],
+                        "0.0": [
+                            "altair_cars_efficiency_calc_filt__EXva2DU",
+                            "altair_cars_hover_nearest_highli__jC3U6gw",
+                            "altair_vegafusion_large_aggregat__E8LVjzn",
+                            "altair_penguins_quantitative_rep__MmUsMkb",
+                            "altair_stocks_focus_context_brus__JvZfZGA"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "altair_movies_three_view_brush_c__bmNLySu"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 353685,
+        "cost_usd": null
+    }
+}

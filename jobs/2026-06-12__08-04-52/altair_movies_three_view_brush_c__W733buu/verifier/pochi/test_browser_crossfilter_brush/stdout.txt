@@ -1,0 +1,55 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions * You **must** use the agent browser to perform all verification steps. * **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). * **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). * If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. * If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. * For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-generated chart.html must render a three-view crossfilter dashboard for the movies dataset: (1) a scatter plot of IMDB\_Rating vs Rotten\_Tomatoes\_Rating with a 2D brush, (2) a bar chart of count() by Major\_Genre, and (3) a histogram of IMDB\_Rating. Dragging the brush on the scatter plot must crossfilter the bar chart and histogram. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html in a headless browser and wait for the Vega-Lite chart to finish rendering. Verify the page has no JavaScript console errors and that three chart panels are visible: a scatter plot of points on top, and a bar chart (counts by Major\_Genre) and a histogram (binned IMDB\_Rating counts) side-by-side underneath. Record the heights of the bars in the bar chart by reading the rendered SVG <rect> elements (e.g., via document.querySelectorAll on the bar chart group). Then perform a mouse drag inside the scatter plot to draw an interval brush over a sub-region of the scatter (e.g., drag from roughly (chartX1, chartY1) to (chartX2, chartY2) covering only part of the data, not the whole plot). Wait for the dashboard to re-render. Verify that the bar heights captured AFTER the drag differ from the bars captured BEFORE the drag (the crossfilter has shrunk the bar chart). Also verify the histogram bars have changed (the binned counts also crossfilter). Verification passes only if (a) three panels are visible, (b) no JS errors are logged, and (c) the bar chart bar heights/counts change after the brush drag. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 731 characters   
+❯ Verify the Altair-generated chart.html dashboard. (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 💫 Executing agent-browser --version && agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+| 💫 Executing agent-browser wait 2000 && agent-browser snapshot -i
+| 💫 Executing agent-browser snapshot
+| 📖 Reading unknown
+| 📖 Reading pochi://~/tool-results/executeCommand-lEy3dpqbx9jBAZR7-output.log
+| 💫 Executing agent-browser screenshot chart.png
+| 💫 Executing agent-browser get html "svg"
+| 💫 Executing grep -n "Major_Genre" /root/.pochi/tasks/dc890067-c1df-4653-8b31-3ea9be2776bf/tool-results/executeCommand-lgevvOZyh7kOKpqP-output.log | head -n 20
+| 💫 Executing agent-browser get text "svg"
+| 💫 Executing agent-browser find text "error" snapshot || echo "No error text found"
+| 💫 Executing agent-browser get html "body" | grep -i "error" || echo "No error found in HTML"
+| 💫 Executing agent-browser get html "body" | grep "JavaScript Error" || echo "No JS error message found"
+| 💫 Executing agent-browser get html "p" || echo "No p tags found"
+| 💫 Executing agent-browser snapshot | grep -C 5 "Major_Genre" | head -n 50
+| 💫 Executing agent-browser snapshot | grep -C 10 "Count of Records"
+| 💫 Executing agent-browser --help
+| 💫 Executing agent-browser get box "svg > g"
+| 💫 Executing agent-browser get box "svg"
+| 💫 Executing agent-browser --json get box "svg"
+| 💫 Executing agent-browser --json find text "Major_Genre" get box
+| 💫 Executing agent-browser --json get box "text"
+| 💫 Executing agent-browser errors
+| 💫 Executing agent-browser eval "Array.from(document.querySelectorAll('path, rect')).filter(el => el.getAttribute('aria-label') && el.getAttribute('aria-label').startsWith('Major_Genre')).map(el => ({label: el.getAttribute('aria-label'), height: el.getBBox().height, y: el.getBBox().y}))"
+| 💫 Executing agent-browser eval "const points = Array.from(document.querySelectorAll('path')).filter(el => el.getAttribute('aria-label') && el.getAttribute('aria-label').includes('Rotten_Tomatoes_Rating')); if (points.length === 0) return null; let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity; points.forEach(p => { const box = p.getBoundingClientRect(); minX = Math.min(minX, box.x); minY = Math.min(minY, box.y); maxX = Math.max(maxX, box.x + box.width); maxY = Math.max(maxY, box.y + box.height); }); return {x: minX, y: minY, width: maxX - minX, height: maxY - minY};"
+| 💫 Executing agent-browser eval "(() => { const points = Array.from(document.querySelectorAll('path')).filter(el => el.getAttribute('aria-label') && el.getAttribute('aria-label').includes('Rotten_Tomatoes_Rating')); if (points.length === 0) return null; let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity; points.forEach(p => { const box = p.getBoundingClientRect(); minX = Math.min(minX, box.x); minY = Math.min(minY, box.y); maxX = Math.max(maxX, box.x + box.width); maxY = Math.max(maxY, box.y + box.height); }); return {x: minX, y: minY, width: maxX - minX, height: maxY - minY}; })()"
+| 💫 Executing agent-browser mouse move 150 100 && agent-browser mouse down && agent-browser mouse move 250 200 && agent-browser mouse up && agent-browser wait 2000
+| 💫 Executing agent-browser eval "Array.from(document.querySelectorAll('path, rect')).filter(el => el.getAttribute('aria-label') && el.getAttribute('aria-label').startsWith('Major_Genre')).map(el => ({label: el.getAttribute('aria-label'), height: el.getBBox().height, y: el.getBBox().y}))"
+| 💫 Executing agent-browser eval "Array.from(document.querySelectorAll('path, rect')).filter(el => el.getAttribute('aria-label') && el.getAttribute('aria-label').startsWith('IMDB_Rating (binned)')).map(el => ({label: el.getAttribute('aria-label'), height: el.getBBox().height, y: el.getBBox().y}))"
+| 💫 Executing agent-browser --json eval "(() => { const barChart = Array.from(document.querySelectorAll('text')).find(el => el.textContent === 'Major_Genre').closest('g'); const histogram = Array.from(document.querySelectorAll('text')).find(el => el.textContent === 'IMDB_Rating (binned)').closest('g'); return { barChart: barChart.getBoundingClientRect(), histogram: histogram.getBoundingClientRect() }; })()"
+| 💫 Executing agent-browser --json eval "(() => { const barChart = Array.from(document.querySelectorAll('text')).find(el => el.textContent === 'Major_Genre').closest('g'); const histogram = Array.from(document.querySelectorAll('text')).find(el => el.textContent === 'IMDB_Rating (binned)').closest('g'); const bBox1 = barChart.getBBox(); const bBox2 = histogram.getBBox(); return { barChart: {x: bBox1.x, y: bBox1.y, width: bBox1.width, height: bBox1.height}, histogram: {x: bBox2.x, y: bBox2.y, width: bBox2.width, height: bBox2.height} }; })()"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (9 items)
+✔ Verify the Altair-generated chart.html dashboard. (browser)
+💭 Thinking for 250 characters   
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The Vega-Lite chart at http://localhost:8765/chart.html was successfully verified. \n\n1. **Panel Visibility**: Three chart panels were confirmed: a scatter plot on top, and a bar chart and histogram side-by-side below.\n2. **JavaScript Errors**: No console errors were detected during the session.\n3. **Crossfilter Functionality**: \n    - Initial bar heights were recorded for the Major_Genre bar chart.\n    - A mouse drag was performed on the scatter plot to create an interval brush.\n    - After the interaction, the bar chart and histogram both updated to reflect the filtered data.\n    - Specific count changes were observed (e.g., 'Drama' count changed from 738 to 63), confirming the crossfilter is working correctly.\n\nThe test passed all verification criteria."
+}   
+  

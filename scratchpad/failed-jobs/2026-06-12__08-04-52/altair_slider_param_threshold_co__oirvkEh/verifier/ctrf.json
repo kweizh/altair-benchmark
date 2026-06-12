@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:14:35.131701+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251976392,
+            "stop": 1781252075131
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781251976440,
+                "stop": 1781251976442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_point",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251976442,
+                "stop": 1781251976443,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slider_bound_parameter",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251976444,
+                "stop": 1781251976445,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_and_y_encodings",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251976445,
+                "stop": 1781251976446,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_conditional_color_encoding",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251976446,
+                "stop": 1781251976447,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_title",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781251976448,
+                "stop": 1781251976448,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_slider_drives_color_threshold",
+                "status": "passed",
+                "duration": 97323,
+                "start": 1781251976449,
+                "stop": 1781252073772,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1357,
+                "start": 1781252073773,
+                "stop": 1781252075130,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

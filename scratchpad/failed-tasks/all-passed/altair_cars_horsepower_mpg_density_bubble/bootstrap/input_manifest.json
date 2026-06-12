@@ -1,0 +1,7 @@
+{
+  "library_name": "vega-altair",
+  "task_name": "altair_cars_horsepower_mpg_density_bubble",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "/Users/kw/code/zealt/altair-benchmark/plan.md",
+  "output_dir": "/Users/kw/code/zealt/altair-benchmark/scratchpad/pending-tasks/"
+}

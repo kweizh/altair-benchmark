@@ -1,0 +1,92 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:17:46.049809+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781252162251,
+            "stop": 1781252266049
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252162289,
+                "stop": 1781252162290,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_uses_point_or_circle_mark",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252162291,
+                "stop": 1781252162292,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_and_y_encodings",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252162292,
+                "stop": 1781252162293,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dropdown_param_present",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252162293,
+                "stop": 1781252162295,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_is_conditional_on_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252162295,
+                "stop": 1781252162296,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_dropdown_highlights_species",
+                "status": "passed",
+                "duration": 102371,
+                "start": 1781252162296,
+                "stop": 1781252264667,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1380,
+                "start": 1781252264668,
+                "stop": 1781252266048,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

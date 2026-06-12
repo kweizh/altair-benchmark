@@ -1,0 +1,117 @@
+{
+    "id": "de0a34ac-7f36-40db-9470-fc94c7a6fb28",
+    "task_name": "altair_world_topojson_layered_centroid_labels",
+    "trial_name": "altair_world_topojson_layered_ce__UAGyqkF",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__08-57-06/altair_world_topojson_layered_ce__UAGyqkF",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_world_topojson_layered_centroid_labels"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "af31d9359d7497dfc44cfd26f64bbc26a579e6e89f6740ab8f0e014a5c809507",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_world_topojson_layered_centroid_labels",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_world_topojson_layered_ce__UAGyqkF",
+        "trials_dir": "jobs/2026-06-12__08-57-06",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "deepseek/deepseek-4-pro",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "efc31ca0-f96e-40ff-83ab-9da704c1ac3b"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "deepseek-4-pro",
+            "provider": "deepseek"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 19196,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T08:57:11.383416Z",
+    "finished_at": "2026-06-12T09:02:25.615080Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T08:57:11.475846Z",
+        "finished_at": "2026-06-12T08:57:14.829859Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T08:57:14.829933Z",
+        "finished_at": "2026-06-12T08:57:29.930833Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T08:57:29.931032Z",
+        "finished_at": "2026-06-12T08:59:57.404481Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T08:59:58.897628Z",
+        "finished_at": "2026-06-12T09:02:13.885696Z"
+    },
+    "step_results": null
+}

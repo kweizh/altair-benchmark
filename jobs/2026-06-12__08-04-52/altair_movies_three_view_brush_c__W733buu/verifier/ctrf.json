@@ -1,0 +1,110 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:14:20.863476+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251898705,
+            "stop": 1781252060863
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 8,
+                "start": 1781251898944,
+                "stop": 1781251898952,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_three_view_layout",
+                "status": "passed",
+                "duration": 6,
+                "start": 1781251898953,
+                "stop": 1781251898959,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_interval_brush_param_declared",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781251898960,
+                "stop": 1781251898963,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_scatter_view",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781251898964,
+                "stop": 1781251898966,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_bar_view",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781251898967,
+                "stop": 1781251898971,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_histogram_view",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781251898973,
+                "stop": 1781251898976,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_null_filters_present",
+                "status": "passed",
+                "duration": 6,
+                "start": 1781251898978,
+                "stop": 1781251898984,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_crossfilter_brush",
+                "status": "passed",
+                "duration": 160472,
+                "start": 1781251898986,
+                "stop": 1781252059458,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1403,
+                "start": 1781252059459,
+                "stop": 1781252060862,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

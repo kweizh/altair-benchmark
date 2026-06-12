@@ -1,0 +1,54 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py .........F                                     [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_build_script_is_idempotent ________________________
+
+    def test_build_script_is_idempotent():
+        """Sanity check: the executor's build script should be re-runnable."""
+        result = subprocess.run(
+            ["python3", "build_chart.py"],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+        )
+>       assert result.returncode == 0, (
+            f"`python3 build_chart.py` failed on re-run.\nstdout: {result.stdout}\nstderr: {result.stderr}"
+        )
+E       AssertionError: `python3 build_chart.py` failed on re-run.
+E         stdout: 
+E         stderr: Traceback (most recent call last):
+E           File "/home/user/myproject/build_chart.py", line 4, in <module>
+E             source = data.penguins.url
+E                      ^^^^^^^^^^^^^
+E           File "/usr/local/lib/python3.12/dist-packages/vega_datasets/core.py", line 458, in __getattr__
+E             raise AttributeError("No dataset named '{0}'".format(dataset_name))
+E         AttributeError: No dataset named 'penguins'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'build_chart.py'], returncode=1, stdout='', stderr='Traceback (most recent call last...aise AttributeError("No dataset named \'{0}\'".format(dataset_name))\nAttributeError: No dataset named \'penguins\'\n').returncode
+
+tests/test_final_state.py:271: AssertionError
+==================================== PASSES ====================================
+_________ test_browser_renders_scatter_with_colors_shapes_and_tooltip __________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=813
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_mark_is_filled_point_with_size_80
+PASSED tests/test_final_state.py::test_x_encoding_flipper_length_scale_zero_false
+PASSED tests/test_final_state.py::test_y_encoding_body_mass_scale_zero_false
+PASSED tests/test_final_state.py::test_color_encoding_species_nominal
+PASSED tests/test_final_state.py::test_shape_encoding_sex_nominal
+PASSED tests/test_final_state.py::test_tooltip_encoding_has_all_four_fields_in_order
+PASSED tests/test_final_state.py::test_interactive_interval_selection_bound_to_scales
+PASSED tests/test_final_state.py::test_browser_renders_scatter_with_colors_shapes_and_tooltip
+FAILED tests/test_final_state.py::test_build_script_is_idempotent - Assertion...
+=================== 1 failed, 9 passed in 100.94s (0:01:40) ====================

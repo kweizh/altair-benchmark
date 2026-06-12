@@ -1,0 +1,7 @@
+{
+  "library_name": "Vega-Altair",
+  "task_name": "altair_barley_yield_aggregate_sort",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "/Users/kw/code/zealt/altair-benchmark/plan.md",
+  "output_dir": "scratchpad/pending-tasks/"
+}

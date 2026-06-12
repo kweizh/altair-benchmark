@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 8 items
+
+tests/test_final_state.py ........                                       [100%]
+
+==================================== PASSES ====================================
+___________________ test_browser_renders_three_company_lines ___________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=511
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_mark_is_line
+PASSED tests/test_final_state.py::test_fold_transform_configured
+PASSED tests/test_final_state.py::test_x_encoding_is_date_temporal
+PASSED tests/test_final_state.py::test_y_encoding_is_price_quantitative
+PASSED tests/test_final_state.py::test_color_encoding_is_company_nominal
+PASSED tests/test_final_state.py::test_browser_renders_three_company_lines
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+======================== 8 passed in 102.59s (0:01:42) =========================

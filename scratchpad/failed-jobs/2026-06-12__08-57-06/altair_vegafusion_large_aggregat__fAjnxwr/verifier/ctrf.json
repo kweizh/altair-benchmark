@@ -1,0 +1,128 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T09:05:58.630812+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 7,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781255073561,
+            "stop": 1781255158630
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_build_script_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781255073614,
+                "stop": 1781255073615,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_enables_vegafusion",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255073615,
+                "stop": 1781255073617,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_runs_without_max_rows_error",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1686,
+                "start": 1781255073617,
+                "stop": 1781255075303,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_build_script_runs_without_max_rows_error():\n        \"\"\"Re-run the executor's script and confirm it does not raise MaxRowsError.\"\"\"\n        result = subprocess.run(\n            [\"python3\", \"build_chart.py\"],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"`python3 build_chart.py` failed with exit code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: `python3 build_chart.py` failed with exit code 1.\nE         stdout: \nE         stderr: Traceback (most recent call last):\nE           File \"/usr/lib/python3.12/importlib/metadata/__init__.py\", line 397, in from_name\nE             return next(cls.discover(name=name))\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         StopIteration\nE         \nE         During handling of the above exception, another exception occurred:\nE         \nE         Traceback (most recent call last):\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/_importers.py\", line 43, in import_vl_convert\nE             version = importlib_version(\"vl-convert-python\")\nE                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/lib/python3.12/importlib/metadata/__init__.py\", line 889, in version\nE             return distribution(distribution_name).version\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/lib/python3.12/importlib/metadata/__init__.py\", line 862, in distribution\nE             return Distribution.from_name(distribution_name)\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/lib/python3.12/importlib/metadata/__init__.py\", line 399, in from_name\nE             raise PackageNotFoundError(name)\nE         importlib.metadata.PackageNotFoundError: No package metadata was found for vl-convert-python\nE         \nE         The above exception was the direct cause of the following exception:\nE         \nE         Traceback (most recent call last):\nE           File \"/home/user/myproject/build_chart.py\", line 27, in <module>\nE             chart.save('/home/user/myproject/chart.html')\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/vegalite/v6/api.py\", line 2420, in save\nE             save(**kwds)\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/save.py\", line 276, in save\nE             perform_save()\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/save.py\", line 251, in perform_save\nE             _save_mimebundle_format(\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/save.py\", line 98, in _save_mimebundle_format\nE             mb_result: dict[str, str] = spec_to_mimebundle(\nE                                         ^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/mimebundle.py\", line 124, in spec_to_mimebundle\nE             spec = compile_with_vegafusion(spec)\nE                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/_vegafusion_data.py\", line 266, in compile_with_vegafusion\nE             vega_spec = compiler(vegalite_spec)\nE                         ^^^^^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/vegalite/v6/compiler.py\", line 14, in vl_convert_compiler\nE             vlc = import_vl_convert()\nE                   ^^^^^^^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.12/dist-packages/altair/utils/_importers.py\", line 63, in import_vl_convert\nE             raise ImportError(msg) from err\nE         ImportError: The vl-convert Vega-Lite compiler and file export feature requires\nE         version 1.9.0 or greater of the 'vl-convert-python' package. \nE         This can be installed with pip using:\nE            pip install \"vl-convert-python>=1.9.0\"\nE         or conda:\nE            conda install -c conda-forge \"vl-convert-python>=1.9.0\"\nE         \nE         ImportError: vl-convert-python\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'build_chart.py'], returncode=1, stdout='', stderr='Traceback (most recent call last...on>=1.9.0\"\\nor conda:\\n   conda install -c conda-forge \"vl-convert-python>=1.9.0\"\\n\\nImportError: vl-convert-python\\n').returncode\n\ntests/test_final_state.py:207: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781255075303,
+                "stop": 1781255075304,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_uses_rect_mark",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781255075304,
+                "stop": 1781255075308,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_has_two_maxbins_20",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10,
+                "start": 1781255075308,
+                "stop": 1781255075318,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_spec = {'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':....]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.5533793356235432, 'min': 0.446131719633072}]}], ...}\n\n    def test_chart_has_two_maxbins_20(chart_spec):\n        values = _maxbins_values(chart_spec)\n        twenty = [v for v in values if v == 20]\n>       assert len(twenty) >= 2, (\n            \"Expected the heatmap spec to bin both the X and Y channels with \"\n            f\"maxbins=20 (so two `maxbins: 20` entries should appear). Found \"\n            f\"maxbins values: {values}.\"\n        )\nE       AssertionError: Expected the heatmap spec to bin both the X and Y channels with maxbins=20 (so two `maxbins: 20` entries should appear). Found maxbins values: [].\nE       assert 0 >= 2\nE        +  where 0 = len([])\n\ntests/test_final_state.py:235: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_color_aggregates_mean_of_z",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10,
+                "start": 1781255075319,
+                "stop": 1781255075329,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_spec = {'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':....]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.5533793356235432, 'min': 0.446131719633072}]}], ...}\n\n    def test_chart_color_aggregates_mean_of_z(chart_spec):\n>       assert _has_mean_aggregate_on_z(chart_spec), (\n            \"Expected the chart spec to aggregate field `z` with op `mean` for the \"\n            \"color channel (either as a Vega-Lite color encoding \"\n            \"`{field: 'z', aggregate: 'mean'}` or a Vega aggregate transform with \"\n            \"ops=['mean'] and fields=['z']).\"\n        )\nE       AssertionError: Expected the chart spec to aggregate field `z` with op `mean` for the color channel (either as a Vega-Lite color encoding `{field: 'z', aggregate: 'mean'}` or a Vega aggregate transform with ops=['mean'] and fields=['z']).\nE       assert False\nE        +  where False = _has_mean_aggregate_on_z({'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':....]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.5533793356235432, 'min': 0.446131719633072}]}], ...})\n\ntests/test_final_state.py:243: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_color_scheme_is_magma",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255075329,
+                "stop": 1781255075331,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transformed_data_csv_exists_and_is_valid",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255075331,
+                "stop": 1781255075333,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_heatmap",
+                "status": "passed",
+                "duration": 83295,
+                "start": 1781255075334,
+                "stop": 1781255158629,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

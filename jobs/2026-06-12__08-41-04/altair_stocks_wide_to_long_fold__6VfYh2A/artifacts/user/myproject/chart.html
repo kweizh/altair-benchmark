@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-bd4e347cf6a80177d6d4821297b992a7"}, "mark": {"type": "line"}, "encoding": {"color": {"field": "company", "title": "Company", "type": "nominal"}, "x": {"field": "Date", "title": "Date", "type": "temporal"}, "y": {"field": "price", "title": "Price (USD)", "type": "quantitative"}}, "height": 350, "title": "Monthly Stock Prices (2023)", "transform": [{"fold": ["AAPL", "AMZN", "GOOG"], "as": ["company", "price"]}], "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json", "datasets": {"data-bd4e347cf6a80177d6d4821297b992a7": [{"Date": "2023-01-01T00:00:00", "AAPL": 130, "AMZN": 95, "GOOG": 88}, {"Date": "2023-02-01T00:00:00", "AAPL": 150, "AMZN": 105, "GOOG": 95}, {"Date": "2023-03-01T00:00:00", "AAPL": 155, "AMZN": 100, "GOOG": 98}, {"Date": "2023-04-01T00:00:00", "AAPL": 165, "AMZN": 110, "GOOG": 105}, {"Date": "2023-05-01T00:00:00", "AAPL": 175, "AMZN": 120, "GOOG": 115}, {"Date": "2023-06-01T00:00:00", "AAPL": 190, "AMZN": 128, "GOOG": 120}, {"Date": "2023-07-01T00:00:00", "AAPL": 185, "AMZN": 132, "GOOG": 117}, {"Date": "2023-08-01T00:00:00", "AAPL": 178, "AMZN": 125, "GOOG": 112}, {"Date": "2023-09-01T00:00:00", "AAPL": 172, "AMZN": 118, "GOOG": 108}, {"Date": "2023-10-01T00:00:00", "AAPL": 180, "AMZN": 122, "GOOG": 113}, {"Date": "2023-11-01T00:00:00", "AAPL": 188, "AMZN": 130, "GOOG": 119}, {"Date": "2023-12-01T00:00:00", "AAPL": 195, "AMZN": 138, "GOOG": 125}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

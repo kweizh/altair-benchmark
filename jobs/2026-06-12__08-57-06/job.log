@@ -1,0 +1,1777 @@
+Skipping image OS validation for hb__altair_stocks_layered_line_rule_annotation: docker inspect returned 1
+Skipping image OS validation for hb__altair_world_topojson_layered_centroid_labels: docker inspect returned 1
+Skipping image OS validation for hb__altair_cars_efficiency_calc_filter_bar: docker inspect returned 1
+Skipping image OS validation for hb__altair_cars_hover_nearest_highlight: docker inspect returned 1
+Skipping image OS validation for hb__altair_seattle_weather_count_bar: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Running command: echo zr-uagyqkf > /logs/artifacts/run-id && echo altair_world_topojson_layered_ce__UAGyqkF > /logs/artifacts/trial_id
+Command outputs captured
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-duvhgej > /logs/artifacts/run-id && echo altair_stocks_layered_line_rule__DuvHgEJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-pbmljtx > /logs/artifacts/run-id && echo altair_cars_efficiency_calc_filt__pBmLjtx > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-xlgsbep > /logs/artifacts/run-id && echo altair_cars_hover_nearest_highli__xLGsbep > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Running command: echo zr-7uatjwc > /logs/artifacts/run-id && echo altair_seattle_weather_count_bar__7UATjwc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Layered Stock Price Chart with Crisis Annotations using Vega-Altair
+
+## Background
+Build a Vega-Altair layered visualization of the GOOG stock price over time, with annotation overlays highlighting a notional price threshold and a key historical event (the October 2008 financial crisis). The chart must be exported to a static HTML file that renders cleanly in a browser.
+
+## Requirements
+- Use `data.stocks.url` from `vega_datasets` as the data source (URL-based; declare types explicitly).
+- Filter the data so only rows with `symbol == "GOOG"` are plotted.
+- Compose a single layered chart with **at least 4 layers**:
+  1. A `mark_line()` of `price` over `date` for GOOG.
+  2. A **red** horizontal `mark_rule()` at the constant data value `y = 300`, with `strokeDash` `[4, 4]` (a dashed threshold annotation).
+  3. A **gray** vertical `mark_rule()` at the constant date `October 1, 2008` (the crisis date).
+  4. A `mark_text()` annotation positioned at the same crisis date that renders the literal label `"Crisis"`.
+- Configure the chart with `width=600` and `height=300`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- For URL-based data sources, you must declare types in shorthand encodings (e.g., `date:T`, `price:Q`, `symbol:N`).
+- Use `transform_filter` to restrict the data to GOOG before drawing the line.
+- Use `alt.datum(300)` to encode a constant y-value for the horizontal threshold rule.
+- Use `alt.datum(alt.DateTime(year=2008, month=10, day=1))` to encode a constant date for the vertical rule and the text annotation.
+- Layers can be composed using `alt.layer(...)` or the `+` operator.
+- Configure the text mark with reasonable typographic properties (for example a non-zero `dx` offset or `align`/`baseline`) so it doesn't overlap the vertical rule.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a layered chart with a top-level `layer` array of length >= 4.
+  - Contain at least one `line` mark, two `rule` marks, and one `text` mark across the layers.
+  - Include a `transform` of type `filter` whose expression references `symbol` and the value `"GOOG"`.
+  - Have one `rule` layer whose `encoding.y.datum == 300`, whose mark has `strokeDash` equal to `[4, 4]`, and whose color is red.
+  - Have a second `rule` layer whose `encoding.x.datum` is a `DateTime` object with `year == 2008` and `month == 10`.
+  - Have a `text` layer whose `encoding.text` resolves to the literal value `"Crisis"`.
+  - Have top-level `width == 600` and `height == 300`.
+- Browser verification: Loading `chart.html` in a browser must render the GOOG line, the dashed red horizontal threshold rule, the vertical crisis rule, and the `"Crisis"` text label, with no JavaScript console errors.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Layered World Map with City Centroid Labels in Vega-Altair
+
+## Background
+Build a layered Vega-Altair world map that combines TopoJSON country polygons (using the bundled `world-110m` dataset) with a custom Python `DataFrame` of city coordinates, projected with `naturalEarth1`. The chart must be exported as a single self-contained HTML file that renders in a browser.
+
+## Requirements
+- Use `alt.topo_feature(data.world_110m.url, 'countries')` from `vega_datasets` to obtain world country shapes.
+- Build an inline `pandas.DataFrame` of 5 cities with the columns `city`, `lat`, and `lon`:
+  - Tokyo (35.6762, 139.6503)
+  - London (51.5074, -0.1278)
+  - New York (40.7128, -74.0060)
+  - Sao Paulo (-23.5505, -46.6333)
+  - Sydney (-33.8688, 151.2093)
+- Compose a layered chart with at least 3 layers, in order:
+  1. `mark_geoshape(fill='#e8e8e8', stroke='white')` rendering all country shapes from the TopoJSON feature.
+  2. `mark_circle(color='red', size=80)` placing each city at its `(lon, lat)` coordinate via the `longitude` / `latitude` encoding channels.
+  3. `mark_text(dy=-12)` displaying the `city` name above each red circle, using the same `longitude` / `latitude` placement.
+- Apply the `naturalEarth1` projection to the whole layered chart.
+- Set the chart width to `800` and height to `500`.
+- Save the final chart as a self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Geographic shapes from a TopoJSON URL must be loaded via `alt.topo_feature(url, feature_name)`; the `feature_name` for the world dataset is `countries`.
+- When you encode a separate `DataFrame` of points on top of a geoshape layer, use the dedicated geographic encoding channels `longitude` and `latitude` (quantitative), not `x` and `y`.
+- The projection set on the outer `alt.layer(...)` chart is inherited by all layers, so define it once at the top level.
+- `mark_text` accepts `dy` to offset labels vertically relative to the underlying point.
+- The HTML must contain a rendered Vega-Lite spec (an Altair-style `var spec = {...};` block consumed by `vegaEmbed`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a layered chart with `layer` length >= 3.
+  - Layer 1: mark type `geoshape` with `fill == '#e8e8e8'` and `stroke == 'white'`; the layer's data must reference the `world-110m.json` TopoJSON URL with `format.feature == 'countries'`.
+  - Layer 2: mark type `circle` with `color == 'red'` and `size == 80`; encoding includes `longitude.field == 'lon'` and `latitude.field == 'lat'`.
+  - Layer 3: mark type `text` with `dy == -12`; encoding includes `text.field == 'city'`.
+  - Top-level `projection.type == 'naturalEarth1'`.
+  - Top-level `width == 800` and `height == 500`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without console errors; the rendered output must visibly include world country outlines, 5 red circle markers placed approximately at the locations of Tokyo, London, New York, Sao Paulo, and Sydney, and 5 text labels showing the city names just above each marker.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Cars Efficiency Bar Chart with Calculate + Filter Transforms in Vega-Altair
+
+## Background
+Using the classic `cars` dataset, build a Vega-Altair bar chart that derives a per-row fuel-economy efficiency metric inside the chart spec, removes degenerate rows with a server-side filter, and then summarizes the result by engine size. The chart must be saved as a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare encoding types explicitly).
+- Inside the chart spec, derive a new field `Efficiency` equal to `Miles_per_Gallon / Weight_in_lbs` using `transform_calculate`.
+- Drop rows where the derived `Efficiency` is not strictly greater than `0.01` using `transform_filter` (the filter must reference the derived `Efficiency` field, not the raw input fields).
+- Build a single `mark_bar` chart that summarizes the filtered data:
+  - The x channel must encode `Cylinders` as an ordinal field, sorted ascending.
+  - The y channel must encode the mean of `Efficiency` as a quantitative field, with an axis title that contains "Mean Efficiency" (for example, `"Mean Efficiency (mpg/lb)"`).
+  - The color channel must encode `Cylinders` as an ordinal field using the `category10` color scheme.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a single `alt.Chart(data.cars.url)` and chain `transform_calculate(...)` then `transform_filter(...)` before `.mark_bar().encode(...)`.
+- Inside `transform_calculate`, the expression string must reference fields via `datum.<field>` (for example, `'datum.Miles_per_Gallon / datum.Weight_in_lbs'`), and the keyword name passed to `transform_calculate` (or the `as` field of the underlying transform) determines the output field name.
+- Inside `transform_filter`, you can reference the derived field with `alt.datum.Efficiency > 0.01`.
+- Use the method-based `alt.Y(...).axis(title=...)` / `alt.Color(...).scale(scheme=...)` syntax (or the equivalent keyword form) to set the y-axis title and the color scheme.
+- Because the data source is a URL, types must be declared explicitly (`:O`, `:Q`, etc.).
+- Useful references:
+  - https://altair-viz.github.io/user_guide/transform/calculate.html
+  - https://altair-viz.github.io/user_guide/transform/filter.html
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a top-level `mark` of `bar` (string `"bar"` or an object with `type == "bar"`).
+  - Include a `transform` array containing both:
+    - a `calculate` entry whose expression references both `Miles_per_Gallon` and `Weight_in_lbs`, and whose `as` field equals `Efficiency`.
+    - a `filter` entry whose filter expression references the `Efficiency` field and the threshold `0.01` (greater-than).
+  - Encode `encoding.x` with `field == "Cylinders"`, ordinal type, and ascending sort.
+  - Encode `encoding.y` with `aggregate == "mean"`, `field == "Efficiency"`, quantitative type, and an axis title containing the substring `"Mean Efficiency"`.
+  - Encode `encoding.color` with `field == "Cylinders"`, ordinal type, and a color scale with `scheme == "category10"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart with no JavaScript console errors; the rendered chart must visibly show one bar per distinct cylinder count from the filtered dataset.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Seattle Weather Category Count Bar Chart with Vega-Altair
+
+## Background
+Build a horizontal bar chart with Vega-Altair that counts the number of days for each `weather` category in the Seattle weather dataset. Each bar must be colored by its weather category using a fully custom categorical color scale so the visualization uses brand-style colors rather than the Altair defaults. The chart must be exported to a static HTML file that renders cleanly in a browser.
+
+## Requirements
+- Use `data.seattle_weather.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Build a single (non-layered) bar chart that:
+  1. Encodes the `weather` categorical field on the y axis so the bars run horizontally.
+  2. Encodes a `count` aggregation (over all rows) on the x axis as the bar length.
+  3. Colors each bar by the `weather` field using a custom `alt.Color` scale whose `domain` lists every weather category and whose `range` lists the matching hex color for each category.
+- The exact category-to-color mapping must be:
+  - `sun` -> `#e7ba52`
+  - `fog` -> `#c7c7c7`
+  - `drizzle` -> `#aec7e8`
+  - `rain` -> `#1f77b4`
+  - `snow` -> `#9467bd`
+- Save the resulting chart as a single self-contained HTML file named `chart.html` using `chart.save(...)`.
+
+## Implementation Hints
+- Start from `alt.Chart(data.seattle_weather.url)` and remember that URL-based data requires explicit shorthand types (for example `weather:N`).
+- Use the `mark_bar()` mark; do not stack or layer the chart.
+- Use Altair's aggregate-on-encoding shorthand (or an aggregate-only `alt.X(...)`) so the x channel represents a count of rows with no underlying field.
+- Customize the categorical color scale by passing `domain=[...]` and `range=[...]` to `alt.Color(...).scale(...)` (or the equivalent `scale=alt.Scale(domain=..., range=...)`); the two lists must be index-aligned so each category maps to its specified hex code.
+- Use `chart.save('chart.html')` to produce a self-contained HTML file that embeds the Vega-Lite spec and renders via `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a top-level `mark` of type `bar` (no `layer` array).
+  - Encode `y` with field `weather` and nominal type.
+  - Encode `x` as an aggregate `count` with no `field` set.
+  - Encode `color` with field `weather` whose `scale.domain` is exactly the set `{sun, fog, drizzle, rain, snow}` and whose `scale.range` is exactly the matching set of hex codes `{#e7ba52, #c7c7c7, #aec7e8, #1f77b4, #9467bd}` such that each domain entry maps (by list index) to its specified hex code.
+- Browser verification: Loading `chart.html` in a browser must render the chart (no JavaScript console errors); the rendered output must show 5 horizontal bars (one per weather category) drawn in the custom colors above, with a visible color legend.
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Hover-Driven Nearest-Point Highlight Scatter with Vega-Altair
+
+## Background
+Build an interactive Vega-Altair scatter chart of the classic Cars dataset that uses a pointer-driven point selection to highlight the nearest point and reveal its car name on hover. The chart must be exported to a static HTML file that renders in a browser, with the hover interaction visibly working.
+
+## Requirements
+- Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Build a single layered chart that combines a point layer and a text label layer:
+  - Base scatter: `x=Horsepower:Q` and `y=Miles_per_Gallon:Q`, with both axes' scales configured so `zero=False`.
+  - Hover selection: use `selection_point` configured for `on='pointerover'`, `nearest=True`, and `empty=False`, attached to the chart via `add_params`.
+  - Point layer (`mark_point`): the `color` channel is conditional on the hover selection. When a point is hovered, it is colored by `Origin:N`; otherwise it falls back to the value `'lightgray'`.
+  - Text label layer (`mark_text` with `dy=-10`): renders the `Name:N` field. The `opacity` channel is conditional on the hover selection: opacity is `1` when the point is hovered and `0` otherwise.
+- Set chart `width=600` and `height=400`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a shared base `alt.Chart(data.cars.url)` and create per-layer marks/encodings off it; URL-based data requires explicit type shorthands (e.g. `Horsepower:Q`, `Origin:N`, `Name:N`).
+- Configure `zero=False` on each axis with the `.scale(zero=False)` method on `alt.X` / `alt.Y`.
+- Use `alt.selection_point(on='pointerover', nearest=True, empty=False)` and attach it via `add_params` to the point layer that drives the hover state.
+- Use `alt.condition(hover, ...)` (or `alt.when(hover).then(...).otherwise(...)`) to gate the color of points and the opacity of the text label on the hover selection.
+- The text label layer should render the car `Name` as the text and be offset vertically with `dy=-10` so it appears above the hovered point.
+- The HTML must contain a renderable Vega-Lite spec embedded in the Altair-generated template and rendered via `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a layered chart whose top-level `layer` array has at least 2 entries.
+  - Include a `point` layer and a `text` layer.
+  - The point layer's `mark.type` must be `point`; its `encoding.color` must use a `condition` referencing the hover selection parameter (then field `Origin`) with a fallback `value` of `lightgray`.
+  - The text layer's `mark.type` must be `text` with `mark.dy == -10`; its `encoding.text.field` must be `Name`; its `encoding.opacity` must use a `condition` referencing the hover selection parameter that resolves to `1` when active and `0` otherwise.
+  - Both `x` and `y` encoding scales must have `zero: false`.
+  - The spec's top-level `width` must be `600` and `height` must be `400`.
+  - Declare exactly one point selection parameter with `nearest: true`, `empty: false`, and an `on` event string containing `pointerover` (or `mouseover`).
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. Unhovered points must appear in light gray. Moving the pointer over a point area must cause the nearest point to change color (matching its `Origin` category) AND a text label (the car's `Name`) must appear next to it.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_vegafusion_large_aggregated_heatmap: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__altair_movies_three_view_brush_crossfilter: docker inspect returned 1
+Skipping image OS validation for hb__altair_cars_origin_avg_bar: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-fajnxwr > /logs/artifacts/run-id && echo altair_vegafusion_large_aggregat__fAjnxwr > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Large Aggregated Heatmap with VegaFusion in Vega-Altair
+
+## Background
+Vega-Altair refuses to render datasets with more than 5,000 rows by default (`MaxRowsError`). Build an Altair workflow that processes a 60,000-row synthetic dataset by enabling the VegaFusion data transformer, produces a 2D binned heatmap saved as a self-contained HTML file, and also exports the post-transform aggregated rows as a CSV file via `chart.transformed_data()`.
+
+## Requirements
+- Implement the build script as `/home/user/myproject/build_chart.py`.
+- Generate a deterministic synthetic pandas DataFrame with 60,000 rows and three columns:
+  - `x`: uniform random integers in `[0, 99]` (inclusive).
+  - `y`: uniform random integers in `[0, 49]` (inclusive).
+  - `z`: uniform random floats in `[0.0, 1.0)`.
+  - Use `random.seed(42)` from Python's standard `random` module to seed the data generation so the dataset is reproducible.
+- Enable the VegaFusion data transformer with `alt.data_transformers.enable('vegafusion')` so the chart does **not** raise `altair.MaxRowsError`.
+- Build a single 2D binned heatmap chart using `mark_rect()` that encodes:
+  - `x` on the X axis as a quantitative field with `bin(maxbins=20)`.
+  - `y` on the Y axis as a quantitative field with `bin(maxbins=20)`.
+  - color as the `mean` aggregate of `z`, with a continuous color scale using the `'magma'` color scheme.
+- Save the chart as `/home/user/myproject/chart.html`.
+- Use `chart.transformed_data()` to extract the post-transform aggregated DataFrame produced by Vega-Lite (one row per non-empty bin) and write it to `/home/user/myproject/transformed_data.csv` as a valid CSV file. The CSV must contain at least 50 rows of aggregated bin data (excluding the header).
+- The script must exit with code 0 and must not raise or print any `MaxRowsError` text.
+
+## Implementation Hints
+- Generate the data with Python's built-in `random` module so that `random.seed(42)` deterministically controls every value of `x`, `y`, and `z`. Use `random.randint(0, 99)` for `x`, `random.randint(0, 49)` for `y`, and `random.random()` for `z`.
+- VegaFusion exposes both a `'vegafusion'` data transformer and the backend for `chart.transformed_data()`. Install it via `pip install "vegafusion[embed]"` plus `vegafusion-python-embed`.
+- Enable VegaFusion globally **before** building the chart (`alt.data_transformers.enable('vegafusion')`).
+- For the heatmap, use `alt.X('x:Q', bin=alt.Bin(maxbins=20))`, `alt.Y('y:Q', bin=alt.Bin(maxbins=20))`, and `alt.Color('z:Q', aggregate='mean', scale=alt.Scale(scheme='magma'))` (or equivalent syntax).
+- `chart.transformed_data()` returns a single pandas DataFrame for a unit chart. Use `df.to_csv('/home/user/myproject/transformed_data.csv', index=False)` to write it.
+- See the official Altair docs section on large datasets (https://altair-viz.github.io/user_guide/large_datasets.html) and the VegaFusion site (https://vegafusion.io/) for details on enabling VegaFusion and accessing transformed data.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must exit with code 0 and must not raise `altair.MaxRowsError` (no `MaxRowsError` text in stderr).
+- The build script `/home/user/myproject/build_chart.py` must call `alt.data_transformers.enable('vegafusion')`.
+- The command must produce `/home/user/myproject/chart.html`, which must be a non-empty file containing a renderable Vega/Vega-Lite specification embedded in the HTML.
+- The command must produce `/home/user/myproject/transformed_data.csv`, which must be a valid CSV with a header row and at least 50 data rows.
+- The embedded chart specification (whether Vega-Lite or compiled Vega) must encode a `rect`-mark heatmap with:
+  - Binned X channel with `maxbins == 20`.
+  - Binned Y channel with `maxbins == 20`.
+  - Color channel aggregating `mean(z)` with a continuous scheme named `'magma'`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors; the rendered output must include a visible rectangular heatmap grid and a continuous color legend using the magma color ramp.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rrhjw86 > /logs/artifacts/run-id && echo altair_cars_origin_avg_bar__RRHjW86 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Running command: echo zr-3jcvwvd > /logs/artifacts/run-id && echo altair_movies_three_view_brush_c__3jcvwvD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Average MPG by Origin Bar Chart with Vega-Altair
+
+## Background
+Build a simple but precise Vega-Altair bar chart showing the average `Miles_per_Gallon` per `Origin` from the classic `cars` dataset. The chart must sort bars by mean MPG (highest first) and show a custom tooltip that reveals both the mean MPG and the number of cars contributing to each bar. Export the chart to a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly using shorthand suffixes such as `Origin:N` and `Miles_per_Gallon:Q`).
+- Render a single (non-layered, non-faceted, non-concatenated) bar chart using `mark_bar`.
+- Map `Origin` to the x channel as a nominal field, and the mean of `Miles_per_Gallon` to the y channel as a quantitative field.
+- Sort the x axis by the mean of `Miles_per_Gallon` in descending order (Origin with the highest mean MPG first).
+- Provide a custom `tooltip` channel that is a list with BOTH:
+  1. The mean of `Miles_per_Gallon` (aggregate `mean` over `Miles_per_Gallon`), and
+  2. The count of cars per origin (aggregate `count`).
+- Save the resulting chart as a self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a single chart from `alt.Chart(data.cars.url).mark_bar()`; remember that URL-based data requires explicit type shorthands.
+- For the x sort, use the encoding helper `alt.X('Origin:N').sort(field='Miles_per_Gallon', op='mean', order='descending')`, or the shorthand `sort='-y'` against a y channel that already aggregates `mean(Miles_per_Gallon)`.
+- For the tooltip channel, pass a Python list of two entries; each entry may use either the shorthand string syntax (e.g. `'mean(Miles_per_Gallon):Q'`, `'count():Q'`) or `alt.Tooltip(...)` with explicit `aggregate` and `field`.
+- The output HTML must contain the Vega-Lite spec embedded in the standard Altair template (a `var spec = {...};` block or a `<script type="application/json">` block) and must be renderable by `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a single bar chart whose top-level `mark` is `bar` (string `"bar"` or object with `"type": "bar"`). It must NOT use `layer`, `concat`, `hconcat`, `vconcat`, `facet`, or `repeat` at the top level.
+  - Have `encoding.x` with `field == "Origin"` and `type == "nominal"`.
+  - Have `encoding.y` that aggregates `mean` over `field == "Miles_per_Gallon"` (quantitative).
+  - Sort the x axis by mean `Miles_per_Gallon` in descending order. Either:
+    - `encoding.x.sort` is an object with `op == "mean"`, `field == "Miles_per_Gallon"`, and `order == "descending"`, OR
+    - `encoding.x.sort` is the shorthand string `"-y"` and the y channel already aggregates `mean(Miles_per_Gallon)`.
+  - Have `encoding.tooltip` as an array of at least two entries that includes BOTH:
+    1. An entry with `aggregate == "mean"` over `field == "Miles_per_Gallon"`, AND
+    2. An entry with `aggregate == "count"` (the `field` may be `*` or any other value, as is standard for `count()`).
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The rendered chart must display exactly 3 vertical bars for the three origins `Europe`, `Japan`, and `USA`, with bar heights monotonically decreasing from left to right (descending mean MPG).
+
+
+EOF
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Three-View Brush Crossfilter Dashboard for Movies with Vega-Altair
+
+## Background
+Build an interactive 3-view crossfilter dashboard for the IMDb/Rotten Tomatoes movies dataset using Vega-Altair. A user drags a 2D brush over a scatter plot; the bar chart and histogram below update to show only the rows whose scatter-plot point falls inside the brush. The chart must be exported to a self-contained HTML file that renders in a browser without JavaScript errors.
+
+## Requirements
+- Use `data.movies.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Pre-filter rows where `IMDB_Rating` is null or `Rotten_Tomatoes_Rating` is null so that no records with missing values reach any view.
+- Define an interval (2D) selection that acts as the cross-filter brush.
+- Compose three linked views into a single dashboard with the layout: View A on top, with View B and View C side-by-side underneath.
+  1. **View A (scatter, brush host)**: `mark_point` of `IMDB_Rating` (x) vs `Rotten_Tomatoes_Rating` (y). Points inside the brush are colored by `Major_Genre`; points outside are colored a flat `'lightgray'`. The brush selection must be attached to this view.
+  2. **View B (genre bar)**: `mark_bar` of `count()` by `Major_Genre`, filtered through the brush. Restrict to the top 8 most frequent `Major_Genre` values via a `transform_filter` so the bar chart stays compact.
+  3. **View C (rating histogram)**: `mark_bar` histogram of `IMDB_Rating` (`bin(maxbins=20)`) with `count()`, filtered through the brush.
+- Save the final dashboard as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Create the brush once with `alt.selection_interval(...)` and reuse it across views: attach it via `add_params` on the scatter view, and reference it from `alt.when(brush).then(...).otherwise(alt.value('lightgray'))` for the scatter color and from `transform_filter(brush)` on the bar and histogram views.
+- Compose the layout with the `&` (vertical concat) and `|` (horizontal concat) operators or `alt.vconcat` / `alt.hconcat`. The final dashboard should look like `scatter & (bar | histogram)`.
+- Pre-filter null `IMDB_Rating` and `Rotten_Tomatoes_Rating` rows with `transform_filter` (e.g. `alt.datum.IMDB_Rating != None`); apply the null-filter on every view (the scatter view additionally excludes null `Rotten_Tomatoes_Rating`).
+- Restrict View B to the top 8 most frequent `Major_Genre` values; a common pattern is to compute the count per genre with `transform_aggregate` + `transform_window` (or a similar ranking approach) and then `transform_filter` on the rank.
+- URL-based data requires explicit type shorthands (e.g. `IMDB_Rating:Q`, `Major_Genre:N`).
+- The output HTML must contain the Vega-Lite spec rendered by `vegaEmbed` so that opening it in a browser renders the dashboard and the brush is interactive.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a top-level `vconcat` of length 2; the second entry must be an `hconcat` of length 2, yielding a 3-view dashboard (scatter on top; bar and histogram side-by-side underneath).
+  - Declare at least one selection parameter whose `select.type == "interval"` (the crossfilter brush).
+  - **Scatter view** (the only `vconcat[0]`): mark type `point`; `encoding.x.field == "IMDB_Rating"`; `encoding.y.field == "Rotten_Tomatoes_Rating"`; `encoding.color` uses a `condition` referencing the interval selection param, and the non-condition (`value`) fallback is `"lightgray"`.
+  - **Bar view** (first entry of the inner `hconcat`): mark type `bar`; exactly one of `encoding.x` / `encoding.y` aggregates `count`; the other axis encodes `field == "Major_Genre"`; its transforms include at least one `filter` referencing the interval selection param.
+  - **Histogram view** (second entry of the inner `hconcat`): mark type `bar`; one positional encoding has `field == "IMDB_Rating"` with `bin == {"maxbins": 20}` (or `bin.maxbins == 20`); the other positional axis aggregates `count`; its transforms include at least one `filter` referencing the interval selection param.
+  - Every view must include a transform `filter` that excludes null `IMDB_Rating` rows; the scatter view must additionally exclude null `Rotten_Tomatoes_Rating` rows.
+- Browser verification: Loading `chart.html` in a browser must render three visible chart panels and no JavaScript console errors. Dragging an interval brush over the scatter plot must change the bar chart bar heights compared to the pre-brush state.
+
+
+EOF
+Skipping image OS validation for hb__altair_stocks_wide_to_long_fold_line: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-vat5ecc > /logs/artifacts/run-id && echo altair_stocks_wide_to_long_fold__vat5ECc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Wide-to-Long Stocks Multi-Line Chart with Vega-Altair `transform_fold`
+
+## Background
+A common analytics task is to plot several time series whose values live in separate columns (wide form) as a single multi-line chart. Vega-Altair exposes the `transform_fold` transform that reshapes wide-form data into long form directly inside the chart specification, so you do not have to pre-melt the DataFrame in pandas.
+
+In this task you will build a small wide-form pandas DataFrame of monthly stock prices for three companies and use `transform_fold` to reshape it to long form inside the spec, then render it as a multi-line chart and save the result as a self-contained HTML file.
+
+## Requirements
+- Construct the source data **inside `build_chart.py`** as a wide-form `pandas.DataFrame` with exactly these four columns and at least 12 rows (one row per monthly observation):
+  - `Date` (a date / datetime-like value, e.g. monthly timestamps).
+  - `AAPL` (numeric price).
+  - `AMZN` (numeric price).
+  - `GOOG` (numeric price).
+  Do **not** load this data from `vega_datasets` or any external file – the point of the task is to demonstrate `transform_fold` on wide-form data you provide.
+- Build a single Vega-Altair chart that:
+  - Uses the wide-form DataFrame as the chart data source.
+  - Applies `transform_fold` to fold the three price columns into long form, using `as_=['company', 'price']` so the long-form fields are named `company` and `price`.
+  - Renders a line mark (`mark_line`) with one line per company.
+  - Encodes `Date` on the x axis as a temporal field.
+  - Encodes the folded `price` on the y axis as a quantitative field.
+  - Encodes the folded `company` on color as a nominal field, producing a legend that lists `AAPL`, `AMZN`, and `GOOG`.
+- Save the chart to `/home/user/myproject/chart.html` via `chart.save(...)` as a self-contained HTML file that loads Vega-Lite/Vega-Embed and renders the chart in a browser.
+
+## Implementation Hints
+- You can construct the DataFrame with any reasonable monthly date range (e.g. `pandas.date_range(..., freq='MS')`) and any plausible monthly price values – exact values do not matter, only the schema and number of rows.
+- Pass the wide DataFrame directly to `alt.Chart(...)`; let `transform_fold` reshape it inside the spec rather than pre-melting with pandas.
+- Remember that after folding, the new long-form fields are the ones you name in `as_`; encode the y/color channels against those names, not against the original wide column names.
+- Make sure the chart is saved as a real HTML file (not a JSON spec) so it can be opened directly in a browser.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Use `mark` of type `line` (a string `"line"` or an object `{"type": "line", ...}`).
+  - Include a `transform` entry of the form `{"fold": [...], "as": [...]}` where the `fold` array equals `["AAPL", "AMZN", "GOOG"]` (in that order) and the `as` array equals `["company", "price"]`.
+  - Encode `x` with `field == "Date"` and `type == "temporal"`.
+  - Encode `y` with `field == "price"` and `type == "quantitative"`.
+  - Encode `color` with `field == "company"` and `type == "nominal"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The rendered chart must show exactly three colored lines, and the color legend must list the three series `AAPL`, `AMZN`, and `GOOG`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_penguins_quantitative_repeat_splom: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-zf24itv > /logs/artifacts/run-id && echo altair_penguins_quantitative_rep__zf24itv > /logs/artifacts/trial_id
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Penguins Scatter Plot Matrix (SPLOM) with Vega-Altair `repeat`
+
+## Background
+Build a 2x2 scatter plot matrix (SPLOM) of the Palmer Penguins dataset using Vega-Altair's `repeat` operator. Each panel must be a small scatter plot of one beak dimension against one body dimension, with points colored by `Species`. The chart must be saved as a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.penguins.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Render a 2x2 grid of scatter plots produced via the `repeat` operator:
+  - `row` repeats over `['Body Mass (g)', 'Flipper Length (mm)']`.
+  - `column` repeats over `['Beak Length (mm)', 'Beak Depth (mm)']`.
+- Each subplot must:
+  - Use `mark_point()`.
+  - Encode `x` with `alt.repeat('column')` as a quantitative field, with `scale.zero=False`.
+  - Encode `y` with `alt.repeat('row')` as a quantitative field, with `scale.zero=False`.
+  - Encode `color` with `Species:N` so points are colored by species.
+  - Be sized at `width=180`, `height=180`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a single base `alt.Chart(data.penguins.url).mark_point()` and call `.repeat(row=..., column=...)` on it; the `x`/`y` encodings inside the base chart should use `alt.repeat('column')` / `alt.repeat('row')` so that each panel automatically substitutes the correct field name.
+- Because the data source is a URL, the `x`/`y` encodings cannot infer types from a pandas DataFrame: declare them as quantitative via the `type='quantitative'` argument of `alt.X` / `alt.Y`.
+- Use `alt.Scale(zero=False)` (or `.scale(zero=False)`) on both axes so that the scatter plots do not pad the axes down to zero.
+- The color legend should be shared across all panels (this is the default for `repeat`); do not disable it.
+- Use `chart.save('chart.html')` so the output is a self-contained HTML page that loads Vega/Vega-Lite/vega-embed from a CDN.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Define a top-level `repeat` object with:
+    - `row` equal to `['Body Mass (g)', 'Flipper Length (mm)']`.
+    - `column` equal to `['Beak Length (mm)', 'Beak Depth (mm)']`.
+  - Define a `spec` (the repeated subspec) whose `mark` type is `point`.
+  - In the repeated subspec encoding:
+    - `x.field` must be `{"repeat": "column"}` and `x.type` must be `"quantitative"`.
+    - `y.field` must be `{"repeat": "row"}` and `y.type` must be `"quantitative"`.
+    - `color.field` must be `"Species"`.
+    - `x.scale.zero` and `y.scale.zero` must both be `false`.
+  - The repeated subspec must declare `width: 180` and `height: 180`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors, displaying a 2x2 grid of scatter plots with points colored by species (three distinct colors) and a single shared color legend.
+
+
+EOF
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_stocks_focus_context_brush_range: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-voyd7bm > /logs/artifacts/run-id && echo altair_stocks_focus_context_brus__Voyd7BM > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Focus + Context S&P 500 Brush Range with Vega-Altair
+
+## Background
+Build a classic overview + detail (focus + context) Vega-Altair visualization of the S&P 500 dataset. A small overview area chart at the bottom hosts an interval brush over the time axis, and a larger detail area chart at the top dynamically rescales its x-axis to the brushed time window. The chart must be exported to a static HTML file that fully renders in a browser, including the interactive linked brushing behavior.
+
+## Requirements
+- Use `data.sp500.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Define a single Vega-Altair selection: an interval brush limited to the x (time) axis (`encodings=['x']`).
+- Compose a vertically concatenated chart with exactly two views, with the detail (focus) view on top and the overview (context) view on the bottom.
+- Upper detail view:
+  - `mark_area`.
+  - Encodes x as `date:T` whose x-scale `domain` is bound to the interval brush selection.
+  - Encodes y as `price:Q`.
+  - Width `600`, height `250`.
+- Lower overview view:
+  - Same `mark_area` over the same data (`date:T` -> `price:Q`).
+  - Width `600`, height `70`.
+  - The interval brush selection is attached to **this** view (it is the chart hosting the draggable brush).
+- Save the resulting compound chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a shared base `alt.Chart(data.sp500.url).mark_area().encode(...)` whose encodings can be reused across the two views; remember that URL-based data requires explicit type shorthands (e.g. `date:T`, `price:Q`).
+- Use `alt.selection_interval(encodings=['x'])` to create the brush.
+- For the upper view, override the x channel so that its scale `domain` references the brush selection (this is what makes the focus view rescale to the brushed region).
+- For the lower view, attach the brush via `add_params(...)` so that the user can drag the interval on the context chart.
+- Combine the two views vertically using `alt.vconcat` (or the `&` operator) with the focus chart on top and the context chart on the bottom.
+- Use `chart.save('chart.html')` to write a self-contained HTML file that embeds the Vega-Lite spec and renders it with `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a vertically concatenated chart with exactly two sub-views (a `vconcat` array of length 2), with the detail (focus) view first and the overview (context) view second.
+  - Declare an interval selection parameter (a top-level `params` entry, or a view-level `params` entry) whose `select.type` is `"interval"` and whose `select.encodings` equals `["x"]`.
+  - The first (upper) sub-view:
+    - Has `mark` of type `"area"`.
+    - Encodes x with field `date` of type `temporal` whose scale `domain` references the interval brush parameter (i.e. an object of the form `{"param": "<brush-name>"}` or `{"selection": "<brush-name>"}`).
+    - Encodes y with field `price` of type `quantitative`.
+    - Has `width == 600` and `height == 250`.
+  - The second (lower) sub-view:
+    - Has `mark` of type `"area"`.
+    - Encodes x with field `date` of type `temporal` and y with field `price` of type `quantitative`.
+    - Has `width == 600` and `height == 70`.
+    - Has a `params` array containing the interval brush selection (the brush is attached to this view).
+- Browser verification: Loading `chart.html` in a browser must render two stacked area charts (a large detail chart on top and a slim context chart on the bottom), with no JavaScript console errors. Dragging an interval on the lower context chart must visibly narrow the x-axis domain of the upper detail chart to the dragged region.
+
+
+EOF
+Skipping image OS validation for hb__altair_slider_param_threshold_conditional: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__altair_penguins_species_scatter_tooltip: docker inspect returned 1
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ge3uyks > /logs/artifacts/run-id && echo altair_slider_param_threshold_co__GE3uyKs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Slider-Driven Threshold Highlight with Vega-Altair
+
+## Background
+Build an interactive Vega-Altair scatter plot of the classic `cars` dataset where a horizontal slider widget controls a horsepower threshold. Points whose horsepower is below the threshold must be highlighted in one color, and points whose horsepower is at or above the threshold must use a second color. The chart must be exported as a self-contained HTML file that loads in a browser and responds live to slider movements.
+
+## Requirements
+- Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Render a scatter `mark_point` of `Horsepower` (x) vs. `Miles_per_Gallon` (y).
+- Bind a range slider input to a top-level parameter that represents the live horsepower threshold:
+  - Slider input: min `50`, max `250`, step `10`, name label exactly `"HP threshold: "`.
+  - Parameter initial value: `150`.
+- The point color must be a conditional value encoding driven by the slider parameter:
+  - When `datum.Horsepower < <param>`: color value `"steelblue"`.
+  - Otherwise: color value `"orange"`.
+- Set the chart title to exactly `"MPG vs Horsepower (threshold)"`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Use `alt.binding_range(...)` to build the slider input and `alt.param(value=..., bind=...)` to expose the live threshold as a top-level parameter.
+- Drive the color encoding with `alt.when(<predicate>).then(alt.value('steelblue')).otherwise(alt.value('orange'))`, where the predicate compares `alt.datum.Horsepower` to the parameter object.
+- Remember to attach the parameter to the chart via `add_params(...)` so the slider widget actually renders.
+- Because the data source is the URL `data.cars.url`, declare field types explicitly in the encoding shorthands (e.g. `Horsepower:Q`, `Miles_per_Gallon:Q`).
+- Use `properties(title=...)` to set the chart title.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a single mark of type `point`.
+  - Declare exactly one parameter whose `bind` is a range input with `input == 'range'`, `min == 50`, `max == 250`, `step == 10`, `name == 'HP threshold: '`, and whose top-level `value == 150`.
+  - Encode `x.field == 'Horsepower'` and `y.field == 'Miles_per_Gallon'`.
+  - Have a `color` encoding that is a conditional value encoding whose test expression references the parameter name, `datum.Horsepower`, and the `<` operator; the `condition.value` must be `"steelblue"` and the otherwise `value` must be `"orange"`.
+  - Have a top-level `title` equal to `"MPG vs Horsepower (threshold)"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The page must display a slider labelled `"HP threshold: "` (initial value `150`); points with horsepower below the threshold must be colored steelblue and points at or above the threshold must be colored orange. Moving the slider to `200` must visibly shift the color split (more points become steelblue).
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-saynwen > /logs/artifacts/run-id && echo altair_penguins_species_scatter__SaynWEn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Penguins Species Scatter Plot with Vega-Altair
+
+## Background
+Build a classic Palmer Penguins exploratory scatter plot with Vega-Altair. The chart visualizes the relationship between flipper length and body mass, while encoding species and sex through color and shape, and provides a multi-field tooltip plus pan/zoom interactivity. The chart must be exported to a static HTML file that renders in a browser.
+
+## Requirements
+- Use `vega_datasets.data.penguins.url` as the data source. Because the data is loaded from a URL, you must declare types explicitly using the Altair shorthand (`:Q`, `:N`).
+- Build a single `mark_point()` chart with the following encodings:
+  - x: `Flipper Length (mm)` as quantitative, with a scale that does not start at zero.
+  - y: `Body Mass (g)` as quantitative, with a scale that does not start at zero.
+  - color: `Species` as nominal (categorical), so the three penguin species are rendered with distinct colors.
+  - shape: `Sex` as nominal, so different sex categories are rendered with distinct shapes. Null/missing sex values must not break the chart.
+  - tooltip: a list of 4 fields, in this order: `Species`, `Island`, `Flipper Length (mm)`, `Body Mass (g)`.
+- The point mark must be filled (`filled=True`) and rendered at `size=80`.
+- Enable pan and zoom on the chart with `.interactive()`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Use `alt.Chart(data.penguins.url)` and explicit shorthand types because the data comes from a URL (e.g. `'Flipper Length (mm):Q'`).
+- Configure the quantitative axes' scales so they don't anchor at zero (this gives a tighter view of the cluster structure).
+- Use the method-based encoding syntax (`alt.X(...).scale(...)`, `alt.Y(...).scale(...)`) or the dict-based `alt.Scale(...)` form, whichever you prefer.
+- Pass `filled=True` and `size=80` directly to `mark_point(...)`.
+- The `tooltip` channel accepts a list of field references; include the exact 4 fields in the requested order.
+- `.interactive()` is the idiomatic shortcut for adding a scales-bound interval selection that enables panning and zooming.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a top-level `mark` whose `type` is `point`, `filled` is `true`, and `size` is `80`.
+  - Encode `x` with the field `Flipper Length (mm)` (quantitative), with a scale where `zero` is `false`.
+  - Encode `y` with the field `Body Mass (g)` (quantitative), with a scale where `zero` is `false`.
+  - Encode `color` with the field `Species` (nominal).
+  - Encode `shape` with the field `Sex` (nominal).
+  - Encode `tooltip` as a list of exactly 4 field references: `Species`, `Island`, `Flipper Length (mm)`, `Body Mass (g)`.
+  - Declare a selection parameter of type `interval` that is bound to `scales` (the result of `.interactive()`).
+- Browser verification: Loading `chart.html` in a browser must render the scatter plot. Points must be visible and use at least 3 distinct colors (one per species) and at least 2 distinct shapes (one per sex category). Hovering over a point must reveal a tooltip whose text contains the species name (e.g. `Adelie`, `Chinstrap`, or `Gentoo`).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_iris_petal_histogram_species: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-9ggcbuw > /logs/artifacts/run-id && echo altair_iris_petal_histogram_spec__9gGCBUW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Iris Petal Length Histogram by Species with Vega-Altair
+
+## Background
+Build a binned histogram of `petalLength` from the iris dataset using Vega-Altair, with bars colored by `species` and stacked using Vega-Lite's default stacking behavior. The chart must be exported to a self-contained HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.iris.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Build a single (non-layered) chart with `mark_bar`.
+- Bin the `petalLength` field on the x axis with `maxbins=20`.
+- Aggregate `count()` on the y axis (no manual pre-aggregation).
+- Encode bar color by `species` as a nominal field.
+- Bars must be stacked using the default Vega-Lite stacking behavior (do not disable stacking).
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a chart from `alt.Chart(data.iris.url)`; remember that URL-based data requires explicit type shorthands (e.g. `petalLength:Q`, `species:N`).
+- The x channel must use Altair's binning helper to apply `maxbins=20` to the `petalLength` field; the y channel must use the `count()` aggregate.
+- The color channel must reference the nominal `species` field so that each species gets its own color and shows up in the legend.
+- The bars are stacked by default in Vega-Lite when a quantitative axis is aggregated and a categorical color encoding is present; there is no need to explicitly disable stacking.
+- The HTML must contain the Vega-Lite spec embedded in a `<script type="application/json">` block or via a `var spec = {...};` declaration consumed by `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Use `mark` of type `bar`.
+  - Define `encoding.x` over the `petalLength` (or `petal_length`) field as quantitative with a `bin` object whose `maxbins` is `20`.
+  - Define `encoding.y` as the `count` aggregate (no explicit field required for the count aggregate).
+  - Define `encoding.color` over the `species` field as nominal.
+- Browser verification: Loading `chart.html` in a browser must render the chart with no JavaScript console errors. The rendered chart must show stacked colored bars (three distinct species colors) along the x axis, and the legend must list three species (`setosa`, `versicolor`, `virginica`).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_iris_species_dropdown_filter: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Skipping image OS validation for hb__altair_us_topojson_states_choropleth: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-cvgmrpp > /logs/artifacts/run-id && echo altair_iris_species_dropdown_fil__CvGMRPP > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Iris Species Dropdown Highlight with Vega-Altair
+
+## Background
+Build an interactive Vega-Altair scatter plot of the classic iris dataset that uses a bound dropdown widget to highlight one species at a time. Non-matching points are visually de-emphasized by being colored `lightgray`, while points belonging to the species selected in the dropdown keep their normal species color. The resulting chart must be exported as a single self-contained HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.iris.url` from `vega_datasets` as the data source (URL-based source; declare encoding types explicitly).
+- Build a scatter plot with `sepalLength` on the x axis and `sepalWidth` on the y axis, encoded as quantitative.
+- Render the data using a point/circle mark.
+- Define a single bound input parameter using `alt.binding_select` with:
+  - `options=['setosa', 'versicolor', 'virginica']`
+  - `name='Species: '`
+- Bind that input to a parameter created with `alt.param(...)` whose `bind=` is the dropdown.
+- Attach the parameter to the chart via `add_params(...)`.
+- Use `alt.when(...).then(...).otherwise(...)` to drive the `color` encoding:
+  - When `datum.species` matches the parameter's value, color the point using the species nominal field (i.e. `species:N`).
+  - Otherwise, color the point with the constant `lightgray`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Remember that URL-based data requires explicit type shorthands (e.g. `sepalLength:Q`, `species:N`).
+- `alt.binding_select` defines the dropdown widget; `alt.param(bind=...)` exposes its value as a Vega expression you can reference from `alt.when(...)`.
+- The conditional predicate compares the data field `species` against the value of the bound parameter; use a Vega expression string like `"datum.species == <param-name>"`, where `<param-name>` is `param.name` of your bound parameter.
+- `alt.when(predicate).then(alt.Color('species:N')).otherwise(alt.value('lightgray'))` is one idiomatic way to express the highlight.
+- Initialize the parameter with a sensible default value (e.g. `'setosa'`) so the chart renders correctly before the user touches the dropdown.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Use a `point` or `circle` mark.
+  - Encode `sepalLength` on `encoding.x.field` and `sepalWidth` on `encoding.y.field`.
+  - Define exactly one entry in `params` whose `bind` is an input selector with `bind.input == 'select'`, `bind.options == ['setosa', 'versicolor', 'virginica']`, and `bind.name == 'Species: '`.
+  - Encode `color` as a conditional that branches on the bound parameter: one branch references the `species` nominal field, the other resolves to the constant `'lightgray'`.
+- Browser verification: Loading `chart.html` in a browser must render the scatter plot, display a labelled `Species: ` dropdown above or below the chart with the three options `setosa`, `versicolor`, `virginica`, and update the chart so non-matching points become gray when a selection is changed, without any JavaScript console errors.
+
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-dybzzds > /logs/artifacts/run-id && echo altair_us_topojson_states_chorop__DYBzZds > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# US State-Level Engineers Choropleth with Vega-Altair
+
+## Background
+Build a US state-level choropleth visualization with Vega-Altair using TopoJSON state boundaries and the `population_engineers_hurricanes` dataset. The chart should color each state by the number of engineers and be exported as a static HTML file that renders in a browser.
+
+## Requirements
+- Use `alt.topo_feature(data.us_10m.url, 'states')` from `vega_datasets` to load the US state geometries from the `us-10m.json` TopoJSON file.
+- Join the state boundaries with `vega_datasets.data.population_engineers_hurricanes.url` using `transform_lookup` keyed on the state FIPS `id` field, pulling at least the `engineers` and `state` fields via `alt.LookupData`.
+- Render the states with `mark_geoshape()` and color each state by the looked-up `engineers` field on a `blues` scheme (i.e., the Vega-Lite color scale `scheme` must be `"blues"`).
+- Use the `albersUsa` projection so Alaska and Hawaii appear as insets within the US extent.
+- Provide an interactive tooltip on hover showing at least the `state` name and the `engineers` count.
+- Set the chart `width` to `700` and `height` to `400`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Use `alt.topo_feature(data.us_10m.url, 'states')` as the chart data source so the embedded Vega-Lite spec carries `data.format.feature == 'states'` and `data.url` pointing at the `us-10m.json` TopoJSON.
+- Use `transform_lookup(lookup='id', from_=alt.LookupData(<source_url>, key='id', fields=[...]))` to attach the `engineers` (and `state`) columns to each state geometry via the FIPS id.
+- Encode `color` with the `engineers` field and a quantitative scale whose `scheme` is `"blues"`.
+- Encode `tooltip` as a list of fields (e.g. `state` and `engineers`).
+- Apply the projection with `.project(type='albersUsa')` and set width/height via `.properties(width=700, height=400)`.
+- The HTML must contain the Vega-Lite spec embedded in a `<script type="application/json">` block and rendered via `vegaEmbed`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a `mark` of type `geoshape` (string `"geoshape"` or object with `type == "geoshape"`).
+  - Have a `data` block produced by `alt.topo_feature` whose `format.feature == "states"` and whose `url` ends with `us-10m.json`.
+  - Contain a `transform` entry with a `lookup` field equal to `"id"` and a `from` whose `key == "id"` and whose `fields` array contains `"engineers"`.
+  - Have an `encoding.color` whose `field == "engineers"` and whose `scale.scheme == "blues"`.
+  - Have an `encoding.tooltip` that is a list of field references including both `state` and `engineers`.
+  - Have `projection.type == "albersUsa"`, `width == 700`, and `height == 400`.
+- Browser verification: Loading `chart.html` in a browser must render the US map (including Alaska and Hawaii insets) with the states colored on a blue gradient, a visible color legend, and a working hover tooltip showing the state name and engineer count, with no JavaScript console errors.
+
+
+EOF
+Skipping image OS validation for hb__altair_movies_imdb_distribution_bar: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-pt9ceat > /logs/artifacts/run-id && echo altair_movies_imdb_distribution__Pt9CEAt > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# IMDB Rating Distribution Histogram with Vega-Altair
+
+## Background
+Build a Vega-Altair histogram of `IMDB_Rating` from the movies dataset. The chart filters out rows where `IMDB_Rating` is null inside the Vega-Lite spec (not pre-processed in pandas) and bins the remaining ratings into fixed-width buckets. The chart must be exported to a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.movies.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Render a `mark_bar` histogram of `IMDB_Rating`.
+- Bin the x-axis with a fixed `step` of `0.5` (e.g. 1.0-1.5, 1.5-2.0, ...).
+- The y-axis must be an aggregated `count` of records per bin.
+- Inside the spec, pre-filter rows where `IMDB_Rating` is null using a `transform_filter` whose expression references `IMDB_Rating` and excludes nulls (e.g. `alt.datum.IMDB_Rating != None` or an equivalent Vega expression).
+- Set the chart title to exactly `"IMDB Rating Distribution"`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build `alt.Chart(data.movies.url)` and use the method-based `bin` syntax with a fixed step (`alt.X('IMDB_Rating:Q').bin(step=0.5)`).
+- Use a `count` aggregate on the y channel, e.g. `y='count()'`.
+- Use `alt.datum.IMDB_Rating` inside `transform_filter(...)` to drop nulls before binning; remember the `!=` operator compiles to a Vega expression string with `null`.
+- Use `.properties(title="IMDB Rating Distribution")` to set the title.
+- Save the chart via `chart.save("chart.html")`; the HTML must embed the Vega-Lite spec (e.g. via `vegaEmbed`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a `mark` of type `bar`.
+  - Encode `x` against the `IMDB_Rating` field with a `bin` definition whose `step` is `0.5`.
+  - Encode `y` with `aggregate` equal to `"count"`.
+  - Define at least one top-level `transform` entry of type `filter` whose filter expression references `IMDB_Rating` and excludes null values.
+  - Set the top-level `title` to exactly `"IMDB Rating Distribution"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors; the rendered output must show multiple bars distributed across IMDB rating values along the x-axis.
+
+
+EOF
+Skipping image OS validation for hb__altair_population_grouped_stacked_area: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-tvkdc72 > /logs/artifacts/run-id && echo altair_population_grouped_stacke__tvKdC72 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Normalized Stacked Area of US Population by Age Group with Vega-Altair
+
+## Background
+Build a normalized stacked area chart (streamgraph-like, full-height) of US population by age group over time using Vega-Altair. The dataset already exposes per-year, per-age counts; the chart must first bucket the granular age values into four age groups inside the spec, aggregate the total population per (year, age_group) pair, and finally render a normalized stacked area chart that fills 100% of the chart height. The chart must be exported to a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `vega_datasets.data.population.url` as the data source (URL-based source; declare types explicitly).
+- Use `transform_calculate` to derive an `age_group` field from the granular `age` field, bucketing into exactly 4 ordered labels: `'0-19'`, `'20-39'`, `'40-59'`, `'60+'`.
+- Use `transform_aggregate` to compute the total population per (year, age_group): aggregate `op = 'sum'` of `people` `as` `people`, with `groupby` containing both `year` and `age_group`.
+- Render a single `mark_area` chart with:
+  - `x` channel: `year` as ordinal (`year:O`).
+  - `y` channel: `sum(people):Q` with `stack = 'normalize'` (so the y range is 0..1 / 0..100%).
+  - `color` channel: `age_group:N` with an explicit ordinal `sort` of `['0-19', '20-39', '40-59', '60+']` and a categorical color `scheme` of `'tableau10'`.
+- Set `width = 700`, `height = 350`, and `title = 'US Population Composition (Normalized)'`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a single `alt.Chart(data.population.url)` and chain `transform_calculate(...)` and `transform_aggregate(...)` in that order; remember that URL-based data requires explicit type shorthands.
+- For the calculate expression, a nested Vega expression (`datum.age < 20 ? '0-19' : datum.age < 40 ? '20-39' : ...`) is a clean way to produce the four buckets.
+- For `transform_aggregate`, the keyword form `transform_aggregate(people='sum(people)', groupby=['year', 'age_group'])` produces an `aggregate` entry with `op='sum'`, `field='people'`, `as='people'`, and `groupby=['year', 'age_group']`.
+- To get a normalized stacked area, set `stack='normalize'` on the `y` encoding (e.g. `alt.Y('sum(people):Q').stack('normalize')`).
+- For an explicit category order, pass `sort=['0-19','20-39','40-59','60+']` on the color channel; choose the categorical color `scheme='tableau10'` via the color scale.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Set `mark` (or `mark.type`) to `area`.
+  - Set `width` to `700`, `height` to `350`, and top-level `title` to `'US Population Composition (Normalized)'`.
+  - Contain a `transform` array with:
+    - A `calculate` entry whose `as` is `'age_group'` and whose `calculate` expression references `age` and contains all four bucket labels `'0-19'`, `'20-39'`, `'40-59'`, and `'60+'`.
+    - An `aggregate` entry whose `aggregate` list includes an item with `op == 'sum'` and `as == 'people'`, and whose `groupby` array contains both `'year'` and `'age_group'`.
+  - Encode `x` with `field == 'year'` and ordinal type.
+  - Encode `y` with `aggregate == 'sum'` of `people` and `stack == 'normalize'`.
+  - Encode `color` with `field == 'age_group'`, nominal type, an ordinal `sort` array equal to `['0-19', '20-39', '40-59', '60+']`, and a `scale` whose `scheme` is `'tableau10'`.
+- Browser verification: Loading `chart.html` in a browser must render a full-height normalized stacked area chart (the y axis must span the full 0..1 / 0..100% range, with no JS console errors), display exactly 4 colored bands stacked one on top of another, and show a color legend that lists the 4 age groups (`0-19`, `20-39`, `40-59`, `60+`).
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__altair_barley_yield_aggregate_sort: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-xe3fnvf > /logs/artifacts/run-id && echo altair_barley_yield_aggregate_so__xe3FnVf > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Horizontal Grouped Bar Chart of Barley Yield with Vega-Altair
+
+## Background
+Build a Vega-Altair horizontal grouped bar chart that compares mean barley yield across sites and years using the `barley` dataset. The chart must sort sites by mean yield (descending) using Altair's aggregation-based sort, and group bars by year using the `yOffset` channel (NOT stacking). The chart must be exported to a self-contained HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.barley.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly).
+- Build a single `mark_bar` chart with the following encodings:
+  - `y`: nominal field `site`, sorted by aggregated mean of `yield` in descending order (use the Altair `sort` parameter with `field='yield'`, `op='mean'`, and `order='descending'`).
+  - `x`: quantitative aggregated `mean(yield)`.
+  - `color`: nominal field `year`.
+  - `yOffset`: nominal field `year` so that bars for different years appear side-by-side within each site (a grouped, not stacked, layout).
+- Save the resulting chart as a self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- For URL-based data sources, types must be declared explicitly via shorthand (e.g. `site:N`, `yield:Q`) or via `alt.X` / `alt.Y` / `alt.Color` / `alt.YOffset` constructors with an explicit `type`.
+- The `sort` parameter on a positional channel accepts `field`/`op`/`order` to sort by an aggregation derived from the data; this is the mechanism required here to order sites by their mean yield.
+- The `yOffset` channel is the modern grouping mechanism (Altair 5+ / Vega-Lite 5+) and is distinct from stacking; combined with `color` mapped to the same field, it produces a grouped bar chart.
+- Use the aggregated quantitative encoding `mean(yield):Q` on `x` so that each bar reflects the average yield per (site, year) group.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Have a top-level `mark` whose type is `bar` (string `bar` or object with `type: bar`).
+  - Encode `y` with `field: site` and nominal type, and a `sort` object containing `field: yield`, `op: mean`, and `order: descending`.
+  - Encode `x` with `field: yield`, `aggregate: mean`, and quantitative type.
+  - Encode `color` with `field: year` and nominal type.
+  - Encode `yOffset` with `field: year` and nominal type.
+- Browser verification: Loading `chart.html` in a browser must render the chart (no script errors); the rendered DOM must show grouped horizontal bars (each site row contains adjacent bars for different years), a legend mapping `year` values to colors, and at least one bar element per (site, year) group.
+
+
+EOF
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Skipping image OS validation for hb__altair_cars_horsepower_mpg_density_bubble: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: echo zr-zhvxywr > /logs/artifacts/run-id && echo altair_cars_horsepower_mpg_densi__zhVxywR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model deepseek/deepseek-4-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# 2D Binned Bubble Density Plot of Cars (Horsepower vs MPG) with Vega-Altair
+
+## Background
+Build a Vega-Altair visualization that summarizes the classic `cars` dataset as a 2D binned bubble density plot. Each bubble represents a bin in the (Horsepower, Miles_per_Gallon) plane; the bubble size encodes the number of cars falling in that bin, and the bubble color encodes the mean acceleration of those cars. The chart must be exported to a static HTML file that fully renders in a browser.
+
+## Requirements
+- Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare data types explicitly with shorthand or via channel classes).
+- Use `mark_circle()` for the bubbles.
+- Bin both axes into at most 10 bins (`maxbins=10`):
+  - `x`: `Horsepower` (quantitative).
+  - `y`: `Miles_per_Gallon` (quantitative).
+- Encode `size` as `count()` of items in each bin.
+- Encode `color` as `mean(Acceleration)` using a continuous `viridis` color scheme.
+- Set the chart properties: `width=400`, `height=300`, `title="Cars Horsepower vs MPG Density"`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- Build a single `alt.Chart(data.cars.url)` with `mark_circle()` and an `encode(...)` call that maps `x`, `y`, `size`, and `color`.
+- For URL-based data, remember to declare types explicitly (e.g. `Horsepower:Q`).
+- For 2D binning, use the `bin` channel option on both `alt.X` and `alt.Y` with `maxbins=10` (the resulting Vega-Lite spec will have `bin: {maxbins: 10}` on both axes).
+- For the size encoding, use the `count()` aggregate (no field required).
+- For the color encoding, use `alt.Color('Acceleration:Q', aggregate='mean')` (or the method-based equivalent) and attach a continuous color scale with `scheme='viridis'`.
+- Apply the title and chart dimensions with `.properties(width=400, height=300, title="Cars Horsepower vs MPG Density")`.
+- The HTML must contain a renderable Vega-Lite spec (the Altair `chart.save("chart.html")` template embeds the spec in a `var spec = {...};` block consumed by `vegaEmbed`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Use `mark` of type `circle`.
+  - Encode `x` with `field: "Horsepower"` and `bin: {maxbins: 10}`.
+  - Encode `y` with `field: "Miles_per_Gallon"` and `bin: {maxbins: 10}`.
+  - Encode `size` with `aggregate: "count"`.
+  - Encode `color` with `aggregate: "mean"`, `field: "Acceleration"`, and a `scale.scheme` of `"viridis"`.
+  - Set top-level `width: 400`, `height: 300`, and `title: "Cars Horsepower vs MPG Density"`.
+- Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript errors; the rendered output must visibly contain multiple bubbles of varying sizes arranged in an approximate grid pattern, colored by a viridis ramp, plus a visible color legend showing the viridis ramp.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

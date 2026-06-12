@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py ..........                                     [100%]
+
+==================================== PASSES ====================================
+_________________ test_browser_renders_chart_with_annotations __________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=566
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_spec_is_layered_with_at_least_four_layers
+PASSED tests/test_final_state.py::test_required_mark_types_present
+PASSED tests/test_final_state.py::test_symbol_goog_filter_transform
+PASSED tests/test_final_state.py::test_red_dashed_threshold_rule_at_y_300
+PASSED tests/test_final_state.py::test_vertical_crisis_rule_at_october_2008
+PASSED tests/test_final_state.py::test_crisis_text_annotation
+PASSED tests/test_final_state.py::test_spec_width_and_height
+PASSED tests/test_final_state.py::test_browser_renders_chart_with_annotations
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+======================== 10 passed in 70.75s (0:01:10) =========================

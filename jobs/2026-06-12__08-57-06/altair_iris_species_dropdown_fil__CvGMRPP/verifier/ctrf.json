@@ -1,0 +1,95 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T09:15:05.567373+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 6,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781255580274,
+            "stop": 1781255705567
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781255580350,
+                "stop": 1781255580353,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_uses_point_or_circle_mark",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255580354,
+                "stop": 1781255580356,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_and_y_encodings",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781255580357,
+                "stop": 1781255580357,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_dropdown_param_present",
+                "status": "passed",
+                "duration": 4,
+                "start": 1781255580358,
+                "stop": 1781255580362,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_is_conditional_on_param",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781255580363,
+                "stop": 1781255580364,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_dropdown_highlights_species",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 124492,
+                "start": 1781255580364,
+                "stop": 1781255704856,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_preview_server = 'http://localhost:8765/chart.html'\n\n    def test_browser_dropdown_highlights_species(chart_preview_server):\n        reason = (\n            \"The Altair-generated chart.html must render an iris scatter plot of sepalLength vs sepalWidth \"\n            \"alongside a bound 'Species: ' dropdown. Selecting a species in the dropdown must keep that \"\n            \"species' points colored normally while turning all other species' points 'lightgray'.\"\n        )\n        truth = (\n            f\"Navigate to {chart_preview_server} in a browser. \"\n            \"Wait for the Vega-Lite chart to finish rendering. \"\n            \"Verify there are NO JavaScript console errors. \"\n            \"Verify that the page contains a labelled dropdown with the visible label 'Species: ' and \"\n            \"exactly three options: 'setosa', 'versicolor', 'virginica'. \"\n            \"Verify that a scatter plot of points is rendered (sepalLength on the x axis, sepalWidth on the y axis). \"\n            \"Inspect the rendered point colors: with the current default selection, the points belonging to the \"\n            \"selected species should appear in a distinct (non-gray) color while the points for the other two \"\n            \"species should be rendered in 'lightgray'. \"\n            \"Then change the dropdown selection to 'virginica'. After the change, only the 'virginica' points \"\n            \"should be colored, and the 'setosa' and 'versicolor' points should all turn 'lightgray'. \"\n            \"Finally change the dropdown selection to 'versicolor' and verify the same behavior: only \"\n            \"'versicolor' points keep their color and the rest become 'lightgray'.\"\n        )\n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_dropdown_highlights_species\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because the Vega-Lite chart could not render its data. Although the page at http://localhost:8765/chart.html was accessible and the 'Species: ' dropdown with the correct options was present, the scatter plot itself did not display any points. This was due to a data loading failure (specifically, a 404 error when attempting to fetch the iris dataset from the remote source), which constitutes a JavaScript console/network error. Consequently, the coloring behavior of the points could not be verified.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:268: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 709,
+                "start": 1781255704857,
+                "stop": 1781255705566,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

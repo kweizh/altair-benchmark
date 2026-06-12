@@ -1,0 +1,7 @@
+{
+  "library_name": "vega-altair",
+  "task_name": "altair_cars_origin_avg_bar",
+  "complexity_level": "simple set of 2-5 commands",
+  "research_plan_path": "/Users/kw/code/zealt/altair-benchmark/plan.md",
+  "output_dir": "/Users/kw/code/zealt/altair-benchmark/scratchpad/pending-tasks/"
+}

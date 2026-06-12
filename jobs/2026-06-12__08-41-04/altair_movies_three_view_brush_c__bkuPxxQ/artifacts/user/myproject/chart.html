@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "vconcat": [{"mark": {"type": "point", "filled": true, "opacity": 0.6, "size": 40}, "encoding": {"color": {"condition": {"param": "brush", "field": "Major_Genre", "legend": {"title": "Genre"}, "type": "nominal"}, "value": "lightgray"}, "tooltip": [{"field": "Title", "type": "nominal"}, {"field": "IMDB_Rating", "type": "quantitative"}, {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, {"field": "Major_Genre", "type": "nominal"}], "x": {"field": "IMDB_Rating", "scale": {"domain": [0, 10]}, "title": "IMDB Rating", "type": "quantitative"}, "y": {"field": "Rotten_Tomatoes_Rating", "scale": {"domain": [0, 100]}, "title": "Rotten Tomatoes Rating", "type": "quantitative"}}, "height": 350, "name": "view_0f879be2aa3d49c9_0", "title": "IMDB Rating vs Rotten Tomatoes Rating", "transform": [{"filter": "(datum.IMDB_Rating !== null)"}, {"filter": "(datum.Rotten_Tomatoes_Rating !== null)"}], "width": 600}, {"hconcat": [{"mark": {"type": "bar", "color": "steelblue"}, "encoding": {"tooltip": [{"field": "Major_Genre", "title": "Genre", "type": "nominal"}, {"field": "genre_count", "title": "Count", "type": "quantitative"}], "x": {"field": "genre_count", "title": "Count", "type": "quantitative"}, "y": {"field": "Major_Genre", "sort": {"field": "genre_count", "order": "descending"}, "title": "Genre", "type": "nominal"}}, "height": 280, "title": "Movies by Genre (brush-filtered)", "transform": [{"filter": "(datum.IMDB_Rating !== null)"}, {"filter": {"param": "brush"}}, {"aggregate": [{"op": "count", "as": "genre_count"}], "groupby": ["Major_Genre"]}, {"window": [{"op": "rank", "field": "genre_count", "as": "genre_rank"}], "sort": [{"field": "genre_count", "order": "descending"}]}, {"filter": "(datum.genre_rank <= 8)"}], "width": 290}, {"mark": {"type": "bar", "color": "salmon"}, "encoding": {"tooltip": [{"bin": {"maxbins": 20}, "field": "IMDB_Rating", "title": "Rating bin", "type": "quantitative"}, {"aggregate": "count", "title": "Count", "type": "quantitative"}], "x": {"bin": {"maxbins": 20}, "field": "IMDB_Rating", "title": "IMDB Rating", "type": "quantitative"}, "y": {"aggregate": "count", "title": "Count", "type": "quantitative"}}, "height": 280, "title": "IMDB Rating Distribution (brush-filtered)", "transform": [{"filter": "(datum.IMDB_Rating !== null)"}, {"filter": {"param": "brush"}}], "width": 290}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/movies.json"}, "params": [{"name": "brush", "select": {"type": "interval"}, "views": ["view_0f879be2aa3d49c9_0"]}], "title": {"text": "Movies Crossfilter Dashboard", "anchor": "middle", "fontSize": 18, "subtitle": "Drag a brush on the scatter plot to filter the charts below", "subtitleFontSize": 13}, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

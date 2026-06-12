@@ -1,0 +1,42 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions * You **must** use the agent browser to perform all verification steps. * **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). * **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). * If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. * If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. * For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-generated chart.html must render a classic Focus + Context (overview + detail) S\&P 500 chart: two stacked area charts where the larger detail chart on top responds to an interval brush dragged on the slim context chart at the bottom by narrowing its x-axis domain to the selected time range. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html in a browser. Wait for the Vega-Lite chart to finish rendering. Verify that the page contains two stacked area charts: a large detail chart on top (about 600x250 pixels) and a slim context/overview chart below it (about 600x70 pixels). Verify that the JavaScript console has no errors. Then, on the lower (slim) area chart, click and drag horizontally to select roughly the middle third of its horizontal extent, then release the mouse. Verify that after the drag, the upper (large) detail chart visibly rescales its x-axis: the time-axis tick labels and the visible area shape change so that the upper chart now shows only the dragged sub-range (its x-axis domain narrows to the brushed interval). ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 716 characters   
+❯ Verify Altair Focus + Context chart at http://localhost:8765/chart.html (browser)
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing npm install -g agent-browser@0.24.0 && agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html && agent-browser snapshot -i
+| 💫 Executing agent-browser snapshot && agent-browser get html "body"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing # Get bounding boxes of the charts to be sure
+| agent-browser get html "svg"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing # Check for errors in the console by injecting a script that checks for a global error log if it exists, 
+| # or just check if the vega-embed showError was called.
+| agent-browser get text "#vis" | grep "JavaScript Error" || echo "No visible errors"
+| 💫 Executing agent-browser --help
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser mouse move 257 350 && agent-browser mouse down && agent-browser mouse move 457 350 && agent-browser mouse up && agent-browser wait 500 && agent-browser snapshot
+| 💫 Executing agent-browser console && agent-browser errors
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser close
+✔ Verify Altair Focus + Context chart at http://localhost:8765/chart.html (browser)
+💭 Thinking for 250 characters   
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The Altair-generated chart at http://localhost:8765/chart.html was successfully verified. The page loaded correctly with two stacked area charts of the specified dimensions (600x250 for the detail chart and 600x70 for the context chart). No JavaScript console errors were detected. Interacting with the lower chart by dragging horizontally across the middle third triggered a visible rescaling of the upper chart's x-axis, narrowing its domain to the selected time range as expected for a Focus + Context chart."
+}   
+  

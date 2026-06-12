@@ -1,0 +1,44 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions * You **must** use the agent browser to perform all verification steps. * **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). * **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). * If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. * If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. * For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The Altair-generated chart.html must render a classic Focus + Context (overview + detail) S\&P 500 chart: two stacked area charts where the larger detail chart on top responds to an interval brush dragged on the slim context chart at the bottom by narrowing its x-axis domain to the selected time range. ## Verification Steps Follow these steps precisely and in order: Navigate to http://localhost:8765/chart.html in a browser. Wait for the Vega-Lite chart to finish rendering. Verify that the page contains two stacked area charts: a large detail chart on top (about 600x250 pixels) and a slim context/overview chart below it (about 600x70 pixels). Verify that the JavaScript console has no errors. Then, on the lower (slim) area chart, click and drag horizontally to select roughly the middle third of its horizontal extent, then release the mouse. Verify that after the drag, the upper (large) detail chart visibly rescales its x-axis: the time-axis tick labels and the visible area shape change so that the upper chart now shows only the dragged sub-range (its x-axis domain narrows to the brushed interval). ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 588 characters   
+📋 Updating todo list (4 items) ✔ 
+❯ Verify Altair-generated chart.html functionality at http://localhost:8765/chart.html (browser)
+| 💫 Executing agent-browser --version
+| 📖 Reading unknown
+| 📖 Reading pochi://config.jsonc
+| 💫 Executing npm install -g agent-browser@0.24.0 && agent-browser --version
+| 📖 Reading unknown
+| 📖 Reading root/.pochi/config.jsonc
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser set viewport 1280 720 && agent-browser open http://localhost:8765/chart.html
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser wait 2000 && agent-browser snapshot
+| 💫 Executing agent-browser --help
+| 💫 Executing agent-browser console && agent-browser errors
+| 💫 Executing agent-browser eval "Array.from(document.querySelectorAll('svg')).map(svg => { const bbox = svg.getBoundingClientRect(); return { width: bbox.width, height: bbox.height }; })"
+| 💫 Executing agent-browser eval "Array.from(document.querySelectorAll('svg g.cell')).map(g => { const bbox = g.getBoundingClientRect(); return { class: g.className.baseVal, width: bbox.width, height: bbox.height }; })"
+| 💫 Executing agent-browser get html "svg"
+| 💫 Executing agent-browser eval "const g = document.querySelector('.view_5f790be443c68175_1_group'); const bbox = g.getBoundingClientRect(); ({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height })"
+| 💫 Executing agent-browser eval "const g = document.querySelector('.view_5f790be443c68175_1_group'); const bg = g.querySelector('.background'); const bbox = bg.getBoundingClientRect(); ({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height })"
+| 💫 Executing agent-browser eval "{ const g = document.querySelector('.view_5f790be443c68175_1_group'); const bg = g.querySelector('.background'); const bbox = bg.getBoundingClientRect(); ({ x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height }); }"
+| 💫 Executing agent-browser eval "{ const g = document.querySelector('.concat_0_group'); const labels = Array.from(g.querySelectorAll('.role-axis-label text')).map(t => t.textContent); labels; }"
+| 💫 Executing agent-browser mouse move 265 358 && agent-browser mouse down && agent-browser mouse move 465 358 && agent-browser mouse up
+| 💫 Executing agent-browser wait 1000 && agent-browser eval "{ const g = document.querySelector('.concat_0_group'); const labels = Array.from(g.querySelectorAll('.role-axis-label text')).map(t => t.textContent); labels; }"
+| 💫 Executing agent-browser console && agent-browser errors
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+✔ Verify Altair-generated chart.html functionality at http://localhost:8765/chart.html (browser)
+💭 Thinking for 220 characters   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The test successfully verified the Altair-generated chart at http://localhost:8765/chart.html. \n1. The page was navigated to and the Vega-Lite chart rendered correctly.\n2. The chart structure was confirmed to have a large detail chart (approx. 600x250px) on top and a slim context chart (approx. 600x70px) below.\n3. No JavaScript console errors were detected.\n4. A horizontal drag interaction on the lower context chart successfully caused the upper detail chart to rescale its x-axis, narrowing the domain to the selected interval as evidenced by the updated tick labels and area shape."
+}   
+  

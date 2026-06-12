@@ -1,0 +1,101 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:18:45.461578+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781252249796,
+            "stop": 1781252325461
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252249833,
+                "stop": 1781252249835,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_bar",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252249835,
+                "stop": 1781252249836,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_bins_imdb_rating_with_step",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252249837,
+                "stop": 1781252249837,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_count_aggregate",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252249838,
+                "stop": 1781252249838,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_filter_excludes_imdb_rating_nulls",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252249839,
+                "stop": 1781252249839,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_title_is_imdb_rating_distribution",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781252249840,
+                "stop": 1781252249840,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_histogram",
+                "status": "passed",
+                "duration": 74375,
+                "start": 1781252249841,
+                "stop": 1781252324216,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1243,
+                "start": 1781252324217,
+                "stop": 1781252325460,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

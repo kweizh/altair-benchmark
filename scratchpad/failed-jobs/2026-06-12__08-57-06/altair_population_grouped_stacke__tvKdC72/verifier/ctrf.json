@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T09:14:48.882619+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781255609310,
+            "stop": 1781255688882
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781255609435,
+                "stop": 1781255609438,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_area",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781255609439,
+                "stop": 1781255609442,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_size_and_title",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609443,
+                "stop": 1781255609445,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_calculate_buckets_age",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609446,
+                "stop": 1781255609448,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_aggregate_sums_people_by_year_and_age_group",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609449,
+                "stop": 1781255609451,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_is_year_ordinal",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609451,
+                "stop": 1781255609453,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_sums_people_with_normalize_stack",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609454,
+                "stop": 1781255609456,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_uses_ordered_age_groups_and_tableau10",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781255609457,
+                "stop": 1781255609459,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_normalized_stacked_area",
+                "status": "passed",
+                "duration": 78127,
+                "start": 1781255609460,
+                "stop": 1781255687587,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1293,
+                "start": 1781255687588,
+                "stop": 1781255688881,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.2
+collected 10 items
+
+tests/test_final_state.py ..........                                     [100%]
+
+==================================== PASSES ====================================
+_______________ test_browser_renders_world_map_with_city_labels ________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/altair_chart_preview$ python3 -m http.server 8765
+process 'altair_chart_preview' started pid=660
+altair_chart_preview process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_chart_html_exists
+PASSED tests/test_final_state.py::test_spec_is_layered_with_at_least_three_layers
+PASSED tests/test_final_state.py::test_layer1_country_geoshape
+PASSED tests/test_final_state.py::test_layer1_uses_world_110m_topojson_countries
+PASSED tests/test_final_state.py::test_layer2_red_city_circles
+PASSED tests/test_final_state.py::test_layer3_city_text_labels
+PASSED tests/test_final_state.py::test_top_level_projection_size
+PASSED tests/test_final_state.py::test_inline_city_data_contains_expected_cities
+PASSED tests/test_final_state.py::test_browser_renders_world_map_with_city_labels
+PASSED tests/test_final_state.py::test_build_script_is_idempotent
+======================== 10 passed in 115.81s (0:01:55) ========================

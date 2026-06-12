@@ -1,0 +1,89 @@
+Skipping image OS validation for hb__altair_stocks_layered_line_rule_annotation: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.14 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-ftetj4p > /logs/artifacts/run-id && echo altair_stocks_layered_line_rule__fteTj4p > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.5-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Layered Stock Price Chart with Crisis Annotations using Vega-Altair
+
+## Background
+Build a Vega-Altair layered visualization of the GOOG stock price over time, with annotation overlays highlighting a notional price threshold and a key historical event (the October 2008 financial crisis). The chart must be exported to a static HTML file that renders cleanly in a browser.
+
+## Requirements
+- Use `data.stocks.url` from `vega_datasets` as the data source (URL-based; declare types explicitly).
+- Filter the data so only rows with `symbol == "GOOG"` are plotted.
+- Compose a single layered chart with **at least 4 layers**:
+  1. A `mark_line()` of `price` over `date` for GOOG.
+  2. A **red** horizontal `mark_rule()` at the constant data value `y = 300`, with `strokeDash` `[4, 4]` (a dashed threshold annotation).
+  3. A **gray** vertical `mark_rule()` at the constant date `October 1, 2008` (the crisis date).
+  4. A `mark_text()` annotation positioned at the same crisis date that renders the literal label `"Crisis"`.
+- Configure the chart with `width=600` and `height=300`.
+- Save the resulting chart as a single self-contained HTML file using `chart.save(...)`.
+
+## Implementation Hints
+- For URL-based data sources, you must declare types in shorthand encodings (e.g., `date:T`, `price:Q`, `symbol:N`).
+- Use `transform_filter` to restrict the data to GOOG before drawing the line.
+- Use `alt.datum(300)` to encode a constant y-value for the horizontal threshold rule.
+- Use `alt.datum(alt.DateTime(year=2008, month=10, day=1))` to encode a constant date for the vertical rule and the text annotation.
+- Layers can be composed using `alt.layer(...)` or the `+` operator.
+- Configure the text mark with reasonable typographic properties (for example a non-zero `dx` offset or `align`/`baseline`) so it doesn't overlap the vertical rule.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 build_chart.py
+- The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification.
+- The embedded Vega-Lite specification must:
+  - Be a layered chart with a top-level `layer` array of length >= 4.
+  - Contain at least one `line` mark, two `rule` marks, and one `text` mark across the layers.
+  - Include a `transform` of type `filter` whose expression references `symbol` and the value `"GOOG"`.
+  - Have one `rule` layer whose `encoding.y.datum == 300`, whose mark has `strokeDash` equal to `[4, 4]`, and whose color is red.
+  - Have a second `rule` layer whose `encoding.x.datum` is a `DateTime` object with `year == 2008` and `month == 10`.
+  - Have a `text` layer whose `encoding.text` resolves to the literal value `"Crisis"`.
+  - Have top-level `width == 600` and `height == 300`.
+- Browser verification: Loading `chart.html` in a browser must render the GOOG line, the dashed red horizontal threshold rule, the vertical crisis rule, and the `"Crisis"` text label, with no JavaScript console errors.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

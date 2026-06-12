@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T07:50:00.719915+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781250515064,
+            "stop": 1781250600719
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515115,
+                "stop": 1781250515116,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_layered_with_at_least_four_layers",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781250515117,
+                "stop": 1781250515119,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_required_mark_types_present",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515120,
+                "stop": 1781250515121,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_symbol_goog_filter_transform",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515121,
+                "stop": 1781250515122,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_red_dashed_threshold_rule_at_y_300",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781250515122,
+                "stop": 1781250515124,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_vertical_crisis_rule_at_october_2008",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515124,
+                "stop": 1781250515125,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_crisis_text_annotation",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515125,
+                "stop": 1781250515126,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_width_and_height",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250515126,
+                "stop": 1781250515127,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_chart_with_annotations",
+                "status": "passed",
+                "duration": 84196,
+                "start": 1781250515128,
+                "stop": 1781250599324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1394,
+                "start": 1781250599325,
+                "stop": 1781250600719,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

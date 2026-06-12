@@ -1,0 +1,38 @@
+- Initializing MCP connections...
+You
+# Wide-to-Long Stocks Multi-Line Chart with Vega-Altair `transform_fold` ## Background A common analytics task is to plot several time series whose values live in separate columns (wide form) as a single multi-line chart. Vega-Altair exposes the `transform_fold` transform that reshapes wide-form data into long form directly inside the chart specification, so you do not have to pre-melt the DataFrame in pandas. In this task you will build a small wide-form pandas DataFrame of monthly stock prices for three companies and use `transform_fold` to reshape it to long form inside the spec, then render it as a multi-line chart and save the result as a self-contained HTML file. ## Requirements * Construct the source data **inside `build_chart.py`** as a wide-form `pandas.DataFrame` with exactly these four columns and at least 12 rows (one row per monthly observation): * `Date` (a date / datetime-like value, e.g. monthly timestamps). * `AAPL` (numeric price). * `AMZN` (numeric price). * `GOOG` (numeric price). Do **not** load this data from `vega_datasets` or any external file – the point of the task is to demonstrate `transform_fold` on wide-form data you provide. * Build a single Vega-Altair chart that: * Uses the wide-form DataFrame as the chart data source. * Applies `transform_fold` to fold the three price columns into long form, using `as_=['company', 'price']` so the long-form fields are named `company` and `price`. * Renders a line mark (`mark_line`) with one line per company. * Encodes `Date` on the x axis as a temporal field. * Encodes the folded `price` on the y axis as a quantitative field. * Encodes the folded `company` on color as a nominal field, producing a legend that lists `AAPL`, `AMZN`, and `GOOG`. * Save the chart to `/home/user/myproject/chart.html` via `chart.save(...)` as a self-contained HTML file that loads Vega-Lite/Vega-Embed and renders the chart in a browser. ## Implementation Hints * You can construct the DataFrame with any reasonable monthly date range (e.g. `pandas.date_range(..., freq='MS')`) and any plausible monthly price values – exact values do not matter, only the schema and number of rows. * Pass the wide DataFrame directly to `alt.Chart(...)`; let `transform_fold` reshape it inside the spec rather than pre-melting with pandas. * Remember that after folding, the new long-form fields are the ones you name in `as_`; encode the y/color channels against those names, not against the original wide column names. * Make sure the chart is saved as a real HTML file (not a JSON spec) so it can be opened directly in a browser. ## Acceptance Criteria * Project path: /home/user/myproject * Command: python3 build\_chart.py * The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification. * The embedded Vega-Lite specification must: * Use `mark` of type `line` (a string `"line"` or an object `{"type": "line", ...}`). * Include a `transform` entry of the form `{"fold": [...], "as": [...]}` where the `fold` array equals `["AAPL", "AMZN", "GOOG"]` (in that order) and the `as` array equals `["company", "price"]`. * Encode `x` with `field == "Date"` and `type == "temporal"`. * Encode `y` with `field == "price"` and `type == "quantitative"`. * Encode `color` with `field == "company"` and `type == "nominal"`. * Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The rendered chart must show exactly three colored lines, and the color legend must list the three series `AAPL`, `AMZN`, and `GOOG`.   
+
+Pochi
+📋 Updating todo list (4 items) ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/myproject/build_chart.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 build_chart.py ✔ 
+💫 Executing ls -la /home/user/myproject/chart.html ✔ 
+📋 Updating todo list (4 items) ✔ 
+📖 Reading /home/user/myproject/chart.html ✔ 
+Let me verify the spec against all acceptance criteria by extracting the key parts: **Verification of the embedded Vega-Lite spec:** 1. **`mark` of type `"line"`**: ✅ `"mark": {"type": "line"}` 2. **`transform` with `fold` and `as`**: ✅ `"transform": [{"fold": ["AAPL", "AMZN", "GOOG"], "as": ["company", "price"]}]` - `fold` array equals `["AAPL", "AMZN", "GOOG"]` in that exact order ✅ - `as` array equals `["company", "price"]` ✅ 3. **`x` encoding**: ✅ `"x": {"field": "Date", "title": "Date", "type": "temporal"}` — field `"Date"`, type `"temporal"` 4. **`y` encoding**: ✅ `"y": {"field": "price", "title": "Price (USD)", "type": "quantitative"}` — field `"price"`, type `"quantitative"` 5. **`color` encoding**: ✅ `"color": {"field": "company", "title": "Company", "type": "nominal"}` — field `"company"`, type `"nominal"` 6. **Data**: ✅ 12 rows of wide-form data with columns `Date`, `AAPL`, `AMZN`, `GOOG`, embedded inline via `datasets` 7. **Self-contained HTML**: ✅ Loads Vega, Vega-Lite, and Vega-Embed from CDN; renders via `vegaEmbed`   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The chart has been built and saved successfully.
+
+**Files created:**
+- `/home/user/myproject/build_chart.py` — Script that constructs a wide-form DataFrame (12 monthly rows, columns: `Date`, `AAPL`, `AMZN`, `GOOG`), applies `transform_fold` to reshape into long form (`company`, `price`), renders a multi-line chart, and saves as self-contained HTML.
+- `/home/user/myproject/chart.html` — Self-contained HTML file (2,896 bytes) that loads Vega-Lite/Vega-Embed from CDN and renders the chart in a browser.
+
+**Acceptance criteria verification (all pass):**
+
+| Criterion | Status |
+|---|---|
+| `mark` type `"line"` | ✅ `{"type": "line"}` |
+| `transform` fold=`["AAPL","AMZN","GOOG"]`, as=`["company","price"]` | ✅ Exact match |
+| `x` encoding: field=`"Date"`, type=`"temporal"` | ✅ |
+| `y` encoding: field=`"price"`, type=`"quantitative"` | ✅ |
+| `color` encoding: field=`"company"`, type=`"nominal"` | ✅ |
+| 12 rows of wide-form data embedded inline | ✅ |
+| Self-contained HTML with CDN scripts | ✅ |
+
+Run with: `python3 /home/user/myproject/build_chart.py`   
+  

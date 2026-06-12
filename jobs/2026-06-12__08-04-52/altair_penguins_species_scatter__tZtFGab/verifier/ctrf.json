@@ -1,0 +1,122 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:16:20.607280+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781252079662,
+            "stop": 1781252180607
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252079743,
+                "stop": 1781252079744,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_filled_point_with_size_80",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252079745,
+                "stop": 1781252079747,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_flipper_length_scale_zero_false",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252079748,
+                "stop": 1781252079749,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_body_mass_scale_zero_false",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252079750,
+                "stop": 1781252079751,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_species_nominal",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252079751,
+                "stop": 1781252079753,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_shape_encoding_sex_nominal",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252079754,
+                "stop": 1781252079755,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_encoding_has_all_four_fields_in_order",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252079755,
+                "stop": 1781252079757,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_interactive_interval_selection_bound_to_scales",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252079758,
+                "stop": 1781252079759,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_scatter_with_colors_shapes_and_tooltip",
+                "status": "passed",
+                "duration": 99461,
+                "start": 1781252079760,
+                "stop": 1781252179221,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1384,
+                "start": 1781252179222,
+                "stop": 1781252180606,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_build_script_is_idempotent():\n        \"\"\"Sanity check: the executor's build script should be re-runnable.\"\"\"\n        result = subprocess.run(\n            [\"python3\", \"build_chart.py\"],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"`python3 build_chart.py` failed on re-run.\\nstdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: `python3 build_chart.py` failed on re-run.\nE         stdout: \nE         stderr: Traceback (most recent call last):\nE           File \"/home/user/myproject/build_chart.py\", line 4, in <module>\nE             source = data.penguins.url\nE                      ^^^^^^^^^^^^^\nE           File \"/usr/local/lib/python3.12/dist-packages/vega_datasets/core.py\", line 458, in __getattr__\nE             raise AttributeError(\"No dataset named '{0}'\".format(dataset_name))\nE         AttributeError: No dataset named 'penguins'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'build_chart.py'], returncode=1, stdout='', stderr='Traceback (most recent call last...aise AttributeError(\"No dataset named \\'{0}\\'\".format(dataset_name))\\nAttributeError: No dataset named \\'penguins\\'\\n').returncode\n\ntests/test_final_state.py:271: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

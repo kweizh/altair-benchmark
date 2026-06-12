@@ -1,0 +1,117 @@
+{
+    "id": "e12b4fad-07aa-480b-8690-0acd61bc3e41",
+    "task_name": "altair_movies_three_view_brush_crossfilter",
+    "trial_name": "altair_movies_three_view_brush_c__bkuPxxQ",
+    "trial_uri": "file:///home/kweizh/zealt/zealt-agent/jobs/2026-06-12__08-41-04/altair_movies_three_view_brush_c__bkuPxxQ",
+    "task_id": {
+        "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_movies_three_view_brush_crossfilter"
+    },
+    "source": "pending-tasks",
+    "task_checksum": "9c4d57f86ea3a9f679b2d05e5518482b248faea5c9205444511daf2dd63b3835",
+    "config": {
+        "task": {
+            "path": "/home/kweizh/zealt/altair-benchmark/scratchpad/pending-tasks/altair_movies_three_view_brush_crossfilter",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "pending-tasks"
+        },
+        "trial_name": "altair_movies_three_view_brush_c__bkuPxxQ",
+        "trials_dir": "jobs/2026-06-12__08-41-04",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "anthropic/claude-4-6-sonnet",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "09c0eac8-ae13-4316-b085-700ae35460f9"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.14",
+        "model_info": {
+            "name": "claude-4-6-sonnet",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 54868,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-12T08:43:56.233621Z",
+    "finished_at": "2026-06-12T08:49:51.651117Z",
+    "environment_setup": {
+        "started_at": "2026-06-12T08:43:56.237939Z",
+        "finished_at": "2026-06-12T08:43:59.102332Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-12T08:43:59.102364Z",
+        "finished_at": "2026-06-12T08:44:12.625156Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-12T08:44:12.625247Z",
+        "finished_at": "2026-06-12T08:47:12.241249Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-12T08:47:13.819115Z",
+        "finished_at": "2026-06-12T08:49:39.091876Z"
+    },
+    "step_results": null
+}

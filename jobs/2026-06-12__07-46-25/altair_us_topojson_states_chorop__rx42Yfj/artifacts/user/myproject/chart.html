@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>US State-Level Engineers Choropleth</title>
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script type="application/json" id="vega-spec">
+{
+  "config": {
+    "view": {
+      "continuousWidth": 300,
+      "continuousHeight": 300
+    }
+  },
+  "data": {
+    "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json",
+    "format": {
+      "feature": "states",
+      "type": "topojson"
+    }
+  },
+  "mark": {
+    "type": "geoshape"
+  },
+  "encoding": {
+    "color": {
+      "field": "engineers",
+      "scale": {
+        "scheme": "blues"
+      },
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal"
+      },
+      {
+        "field": "engineers",
+        "type": "quantitative"
+      }
+    ]
+  },
+  "height": 400,
+  "projection": {
+    "type": "albersUsa"
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/population_engineers_hurricanes.csv"
+        },
+        "key": "id",
+        "fields": [
+          "state",
+          "engineers"
+        ]
+      }
+    }
+  ],
+  "width": 700,
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json"
+}
+  </script>
+  <script type="text/javascript">
+    const spec = JSON.parse(document.getElementById('vega-spec').textContent);
+    const embedOpt = {"mode": "vega-lite"};
+    vegaEmbed("#vis", spec, embedOpt).catch(console.error);
+  </script>
+</body>
+</html>

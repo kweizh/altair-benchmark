@@ -1,0 +1,119 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:23:33.638341+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781252508707,
+            "stop": 1781252613637
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252508765,
+                "stop": 1781252508767,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_spec_is_layered_with_at_least_three_layers",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252508767,
+                "stop": 1781252508769,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layer1_country_geoshape",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781252508769,
+                "stop": 1781252508771,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layer1_uses_world_110m_topojson_countries",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508771,
+                "stop": 1781252508772,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layer2_red_city_circles",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508772,
+                "stop": 1781252508773,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_layer3_city_text_labels",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508773,
+                "stop": 1781252508774,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_projection_size",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508774,
+                "stop": 1781252508775,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_inline_city_data_contains_expected_cities",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781252508775,
+                "stop": 1781252508776,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_world_map_with_city_labels",
+                "status": "passed",
+                "duration": 103368,
+                "start": 1781252508776,
+                "stop": 1781252612144,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1491,
+                "start": 1781252612145,
+                "stop": 1781252613636,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

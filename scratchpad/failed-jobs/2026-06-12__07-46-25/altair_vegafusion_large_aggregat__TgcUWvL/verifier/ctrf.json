@@ -1,0 +1,125 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T07:56:05.138253+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 8,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781250872160,
+            "stop": 1781250965137
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_build_script_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250872199,
+                "stop": 1781250872200,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_enables_vegafusion",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250872201,
+                "stop": 1781250872202,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_runs_without_max_rows_error",
+                "status": "passed",
+                "duration": 2464,
+                "start": 1781250872203,
+                "stop": 1781250874667,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_html_exists_and_non_empty",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250874668,
+                "stop": 1781250874669,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_uses_rect_mark",
+                "status": "passed",
+                "duration": 3,
+                "start": 1781250874670,
+                "stop": 1781250874673,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_chart_has_two_maxbins_20",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 29,
+                "start": 1781250874674,
+                "stop": 1781250874703,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_spec = {'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':...]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.556556685402787, 'min': 0.45528956990888597}]}], ...}\n\n    def test_chart_has_two_maxbins_20(chart_spec):\n        values = _maxbins_values(chart_spec)\n        twenty = [v for v in values if v == 20]\n>       assert len(twenty) >= 2, (\n            \"Expected the heatmap spec to bin both the X and Y channels with \"\n            f\"maxbins=20 (so two `maxbins: 20` entries should appear). Found \"\n            f\"maxbins values: {values}.\"\n        )\nE       AssertionError: Expected the heatmap spec to bin both the X and Y channels with maxbins=20 (so two `maxbins: 20` entries should appear). Found maxbins values: [].\nE       assert 0 >= 2\nE        +  where 0 = len([])\n\ntests/test_final_state.py:235: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_color_aggregates_mean_of_z",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1781250874703,
+                "stop": 1781250874714,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_spec = {'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':...]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.556556685402787, 'min': 0.45528956990888597}]}], ...}\n\n    def test_chart_color_aggregates_mean_of_z(chart_spec):\n>       assert _has_mean_aggregate_on_z(chart_spec), (\n            \"Expected the chart spec to aggregate field `z` with op `mean` for the \"\n            \"color channel (either as a Vega-Lite color encoding \"\n            \"`{field: 'z', aggregate: 'mean'}` or a Vega aggregate transform with \"\n            \"ops=['mean'] and fields=['z']).\"\n        )\nE       AssertionError: Expected the chart spec to aggregate field `z` with op `mean` for the color channel (either as a Vega-Lite color encoding `{field: 'z', aggregate: 'mean'}` or a Vega aggregate transform with ops=['mean'] and fields=['z']).\nE       assert False\nE        +  where False = _has_mean_aggregate_on_z({'$schema': 'https://vega.github.io/schema/vega/v6.json', 'axes': [{'grid': False, 'labelFlush': True, 'labelOverlap':...]}, {'name': 'source_0_color_domain_mean_z', 'values': [{'max': 0.556556685402787, 'min': 0.45528956990888597}]}], ...})\n\ntests/test_final_state.py:243: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_chart_color_scheme_is_magma",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781250874714,
+                "stop": 1781250874715,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transformed_data_csv_exists_and_is_valid",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781250874715,
+                "stop": 1781250874717,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_heatmap",
+                "status": "passed",
+                "duration": 90419,
+                "start": 1781250874718,
+                "stop": 1781250965137,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+- Initializing MCP connections...
+You
+# Slider-Driven Threshold Highlight with Vega-Altair ## Background Build an interactive Vega-Altair scatter plot of the classic `cars` dataset where a horizontal slider widget controls a horsepower threshold. Points whose horsepower is below the threshold must be highlighted in one color, and points whose horsepower is at or above the threshold must use a second color. The chart must be exported as a self-contained HTML file that loads in a browser and responds live to slider movements. ## Requirements * Use `data.cars.url` from `vega_datasets` as the data source (URL-based source; declare types explicitly). * Render a scatter `mark_point` of `Horsepower` (x) vs. `Miles_per_Gallon` (y). * Bind a range slider input to a top-level parameter that represents the live horsepower threshold: * Slider input: min `50`, max `250`, step `10`, name label exactly `"HP threshold: "`. * Parameter initial value: `150`. * The point color must be a conditional value encoding driven by the slider parameter: * When `datum.Horsepower < <param>`: color value `"steelblue"`. * Otherwise: color value `"orange"`. * Set the chart title to exactly `"MPG vs Horsepower (threshold)"`. * Save the resulting chart as a single self-contained HTML file using `chart.save(...)`. ## Implementation Hints * Use `alt.binding_range(...)` to build the slider input and `alt.param(value=..., bind=...)` to expose the live threshold as a top-level parameter. * Drive the color encoding with `alt.when(<predicate>).then(alt.value('steelblue')).otherwise(alt.value('orange'))`, where the predicate compares `alt.datum.Horsepower` to the parameter object. * Remember to attach the parameter to the chart via `add_params(...)` so the slider widget actually renders. * Because the data source is the URL `data.cars.url`, declare field types explicitly in the encoding shorthands (e.g. `Horsepower:Q`, `Miles_per_Gallon:Q`). * Use `properties(title=...)` to set the chart title. ## Acceptance Criteria * Project path: /home/user/myproject * Command: python3 build\_chart.py * The command must produce `/home/user/myproject/chart.html` containing a renderable Vega-Lite specification. * The embedded Vega-Lite specification must: * Have a single mark of type `point`. * Declare exactly one parameter whose `bind` is a range input with `input == 'range'`, `min == 50`, `max == 250`, `step == 10`, `name == 'HP threshold: '`, and whose top-level `value == 150`. * Encode `x.field == 'Horsepower'` and `y.field == 'Miles_per_Gallon'`. * Have a `color` encoding that is a conditional value encoding whose test expression references the parameter name, `datum.Horsepower`, and the `<` operator; the `condition.value` must be `"steelblue"` and the otherwise `value` must be `"orange"`. * Have a top-level `title` equal to `"MPG vs Horsepower (threshold)"`. * Browser verification: Loading `chart.html` in a browser must render the chart without JavaScript console errors. The page must display a slider labelled `"HP threshold: "` (initial value `150`); points with horsepower below the threshold must be colored steelblue and points at or above the threshold must be colored orange. Moving the slider to `200` must visibly shift the color split (more points become steelblue).   
+
+Pochi
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/myproject/build_chart.py ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/myproject && python3 build_chart.py ✔ 
+💫 Executing ls -la /home/user/myproject/chart.html ✔ 
+📖 Reading /home/user/myproject/chart.html ✔ 
+📋 Updating todo list (4 items) ✔ 
+Let me verify the Vega-Lite spec against all acceptance criteria by parsing the embedded JSON: **Spec analysis of the generated `chart.html`:** | Criterion | Expected | Actual | ✓ | |---|---|---|---| | Mark type `point` | `"point"` | `"point"` | ✓ | | One parameter with `bind` range input | `input: "range"` | `"input": "range"` | ✓ | | `min == 50` | `50` | `50` | ✓ | | `max == 250` | `250` | `250` | ✓ | | `step == 10` | `10` | `10` | ✓ | | `name == "HP threshold: "` | `"HP threshold: "` | `"HP threshold: "` | ✓ | | Top-level `value == 150` | `150` | `150` | ✓ | | `x.field == "Horsepower"` | `"Horsepower"` | `"Horsepower"` | ✓ | | `y.field == "Miles_per_Gallon"` | `"Miles_per_Gallon"` | `"Miles_per_Gallon"` | ✓ | | Color conditional: test references param + `datum.Horsepower` + `<` | `datum.Horsepower < param_...` | `"(datum.Horsepower < param_bcf941accc6526ca)"` | ✓ | | `condition.value == "steelblue"` | `"steelblue"` | `"steelblue"` | ✓ | | Otherwise `value == "orange"` | `"orange"` | `"orange"` | ✓ | | Title `"MPG vs Horsepower (threshold)"` | exact match | `"MPG vs Horsepower (threshold)"` | ✓ |   
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The Vega-Altair scatter plot has been built and exported successfully.
+
+**Files created:**
+- `/home/user/myproject/build_chart.py` — the build script
+- `/home/user/myproject/chart.html` — self-contained HTML with embedded Vega-Lite spec
+
+**Verification of the embedded Vega-Lite spec:**
+- **Mark:** `"point"` ✓
+- **Parameter:** single param with `bind: {input: "range", min: 50, max: 250, step: 10, name: "HP threshold: "}`, initial `value: 150` ✓
+- **x encoding:** `Horsepower:Q` ✓
+- **y encoding:** `Miles_per_Gallon:Q` ✓
+- **Color encoding:** conditional — `datum.Horsepower < param` → `"steelblue"`, otherwise `"orange"` ✓
+- **Title:** `"MPG vs Horsepower (threshold)"` ✓
+
+Run with `python3 /home/user/myproject/build_chart.py` to regenerate. Opening `chart.html` in a browser will render the interactive chart with a slider labeled `"HP threshold: "` that dynamically recolors points based on the horsepower threshold.   
+  

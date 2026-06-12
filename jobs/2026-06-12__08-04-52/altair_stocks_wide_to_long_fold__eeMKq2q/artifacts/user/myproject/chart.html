@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-1a58aad03d8f70358dec0f6eec1b9fcf"}, "mark": {"type": "line"}, "encoding": {"color": {"field": "company", "type": "nominal"}, "x": {"field": "Date", "type": "temporal"}, "y": {"field": "price", "type": "quantitative"}}, "transform": [{"fold": ["AAPL", "AMZN", "GOOG"], "as": ["company", "price"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json", "datasets": {"data-1a58aad03d8f70358dec0f6eec1b9fcf": [{"Date": "2023-01-01T00:00:00", "AAPL": 118.72700594236812, "AMZN": 123.29770563201687, "GOOG": 98.24279936868143}, {"Date": "2023-02-01T00:00:00", "AAPL": 147.5357153204958, "AMZN": 98.49356442713105, "GOOG": 111.40703845572054}, {"Date": "2023-03-01T00:00:00", "AAPL": 136.59969709057026, "AMZN": 97.27299868828402, "GOOG": 87.98695128633439}, {"Date": "2023-04-01T00:00:00", "AAPL": 129.93292420985182, "AMZN": 97.33618039413736, "GOOG": 100.56937753654447}, {"Date": "2023-05-01T00:00:00", "AAPL": 107.80093202212183, "AMZN": 102.1696897183815, "GOOG": 103.6965827544817}, {"Date": "2023-06-01T00:00:00", "AAPL": 107.79972601681013, "AMZN": 110.99025726528951, "GOOG": 81.8580165087999}, {"Date": "2023-07-01T00:00:00", "AAPL": 102.90418060840997, "AMZN": 107.27780074568463, "GOOG": 104.30179407605753}, {"Date": "2023-08-01T00:00:00", "AAPL": 143.30880728874675, "AMZN": 101.64916560792167, "GOOG": 86.82096494749166}, {"Date": "2023-09-01T00:00:00", "AAPL": 130.05575058716045, "AMZN": 114.47411578889518, "GOOG": 82.60206371941118}, {"Date": "2023-10-01T00:00:00", "AAPL": 135.4036288898023, "AMZN": 95.57975442608168, "GOOG": 117.95542149013333}, {"Date": "2023-11-01T00:00:00", "AAPL": 101.02922471479012, "AMZN": 101.68578594140872, "GOOG": 118.62528132298237}, {"Date": "2023-12-01T00:00:00", "AAPL": 148.4954926080997, "AMZN": 104.65447373174767, "GOOG": 112.33589392465845}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

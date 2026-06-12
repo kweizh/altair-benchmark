@@ -1,0 +1,116 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:03:30.843084+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 3,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251273625,
+            "stop": 1781251410842
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251273666,
+                "stop": 1781251273667,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mark_is_geoshape",
+                "status": "failed",
+                "duration": 23,
+                "start": 1781251273668,
+                "stop": 1781251273691,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_data_is_us_10m_states_topo_feature",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781251273692,
+                "stop": 1781251273701,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_transform_lookup_for_engineers",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781251273702,
+                "stop": 1781251273711,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_color_engineers_on_blues_scheme",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781251273711,
+                "stop": 1781251273720,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_tooltip_includes_state_and_engineers",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781251273721,
+                "stop": 1781251273730,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_projection_and_dimensions",
+                "status": "failed",
+                "duration": 9,
+                "start": 1781251273731,
+                "stop": 1781251273740,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"session\")\n    def vega_spec() -> dict[str, Any]:\n        assert os.path.isfile(CHART_HTML), (\n            f\"Expected the executor to produce {CHART_HTML} after running build_chart.py.\"\n        )\n        with open(CHART_HTML, \"r\", encoding=\"utf-8\") as f:\n            html = f.read()\n        assert len(html) > 0, f\"{CHART_HTML} is empty.\"\n>       return _extract_vega_lite_spec(html)\n\ntests/test_final_state.py:77: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nhtml = '<!DOCTYPE html>\\n<html>\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <title>US State-Level Engineers Choropleth</title>\\n  <s...= {\"mode\": \"vega-lite\"};\\n    vegaEmbed(\"#vis\", spec, embedOpt).catch(console.error);\\n  </script>\\n</body>\\n</html>\\n'\n\n    def _extract_vega_lite_spec(html: str) -> dict[str, Any]:\n        \"\"\"Extract the embedded Vega-Lite JSON spec from an Altair-generated HTML file.\"\"\"\n        # Most common Altair template: `var spec = { ... };`\n        m = re.search(r\"var\\s+spec\\s*=\\s*(\\{.*?\\})\\s*;\\s*var\\s+embedOpt\", html, re.DOTALL)\n        if m is None:\n            # Fallback: spec passed directly to vegaEmbed.\n            m = re.search(\n                r\"vegaEmbed\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*(\\{.*?\\})\\s*[,)]\",\n                html,\n                re.DOTALL,\n            )\n        if m is None:\n            # Fallback: <script type=\"application/json\"> block.\n            m = re.search(\n                r\"<script[^>]*type=[\\\"']application/json[\\\"'][^>]*>(\\{.*?\\})</script>\",\n                html,\n                re.DOTALL,\n            )\n>       assert m is not None, (\n            \"Could not find an embedded Vega-Lite JSON spec inside chart.html. \"\n            \"Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\"\n        )\nE       AssertionError: Could not find an embedded Vega-Lite JSON spec inside chart.html. Expected an Altair-style `var spec = {...};` block or a vegaEmbed(...) call.\nE       assert None is not None\n\ntests/test_final_state.py:37: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_us_states_choropleth",
+                "status": "passed",
+                "duration": 135592,
+                "start": 1781251273740,
+                "stop": 1781251409332,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1509,
+                "start": 1781251409333,
+                "stop": 1781251410842,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,125 @@
+{
+    "reportFormat": "CTRF",
+    "specVersion": "0.0.0",
+    "timestamp": "2026-06-12T08:07:58.610607+00:00",
+    "generatedBy": "pytest",
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 8,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1781251566866,
+            "stop": 1781251678610
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chart_html_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251566919,
+                "stop": 1781251566920,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_top_level_mark_is_bar",
+                "status": "passed",
+                "duration": 2,
+                "start": 1781251566920,
+                "stop": 1781251566922,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_calculate_derives_efficiency",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251566922,
+                "stop": 1781251566923,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_transform_filter_drops_low_efficiency",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251566923,
+                "stop": 1781251566924,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_calculate_before_filter_in_transform",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251566924,
+                "stop": 1781251566925,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_x_encoding_is_ordinal_cylinders_ascending",
+                "status": "passed",
+                "duration": 1,
+                "start": 1781251566926,
+                "stop": 1781251566927,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_y_encoding_is_mean_efficiency_with_axis_title",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 23,
+                "start": 1781251566927,
+                "stop": 1781251566950,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "vega_spec = {'$schema': 'https://vega.github.io/schema/vega-lite/v6.4.1.json', 'config': {'view': {'continuousHeight': 300, 'conti..., 'y': {'aggregate': 'mean', 'field': 'Efficiency', 'title': 'Mean Efficiency (mpg/lb)', 'type': 'quantitative'}}, ...}\n\n    def test_y_encoding_is_mean_efficiency_with_axis_title(vega_spec):\n        encoding = vega_spec.get(\"encoding\") or {}\n        y = encoding.get(\"y\")\n        assert isinstance(y, dict), (\n            f\"Expected `encoding.y` to be an object, got {type(y).__name__}: {y!r}.\"\n        )\n        assert y.get(\"aggregate\") == \"mean\", (\n            f\"Expected `encoding.y.aggregate == 'mean'`, got {y.get('aggregate')!r}.\"\n        )\n        assert y.get(\"field\") == \"Efficiency\", (\n            f\"Expected `encoding.y.field == 'Efficiency'`, got {y.get('field')!r}.\"\n        )\n        assert y.get(\"type\") == \"quantitative\", (\n            f\"Expected `encoding.y.type == 'quantitative'`, got {y.get('type')!r}.\"\n        )\n        axis = y.get(\"axis\") or {}\n        title = axis.get(\"title\")\n>       assert isinstance(title, str) and \"Mean Efficiency\" in title, (\n            \"Expected `encoding.y.axis.title` to be a string containing \"\n            f\"'Mean Efficiency'. Got {title!r}.\"\n        )\nE       AssertionError: Expected `encoding.y.axis.title` to be a string containing 'Mean Efficiency'. Got None.\nE       assert (False)\nE        +  where False = isinstance(None, str)\n\ntests/test_final_state.py:215: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_color_encoding_is_ordinal_cylinders_category10",
+                "status": "passed",
+                "duration": 0,
+                "start": 1781251566951,
+                "stop": 1781251566951,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_renders_cylinder_bars",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 110372,
+                "start": 1781251566952,
+                "stop": 1781251677324,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "chart_preview_server = 'http://localhost:8765/chart.html'\n\n    def test_browser_renders_cylinder_bars(chart_preview_server):\n        reason = (\n            \"The Altair-generated chart.html must render a bar chart that summarizes the \"\n            \"cars dataset by `Cylinders`, using a calculate+filter pipeline that derives \"\n            \"`Efficiency = Miles_per_Gallon / Weight_in_lbs` and drops rows with \"\n            \"`Efficiency <= 0.01`. The chart must show one bar per surviving cylinder \"\n            \"count, colored by Vega's `category10` scheme, with a y-axis titled \"\n            \"`Mean Efficiency (mpg/lb)` (or another string containing `Mean Efficiency`).\"\n        )\n        truth = (\n            f\"Navigate to {chart_preview_server} in a browser. \"\n            \"Wait for the Vega-Lite chart to finish rendering. \"\n            \"Verify that the page has no JavaScript console errors. \"\n            \"Verify that the rendered chart visibly contains exactly 5 vertical bars, \"\n            \"one per distinct cylinder count from the cars dataset (3, 4, 5, 6, and 8 \"\n            \"cylinders), each drawn in a different color from the `category10` palette. \"\n            \"Verify that the x-axis is labelled `Cylinders` with the bars ordered \"\n            \"ascending from left to right, and that the y-axis title visibly contains \"\n            \"the substring `Mean Efficiency`.\"\n        )\n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_renders_cylinder_bars\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the rendered chart contains only 3 vertical bars (for 4, 5, and 6 cylinders) instead of the required 5 bars (3, 4, 5, 6, and 8 cylinders). \nE         \nE         Detailed verification results:\nE         1. Chart rendering: Success. The Vega-Lite chart rendered an SVG visualization.\nE         2. JavaScript console errors: Success. No console errors were detected.\nE         3. Number of bars: Fail. The chart contains only 3 bars. The filter `Efficiency > 0.01` in the Vega-Lite specification excluded the data points for 3-cylinder and 8-cylinder cars.\nE         4. Bar colors: Success for visible bars. The colors used match the Vega 'category10' palette.\nE         5. X-axis: Success. The axis is labelled 'Cylinders' and the bars are ordered ascending.\nE         6. Y-axis: Success. The y-axis title is 'Mean Efficiency (mpg/lb)', which contains the required substring.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:293: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_build_script_is_idempotent",
+                "status": "passed",
+                "duration": 1285,
+                "start": 1781251677324,
+                "stop": 1781251678609,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
