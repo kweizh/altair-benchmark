@@ -312,6 +312,36 @@ chart = alt.Chart(data.cars.url).mark_bar().encode(
 chart.transformed_data()  # -> pandas DataFrame of post-transform rows
 ```
 
+#### Save as html and verify in browser
+
+```python
+import altair as alt
+from altair.datasets import data
+
+chart = alt.Chart(data.cars.url).mark_point().encode(
+    x='Horsepower:Q',
+    y='Miles_per_Gallon:Q',
+    color='Origin:N'
+)
+
+chart.save('chart.html')
+```
+
+By default, canvas is used for rendering the visualization in vegaEmbed. To change to svg rendering, use the embed_options as such:
+
+```python
+chart.save('chart.html', embed_options={'renderer':'svg'})
+```
+
+If an HTML string object is needed for further processing in custom HTML reports, you can use the Chart.to_html() method:
+
+```python
+html_string = chart.to_html()
+# Use html_string in your custom HTML generation
+```
+
+And then, the html could be used in browser env.
+
 ## 3. Real-World Use Cases & Templates
 *   **Interactive Dashboards**: Linked views where selecting data in one plot (e.g., a map or timeline) filters the others.
 *   **Statistical Exploration**: Visualizing distributions with binned histograms and box plots.
@@ -324,6 +354,7 @@ chart.transformed_data()  # -> pandas DataFrame of post-transform rows
 2.  **Date Handling**: Passing Python `datetime` objects in selections or filters can sometimes fail if not converted correctly by the underlying Vega-Lite engine.
 3.  **Complex Faceting**: Faceted charts with `resolve_scale(y='independent')` can be tricky when combined with shared selections across facets.
 4.  **Encoding Conflicts**: Forgetting to specify data types (e.g., `:O` vs `:N`) can lead to unexpected axis sorting or color scales.
+5.  **Browser Verification**: For generated HTML, you need to verify the output in a browser environment, make sure use `pochi-verifier` to do the verification.
 
 ## 5. Evaluation Ideas
 *   **Simple**: Create a bar chart of average MPG by Origin with sorted bars and custom tooltips.
